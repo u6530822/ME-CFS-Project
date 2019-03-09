@@ -8,3 +8,4 @@ Team members:
 
 Supervisor and product owner: Brett Lidbury and Dr Alice Richardson  
 
+*Github is open to public for now, will set it to private once we start working on client sensitive materials
