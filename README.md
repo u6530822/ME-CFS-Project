@@ -8,8 +8,6 @@ Patient data is stored as individual records, and as such it is very time consum
 
 The project is: To automate the extraction of valuable ME/CFS patient data into aggregated form (via spreadsheets is fine), accurately and efficiently. The successful completion of this challenge will accelerate our research efforts towards understanding ME/CFS, by contributing to the construction of anonymous patient databases for pattern recognition interrogation, as well as in support for future biobanks.
 
-Project documentation folder:https://drive.google.com/open?id=1fHtWXQIDxyIFErwrestoyBETrUFVW-Yq 
-
 # Project Administration
 ## Timeline
 Week 2-3: Requirement gathering and technology assessment/exploration. <br />
@@ -50,6 +48,7 @@ Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will ha
 
 # Support Documentation
 
+[Project documentation folder] (https://drive.google.com/open?id=1fHtWXQIDxyIFErwrestoyBETrUFVW-Yq/).
 
 
 # Current Progress
