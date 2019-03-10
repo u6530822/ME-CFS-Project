@@ -28,7 +28,8 @@ o	Allow sufficient space for scalability and further analytic needs. <br />
 o	Well commented and modular code. <br />
 o	High level documentation on code process in each iteration. <br />
 o	A user guide to be handed to the stakeholders at the end of the project.<br />
-2.3 Version control and monitoring.<br />
+
+# Version control and monitoring.<br />
 All work will be tracked in github, and while the project deliverables on a high level will be constantly updated on the project wiki. <br />
 
 # Team
