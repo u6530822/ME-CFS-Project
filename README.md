@@ -19,7 +19,7 @@ Week 10-12: Reflection and improvements.<br />
 # Milestone Chart  
 ![Capture](https://user-images.githubusercontent.com/48378032/54085406-e43c8080-4391-11e9-8377-8812cc0b8870.PNG)
 
-## Deliverables
+# Deliverables
 •	Modular well-structured code to carry out the following:<br />
 o	New process to convert and store printed patient records into PDF and excel sheets. <br />
 o	New Process to convert and store hand-written records/notes into PDF and excel sheets<br />
@@ -31,7 +31,7 @@ o	Well commented and modular code. <br />
 o	High level documentation on code process in each iteration. <br />
 o	A user guide to be handed to the stakeholders at the end of the project.<br />
 
-# Version control and monitoring.<br />
+## Version control and monitoring.<br />
 All work will be tracked in github, and while the project deliverables on a high level will be constantly updated on the project wiki. <br />
 
 # Team
