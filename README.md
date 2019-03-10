@@ -48,11 +48,27 @@ Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will ha
 
 # Support Documentation
 
-[Project documentation folder] (https://drive.google.com/open?id=1fHtWXQIDxyIFErwrestoyBETrUFVW-Yq/).
-
+[Project Documentation Folder](https://drive.google.com/open?id=1fHtWXQIDxyIFErwrestoyBETrUFVW-Yq)<br />
+[Statement of Work](https://drive.google.com/open?id=192AxZlcVD7A_789DPE5ApGqI8ilqPHUI)<br />
+[Slack Channel](https://mecfs-workspace.slack.com/messages/CGPA6LS90/)<br />
+[Issue Tracking](https://github.com/u6530822/ME-CFS-Project/issues)<br />
 
 # Current Progress
 1.	Met and discussed the project scope, and factors involved. 
 2.	Completed the github landing page.
 3.	Established roles and started the analysis phase.
+
+# Technical Tools and Constraints
+•	Off the shelf tools<br />
+○ Optical Character Recognition software <br />
+<br />
+•	implementation from scratch<br />
+○ Hidden Markov Model<br />
+○ Neural Network<br />
+○ Code in Tesseract/TensorFlow<br />
+<br />
+•	Constraints:<br />
+○ Training of model is required<br />
+○ Sensitive issue related to disclosing patients' data<br />
+
 
