@@ -11,27 +11,27 @@ The project is: To automate the extraction of valuable ME/CFS patient data into 
 Project documentation folder:https://drive.google.com/open?id=1fHtWXQIDxyIFErwrestoyBETrUFVW-Yq 
 
 # Project Administration
-Timeline
-Week 2-3: Requirement gathering and technology assessment/exploration. 
-Week 4-5: Iteration 1 & 2 – Work on Printed text conversion to digitalized documents.
-Week 6-7: Iteration 3 & 4 – Work on Handwritten text conversion to digitalized documents.
-Week 8-9: Full round of user acceptance testing and consolidation.
-Week 10-12: Reflection and improvements.
+## Timeline
+Week 2-3: Requirement gathering and technology assessment/exploration. <br />
+Week 4-5: Iteration 1 & 2 – Work on Printed text conversion to digitalized documents.<br />
+Week 6-7: Iteration 3 & 4 – Work on Handwritten text conversion to digitalized documents.<br />
+Week 8-9: Full round of user acceptance testing and consolidation.<br />
+Week 10-12: Reflection and improvements.<br />
 
 # Milestone Chart  
-Deliverables
-•	Modular well-structured code to carry out the following:
-o	New process to convert and store printed patient records into PDF and excel sheets. 
-o	New Process to convert and store hand-written records/notes into PDF and excel sheets
-o	Provide an easy to use and intuitive user interface. 
-o	Allow sufficient space for scalability and further analytic needs. 
+## Deliverables
+•	Modular well-structured code to carry out the following:<br />
+o	New process to convert and store printed patient records into PDF and excel sheets. <br />
+o	New Process to convert and store hand-written records/notes into PDF and excel sheets<br />
+o	Provide an easy to use and intuitive user interface. <br />
+o	Allow sufficient space for scalability and further analytic needs. <br />
 
-•	Documentation will be covered in the following:
-o	Well commented and modular code. 
-o	High level documentation on code process in each iteration. 
-o	A user guide to be handed to the stakeholders at the end of the project.
-2.3 Version control and monitoring.
-All work will be tracked in github, and while the project deliverables on a high level will be constantly updated on the project wiki. 
+•	Documentation will be covered in the following:<br />
+o	Well commented and modular code. <br />
+o	High level documentation on code process in each iteration. <br />
+o	A user guide to be handed to the stakeholders at the end of the project.<br />
+2.3 Version control and monitoring.<br />
+All work will be tracked in github, and while the project deliverables on a high level will be constantly updated on the project wiki. <br />
 
 # Team
 |Member| uID|	Role|	Backup|	Email|
