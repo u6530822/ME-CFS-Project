@@ -10,16 +10,6 @@ The project is: To automate the extraction of valuable ME/CFS patient data into 
 
 Project documentation folder:https://drive.google.com/open?id=1fHtWXQIDxyIFErwrestoyBETrUFVW-Yq 
 
-Team members:
-1. Rufus John Raja (u6275198)
-2. Nigel Tee (u6530834)
-3. You Li (u6430173)
-4. Chin Hun Young (u6530822) - SpokePerson
-
-Supervisor and product owner: Brett Lidbury and Dr Alice Richardson  
-
-*Github is open to public for now, will set it to private once we start working on client sensitive materials
-
 # Project Administration
 Timeline
 Week 2-3: Requirement gathering and technology assessment/exploration. 
@@ -44,12 +34,16 @@ o	A user guide to be handed to the stakeholders at the end of the project.
 All work will be tracked in github, and while the project deliverables on a high level will be constantly updated on the project wiki. 
 
 # Team
-|Member|	Role|	Backup|	Email|
-| --- | --- | --- | --- |
-|You Li|	Developer| 	Quality Assurance|	you.li@anu.edu.au|
-|Nigel Tee|	Developer|	Quality Assurance|	nigel.tee@anu.edu.au|
-|Chin Hun Young| 	Quality Assurance|	Project Manager|	chin.young@anu.edu.au|
-|Rufus Raja|	Project Manager|	Developer|	rufus.raja@anu.edu.au|
+|Member| uID|	Role|	Backup|	Email|
+| --- | --- | --- | --- | --- |
+|You Li|u6430173|Developer| 	Quality Assurance|	you.li@anu.edu.au|
+|Nigel Tee|u6530834|Developer|	Quality Assurance|	nigel.tee@anu.edu.au|
+|Chin Hun Young(Spokeperson)|u6530822|Quality Assurance|	Project Manager|	chin.young@anu.edu.au|
+|Rufus Raja|u6275198	|Project Manager|	Developer|	rufus.raja@anu.edu.au|
+
+Supervisor and product owner: Brett Lidbury and Dr Alice Richardson  
+
+*Github is open to public for now, will set it to private once we start working on client sensitive materials
 
 # Stakeholders
 Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will have weekly connects with him. Our secondary contact is Dr. Alice Richardson. 
