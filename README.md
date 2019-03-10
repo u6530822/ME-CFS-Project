@@ -35,14 +35,14 @@ o	A user guide to be handed to the stakeholders at the end of the project.<br />
 All work will be tracked in github, and while the project deliverables on a high level will be constantly updated on the project wiki. <br />
 
 # Team
-|Member| uID|	Role|	Backup|	Email|
+|Member| UID|	Role|	Backup|	Email|
 | --- | --- | --- | --- | --- |
 |You Li|u6430173|Developer| 	Quality Assurance|	you.li@anu.edu.au|
 |Nigel Tee|u6530834|Developer|	Quality Assurance|	nigel.tee@anu.edu.au|
 |Chin Hun Young(Spokeperson)|u6530822|Quality Assurance|	Project Manager|	chin.young@anu.edu.au|
 |Rufus Raja|u6275198	|Project Manager|	Developer|	rufus.raja@anu.edu.au|
 
-Supervisor and product owner: Brett Lidbury and Dr Alice Richardson  
+Supervisor and product owner: Brett Lidbury  
 
 *Github is open to public for now, will set it to private once we start working on client sensitive materials
 
@@ -63,15 +63,16 @@ Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will ha
 
 # Technical Tools and Constraints
 •	Off the shelf tools<br />
-○ Optical Character Recognition software <br />
+  ○ Optical Character Recognition software <br />
 <br />
 •	implementation from scratch<br />
-○ Hidden Markov Model<br />
-○ Neural Network<br />
-○ Code in Tesseract/TensorFlow<br />
+  ○ Hidden Markov Model<br />
+  ○ Neural Network<br />
+  ○ Code in Tesseract/TensorFlow<br />
 <br />
+
 •	Constraints:<br />
-○ Training of model is required<br />
-○ Sensitive issue related to disclosing patients' data<br />
+  ○ Training of the model is required<br />
+  ○ Sensitive issue related to disclosing patients' data<br />
 
 
