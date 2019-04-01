@@ -63,9 +63,8 @@ Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will ha
 
 
 # Current Progress
-1.	Met and discussed the project scope, and factors involved. 
-2.	Completed the github landing page.
-3.	Established roles and started the analysis phase.
+[Progress Report](https://drive.google.com/drive/u/1/folders/1_xgkb4bs7dScdkAQv_ZJaXaIq126nBvf)<br />
+##[Latest](https://drive.google.com/open?id=1JB9lKHz7MoSZC59oYe-F8u0W19tvWBaK)<br />
 
 # Technical Tools and Constraints
 •	Off the shelf tools<br />
