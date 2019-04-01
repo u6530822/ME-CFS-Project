@@ -31,6 +31,8 @@ o	Well commented and modular code. <br />
 o	High level documentation on code process in each iteration. <br />
 o	A user guide to be handed to the stakeholders at the end of the project.<br />
 
+[Product Backlog](https://drive.google.com/open?id=154SpNfr9QrG_j6Xw1HOSoIcJ5UUipYOH)<br />
+
 ## Version control and monitoring.<br />
 All work will be tracked in github, and while the project deliverables on a high level will be constantly updated on the project wiki. <br />
 
