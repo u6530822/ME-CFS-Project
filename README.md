@@ -17,7 +17,7 @@ Week 8-9: Full round of user acceptance testing and consolidation.<br />
 Week 10-12: Reflection and improvements.<br />
 
 # Milestone Chart  
-![Capture](https://user-images.githubusercontent.com/48378032/54085406-e43c8080-4391-11e9-8377-8812cc0b8870.PNG)
+![Capture](https://github.com/u6530822/ME-CFS-Project/blob/master/milestone-chart.PNG)
 
 # Deliverables
 •	Modular well-structured code to carry out the following:<br />
