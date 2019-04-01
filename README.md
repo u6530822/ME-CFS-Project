@@ -55,6 +55,7 @@ Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will ha
 [Statement of Work](https://docs.google.com/document/d/1eFEJfMPe0xbD6Jfw6KpZf4wzqcFAI8vjizMkaUJH-Dk/edit?usp=sharing)<br />
 [Slack Channel](https://mecfs-workspace.slack.com/messages/CGPA6LS90/)<br />
 [Issue Tracking](https://github.com/u6530822/ME-CFS-Project/issues)<br />
+[Signed Acceptance Criteria](https://drive.google.com/open?id=154SpNfr9QrG_j6Xw1HOSoIcJ5UUipYOH)<br />
 
 # Current Progress
 1.	Met and discussed the project scope, and factors involved. 
