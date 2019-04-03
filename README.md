@@ -85,5 +85,43 @@ Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will ha
 •	Constraints:<br />
   ○ Training of the model is required<br />
   ○ Sensitive issue related to disclosing patients' data<br />
+  
+  # Risk Management
+### Technical Risk
+#### Time for the text conversion to be longer than client’s expectation
+Likelihood: Unlikely
+Consequence: Catastrophic
+Priority: high
+Solutions: Obtain main stakeholder’s agreement on the time required for conversion to match expectation
+#### Limitation of knowledge in handwritten to text conversion
+Likelihood: Possible
+Consequence: Moderate
+Priority: high
+Solutions: Obtain main stakeholder’s agreement on the possible removal of feature
+
+### Ethical Risk
+#### Data security breach
+Likelihood: Possible
+Consequence: Catastrophic
+Priority: Extreme
+Solutions: Access authorisation, multilevel security model in databases & encryption
+##### Data Privacy issues
+Likelihood: Possible
+Consequence: Catastrophic
+Priority: Extreme
+Solutions: Signed Ethical form, Downgrading results, stakeholder’s agreement on storage method
+
+### Resources risk
+#### Members fall sick & Unavailability of members
+Likelihood: Possible
+Consequence: Minor
+Priority: Medium
+Solutions: Shadowing teammates, Daily stand-up to update on progress
+#### Unforeseen accident
+Likelihood: Rare
+Consequence: Moderate
+Priority: Low
+Solutions: Shadowing teammates, Daily stand-up to update on progress
+
 
 
