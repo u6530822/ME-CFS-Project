@@ -87,6 +87,9 @@ Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will ha
   ○ Sensitive issue related to disclosing patients' data<br />
   
   # Risk Management
+  
+  ![Capture](https://github.com/u6530822/ME-CFS-Project/blob/master/risk_list.PNG)
+  
 ### Technical Risk
 #### Time for the text conversion to be longer than client’s expectation
 Likelihood: Unlikely
