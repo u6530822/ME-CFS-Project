@@ -46,6 +46,9 @@ All work will be tracked in github, and while the project deliverables on a high
 
 Supervisor and product owner: Brett Lidbury  
 
+## Team's Decision Making Steps
+[Decision Making Document](https://drive.google.com/open?id=1iuMgKuiV72ic6ZybAdhszDJW5QMlwO6K)<br />
+
 *Github is open to public for now, will set it to private once we start working on client sensitive materials
 
 # Stakeholders
@@ -61,7 +64,6 @@ Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will ha
 [Approved DB Fields](https://drive.google.com/file/d/1NbsGXRXQ0QnQ8ItyiEVDQO5VlD8_Rv8t/view?usp=sharing)<br />
 [Slack Channel](https://mecfs-workspace.slack.com/messages/CGPA6LS90/)<br />
 [Issue Tracking](https://github.com/u6530822/ME-CFS-Project/issues)<br />
-[Decision Making](https://drive.google.com/open?id=1iuMgKuiV72ic6ZybAdhszDJW5QMlwO6K)<br />
 [Iteration Tracking](https://drive.google.com/drive/u/1/folders/1c-zunhc9ArRkqTRCivM0X3Kt2iIH-1Nx)<br />
 [Technical Specification](https://drive.google.com/file/d/1xuPRZXNygvWiQU0BOwUbPlI6k1vXGzfA/view?usp=sharing)<br />
 
