@@ -17,7 +17,7 @@ Week 8-9: Full round of user acceptance testing and consolidation.<br />
 Week 10-12: Reflection and improvements.<br />
 
 # Milestone Chart  
-![Capture](https://user-images.githubusercontent.com/48378032/54085406-e43c8080-4391-11e9-8377-8812cc0b8870.PNG)
+![Capture](https://github.com/u6530822/ME-CFS-Project/blob/master/milestone-chart.PNG)
 
 # Deliverables
 •	Modular well-structured code to carry out the following:<br />
@@ -30,6 +30,8 @@ o	Allow sufficient space for scalability and further analytic needs. <br />
 o	Well commented and modular code. <br />
 o	High level documentation on code process in each iteration. <br />
 o	A user guide to be handed to the stakeholders at the end of the project.<br />
+
+[Product Backlog](https://drive.google.com/open?id=154SpNfr9QrG_j6Xw1HOSoIcJ5UUipYOH)<br />
 
 ## Version control and monitoring.<br />
 All work will be tracked in github, and while the project deliverables on a high level will be constantly updated on the project wiki. <br />
@@ -44,6 +46,9 @@ All work will be tracked in github, and while the project deliverables on a high
 
 Supervisor and product owner: Brett Lidbury  
 
+## Team's Decision Making Steps
+[Decision Making Document](https://drive.google.com/open?id=1iuMgKuiV72ic6ZybAdhszDJW5QMlwO6K)<br />
+
 *Github is open to public for now, will set it to private once we start working on client sensitive materials
 
 # Stakeholders
@@ -52,14 +57,20 @@ Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will ha
 # Support Documentation
 
 [Project Documentation Folder](https://drive.google.com/open?id=1fHtWXQIDxyIFErwrestoyBETrUFVW-Yq)<br />
-[Statement of Work](https://docs.google.com/document/d/1eFEJfMPe0xbD6Jfw6KpZf4wzqcFAI8vjizMkaUJH-Dk/edit?usp=sharing)<br />
+[Signed Statement of Work](https://docs.google.com/document/d/1eFEJfMPe0xbD6Jfw6KpZf4wzqcFAI8vjizMkaUJH-Dk/edit?usp=sharing)<br />
+[Signed Product Backlog/Acceptance Criteria](https://drive.google.com/open?id=154SpNfr9QrG_j6Xw1HOSoIcJ5UUipYOH)<br />
+[Meeting Minutes](https://drive.google.com/open?id=1PdPVHMijHiBvzMBqYQPptPX4WbBsXGjE)<br />
+[Testing Summary](https://drive.google.com/open?id=1GlXRLAL1TPeR7_wVfNAkTnE9Sw4SnoZHDcEf3BC4tjs)<br />
+[Approved DB Fields](https://drive.google.com/file/d/1NbsGXRXQ0QnQ8ItyiEVDQO5VlD8_Rv8t/view?usp=sharing)<br />
 [Slack Channel](https://mecfs-workspace.slack.com/messages/CGPA6LS90/)<br />
 [Issue Tracking](https://github.com/u6530822/ME-CFS-Project/issues)<br />
+[Iteration Tracking](https://drive.google.com/drive/u/1/folders/1c-zunhc9ArRkqTRCivM0X3Kt2iIH-1Nx)<br />
+[Technical Specification](https://drive.google.com/file/d/1xuPRZXNygvWiQU0BOwUbPlI6k1vXGzfA/view?usp=sharing)<br />
+
 
 # Current Progress
-1.	Met and discussed the project scope, and factors involved. 
-2.	Completed the github landing page.
-3.	Established roles and started the analysis phase.
+#### [Progress Report Folder](https://drive.google.com/drive/u/1/folders/1_xgkb4bs7dScdkAQv_ZJaXaIq126nBvf)<br />
+[Latest Report](https://drive.google.com/open?id=1JB9lKHz7MoSZC59oYe-F8u0W19tvWBaK)<br />
 
 # Technical Tools and Constraints
 •	Off the shelf tools<br />
@@ -74,5 +85,46 @@ Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will ha
 •	Constraints:<br />
   ○ Training of the model is required<br />
   ○ Sensitive issue related to disclosing patients' data<br />
+  
+  # Risk Management
+  
+  ![Capture](https://github.com/u6530822/ME-CFS-Project/blob/master/risk_list.PNG)
+  
+### Technical Risk
+#### Time for the text conversion to be longer than client’s expectation
+Likelihood: Unlikely
+Consequence: Catastrophic
+Priority: high
+Solutions: Obtain main stakeholder’s agreement on the time required for conversion to match expectation
+#### Limitation of knowledge in handwritten to text conversion
+Likelihood: Possible
+Consequence: Moderate
+Priority: high
+Solutions: Obtain main stakeholder’s agreement on the possible removal of feature
+
+### Ethical Risk
+#### Data security breach
+Likelihood: Possible
+Consequence: Catastrophic
+Priority: Extreme
+Solutions: Access authorisation, multilevel security model in databases & encryption
+##### Data Privacy issues
+Likelihood: Possible
+Consequence: Catastrophic
+Priority: Extreme
+Solutions: Signed Ethical form, Downgrading results, stakeholder’s agreement on storage method
+
+### Resources risk
+#### Members fall sick & Unavailability of members
+Likelihood: Possible
+Consequence: Minor
+Priority: Medium
+Solutions: Shadowing teammates, Daily stand-up to update on progress
+#### Unforeseen accident
+Likelihood: Rare
+Consequence: Moderate
+Priority: Low
+Solutions: Shadowing teammates, Daily stand-up to update on progress
+
 
 
