@@ -91,6 +91,67 @@ class ImageToText:
                 if val.startswith('ALT'):
                     ALT= ImageToText.extract_value(val,'ALT')
                     print('The value of ALT here is ',ALT)
+
+                if val.startswith('HAEMOGLOBIN'):
+                    HAEMOGLOBIN= ImageToText.extract_value(val,'HAEMOGLOBIN')
+                    print('The value of HAEMOGLOBIN here is ',HAEMOGLOBIN)
+
+                if val.startswith('RBC'):
+                    RBC= ImageToText.extract_value(val,'RBC')
+                    print('The value of RBC here is ',RBC)
+
+                if val.startswith('PCV'):
+                    PCV= ImageToText.extract_value(val,'PCV')
+                    print('The value of PCV here is ',PCV)
+
+                if val.startswith('MCV'):
+                    MCV= ImageToText.extract_value(val,'MCV')
+                    print('The value of MCV here is ',MCV)
+
+                if val.startswith('MCH'):
+                    MCH= ImageToText.extract_value(val,'MCH')
+                    print('The value of MCH here is ',MCH)
+
+                if val.startswith('MCHC'):
+                    MCHC= ImageToText.extract_value(val,'MCHC')
+                    print('The value of MCHC here is ',MCHC)
+
+                if val.startswith('RDW'):
+                    RDW= ImageToText.extract_value(val,'RDW')
+                    print('The value of RDW here is ',RDW)
+
+                if val.startswith('wcc'):
+                    wcc= ImageToText.extract_value(val,'wcc')
+                    print('The value of wcc here is ',wcc)
+
+                if val.startswith('Neutrophils'):
+                    Neutrophils= ImageToText.extract_value(val,'Neutrophils')
+                    print('The value of Neutrophils here is ',Neutrophils)
+
+                if val.startswith('Lymphocytes'):
+                    Lymphocytes= ImageToText.extract_value(val,'Lymphocytes')
+                    print('The value of Lymphocytes here is ',Lymphocytes)
+
+                if val.startswith('Monocytes'):
+                    Monocytes= ImageToText.extract_value(val,'Monocytes')
+                    print('The value of Monocytes here is ',Monocytes)
+
+                if val.startswith('Eosinophils'):
+                    Eosinophils= ImageToText.extract_value(val,'Eosinophils')
+                    print('The value of Eosinophils here is ',Eosinophils)
+
+                if val.startswith('Basophils'):
+                    Basophils= ImageToText.extract_value(val,'Basophils')
+                    print('The value of Basophils here is ',Basophils)
+
+                if val.startswith('PLATELETS'):
+                    PLATELETS= ImageToText.extract_value(val,'PLATELETS')
+                    print('The value of PLATELETS here is ',PLATELETS)
+
+                if val.startswith('ESR'):
+                    ESR= ImageToText.extract_value(val,'ESR')
+                    print('The value of ESR here is ',ESR)
+
         print("Testing section")
         print(text[0])
         access_key_id = 'A'
