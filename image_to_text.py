@@ -18,10 +18,10 @@ class ImageToText:
 
         val_local1 = val_local.split();
         if val_local1[1] == '*':
-           print('Shout ',name,' is high =', val_local1[2])
+         #  print('Shout ',name,' is high =', val_local1[2])
            return val_local1[2];
         else:
-           print('Shout', name ,' =', val_local1[1])
+        #   print('Shout', name ,' =', val_local1[1])
            return val_local1[1]
 
 
@@ -108,7 +108,7 @@ class ImageToText:
                     MCV= ImageToText.extract_value(val,'MCV')
                     print('The value of MCV here is ',MCV)
 
-                if val.startswith('MCH'):
+                if val.startswith('MCH') and not val.startswith('MCHC'):
                     MCH= ImageToText.extract_value(val,'MCH')
                     print('The value of MCH here is ',MCH)
 
