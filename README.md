@@ -66,7 +66,7 @@ Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will ha
 [Issue Tracking](https://github.com/u6530822/ME-CFS-Project/issues)<br />
 [Iteration Tracking](https://drive.google.com/drive/u/1/folders/1c-zunhc9ArRkqTRCivM0X3Kt2iIH-1Nx)<br />
 [Technical Specification](https://drive.google.com/file/d/1xuPRZXNygvWiQU0BOwUbPlI6k1vXGzfA/view?usp=sharing)<br />
-
+[Feedback Log](https://drive.google.com/open?id=15BJ5XNeOg506WVSW6oJ9KiIewVI6bu0y)<br />
 
 # Current Progress
 #### [Progress Report Folder](https://drive.google.com/drive/u/1/folders/1_xgkb4bs7dScdkAQv_ZJaXaIq126nBvf)<br />
