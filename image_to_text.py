@@ -11,7 +11,7 @@ from boto3.dynamodb.conditions import Key, Attr
 import re
 
 access_key_id_global='A'
-secret_access_key_global='D'
+secret_access_key_global='S'
 class ImageToText:
 
     def __init__(self, name):
