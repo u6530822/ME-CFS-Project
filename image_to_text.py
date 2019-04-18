@@ -7,12 +7,16 @@ Created on Wed Mar 20 11:02:59 2019
 import boto3
 from PIL import Image
 import pytesseract
+from boto3.dynamodb.conditions import Key, Attr
 import re
 
-
+access_key_id_global='AKIAJMLEIW7P5GKW5ODQ'
+secret_access_key_global='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'
 class ImageToText:
+
     def __init__(self, name):
         self.name = name
+
 
     def extract_value(val_local,name):
 
@@ -26,14 +30,33 @@ class ImageToText:
 
            return val_local1[1]
 
-    def write_to_DB(self):
-        access_key_id = 'A'
-        secret_access_key = 'D'
-        dynamodb = boto3.resource('dynamodb', region_name='ap-southeast-2', aws_access_key_id=access_key_id,
-                                  aws_secret_access_key=secret_access_key)
+    def check_entry_exist(Ref_no):
+
+        dynamodb = boto3.resource('dynamodb', region_name='ap-southeast-2', aws_access_key_id=access_key_id_global,
+                                  aws_secret_access_key=secret_access_key_global)
         table = dynamodb.Table('ME_CFS_DB')
-        Ref_no = "C0011"
-        Date_time = 123
+
+        response = table.query(
+            KeyConditionExpression=Key('Reference_No').eq(Ref_no)
+        )
+        if (response['Items']):
+            for i in response['Items']:
+                print(i['Reference_No'], ":", i['Date_Time'])
+            return True
+        else:
+            print(response['Items'])
+            print("It is empty")
+            return False
+
+
+
+    def write_to_DB(Ref_no,Date_time):
+        #read from DB to see if it exist, if it does do not create a new one. 
+
+        dynamodb = boto3.resource('dynamodb', region_name='ap-southeast-2', aws_access_key_id=access_key_id_global,
+                                  aws_secret_access_key=secret_access_key_global)
+        table = dynamodb.Table('ME_CFS_DB')
+
         response = table.put_item(
             Item={
                 'Reference_No': Ref_no,
@@ -42,10 +65,9 @@ class ImageToText:
         )
 
     def update_DB(name,value):
-        access_key_id = 'A'
-        secret_access_key = 'D'
-        dynamodb = boto3.resource('dynamodb', region_name='ap-southeast-2', aws_access_key_id=access_key_id,
-                                  aws_secret_access_key=secret_access_key)
+
+        dynamodb = boto3.resource('dynamodb', region_name='ap-southeast-2', aws_access_key_id=access_key_id_global,
+                                  aws_secret_access_key=secret_access_key_global)
         table = dynamodb.Table('ME_CFS_DB')
         Ref_no = "C0011"
         Date_time = 123
@@ -70,6 +92,17 @@ class ImageToText:
         text = pytesseract.image_to_string(image, lang="eng").splitlines();
         #print(text)
         counter = 0
+        ##mock
+        Ref_no = "C0013"
+        Date_time = 123
+        exist = ImageToText.check_entry_exist(Ref_no)
+
+        if(exist):
+            print("Entry already exist, do not create a new one")
+
+        else:
+            print("Entry doesnt exist, create a new one")
+            ImageToText.write_to_DB(Ref_no,Date_time)
 
         for val in text:
             if val:
@@ -226,7 +259,7 @@ class ImageToText:
 
         print('------------------Break----------------')
         # Create an S3 client
-        #s3 = boto3.resource('s3', region_name='ap-southeast-2', aws_access_key_id=access_key_id,aws_secret_access_key=secret_access_key)
+        #s3 = boto3.resource('s3', region_name='ap-southeast-2', aws_access_key_id=access_key_id_global,aws_secret_access_key=secret_access_key_global)
 
         # for bucket in s3.buckets.all():
         #    print(bucket.name)
