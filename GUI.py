@@ -31,7 +31,7 @@ class GUI:
 
         ''' open file
         '''
-        self.master.filename = filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("jpeg files","*.jpg"),("all files","*.*")))
+        self.master.filename = filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("png files","*.png"),("all files","*.*")))
         print(self.master.filename)
         name = self.master.filename
 
