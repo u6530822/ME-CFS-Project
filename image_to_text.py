@@ -9,7 +9,7 @@ from PIL import Image
 import pytesseract
 from boto3.dynamodb.conditions import Key, Attr
 import re
-
+import GUI_bk
 access_key_id_global='A'
 secret_access_key_global='S'
 class ImageToText:
@@ -88,6 +88,7 @@ class ImageToText:
 
 
     def print_filename(self):
+
         image = Image.open(self.name)
         text = pytesseract.image_to_string(image, lang="eng").splitlines();
         #print(text)
@@ -112,11 +113,14 @@ class ImageToText:
                 if val.startswith('Sodium'):
                     Sodium= ImageToText.extract_value(val,'Sodium')
                     print('The value of Sodium here is ',Sodium)
+                    input= 'The value of Sodium here is '+Sodium
                     ImageToText.update_DB('Sodium',Sodium)
 
                 if val.startswith('Potassium'):
                     Potassium= ImageToText.extract_value(val,'Potassium')
                     print('The value of Potassium here is ',Potassium)
+                    input = input+'\n'+'The value of potassium here is ' + Potassium
+                    GUI_bk.PageTwo.insert_results(input)
                     ImageToText.update_DB('Potassium',Potassium)
 
                 if val.startswith('Chloride'):

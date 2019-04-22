@@ -55,8 +55,8 @@ class StartPage(tk.Frame):
         password = Text(self, height = 2, width = 10)
         password.pack(expand=YES, fill=BOTH)
 
-        widget = Entry(parent, show="*", width=15)
-        widget.pack()
+#        widget = Entry(parent, show="*", width=15)
+#        widget.pack()
 
 #  if pswd matches,show frame
         button1 = tk.Button(self, text="Login",
@@ -87,12 +87,21 @@ class PageOne(tk.Frame):
         # self.button_confirm.pack()
         # self.frame.pack()
 
+        #button = tk.Button(self, text="Submit",
+        #                   command=lambda: controller.show_frame("PageTwo"))
         button = tk.Button(self, text="Submit",
-                           command=lambda: controller.show_frame("PageTwo"))
+                           command=lambda: self.callback(self.name))
 
-        # self.button_confirm = Button(self.master, text="SUBMIT", command=lambda: self.callback(self.name))
+        self.button_confirm = Button(self.master, text="SUBMIT", command=lambda: self.callback(self.name))
 
         button.pack()
+
+    def callback(self, name):
+        print("click!")
+        print("printing " + name + " please wait")
+        object2 = image_to_text.ImageToText(name)
+        object2.print_filename()
+        print("done printing " + name)
 
     def open_file(self):
         """Open file."""
@@ -110,8 +119,8 @@ class PageTwo(tk.Frame):
         label = tk.Label(self, text="Result page", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
-        TextArea = Text()
-        TextArea.pack(expand=YES, fill=BOTH)
+       # TextArea = Text()
+       # TextArea.pack(expand=YES, fill=BOTH)
         '''result is the result string
         '''
         # TextArea.insert(result)
@@ -120,3 +129,13 @@ class PageTwo(tk.Frame):
                            command=lambda: controller.show_frame("StartPage"))
         # do nothing here
         button.pack()
+
+    def insert_results(string):
+        print("In the loop")
+        TextArea = Text()
+        TextArea.pack(expand=YES, fill=BOTH)
+        '''result is the result string
+        '''
+        TextArea.insert('1.0',string)
+
+
