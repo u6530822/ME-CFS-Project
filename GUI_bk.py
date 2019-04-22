@@ -1,101 +1,98 @@
-from tkinter import filedialog
 import tkinter as tk
 from tkinter import *
 import image_to_text
+from tkinter import filedialog
+from tkinter import font  as tkfont # python 3
+#import pygubu
 
 
 class GUI:
 
+    name = ""
+
     def __init__(self):
-        ''' Init settings
-        '''
+        # tk.Tk.__init__(self, *args, **kwargs)
+
         self.master = Tk()
-        self.frame = tk.Frame(self.master)
+        self.master.minsize(500,500)
+        # self.frame = tk.Frame(self.master)
+        self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
 
-        self.master.minsize(1080, 720)
-        # self.master.geometry("320x100")
-        self.master.title('ME/FCS')
+        container = tk.Frame(self.master)
+        container.pack(side = "top", fill = "both", expand = True)
+        container.grid_rowconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)
 
-        ''' Label username
-        '''
-        lab_var = StringVar()
-        label = Label(self.master, textvariable=lab_var, relief=RAISED)
-        lab_var.set("username")
-        # label.place(x=20, y=60)
-        # label.pack()
-        label.pack(padx=50, pady=10)
+        self.frames = {}
+        for F in (StartPage, PageOne, PageTwo):
+            page_name = F.__name__
+            frame = F(parent=container, controller=self)
+            self.frames[page_name] = frame
 
-        ''' textBox username
-        '''
-        var = StringVar()
-        textbox_username = Entry(self.master, textvariable=var)
-        # textbox.focus_set()
-        # textbox.config(width = 5)
-        # textbox.pack(pady=150, padx=150)
-        # textbox.pack(ipadx=150, ipady=150)
-        # textbox_username.pack(ipadx=5, ipady=2)
-        textbox_username.pack()
+            # put all of the pages in the same location;
+            # the one on the top of the stacking order
+            # will be the one that is visible.
+            frame.grid(row=0, column=0, sticky="nsew")
 
-        ''' Label pswd
-        '''
-        lab_var = StringVar()
-        lab_pswd = Label(self.master, textvariable=lab_var, relief=RAISED)
-        lab_var.set("password")
-        lab_pswd.pack(padx=50, pady=10)
+        self.show_frame("StartPage")
 
-        ''' textBox pswd
-        '''
-        var = StringVar()
-        textbox_pswd = Entry(self.master, textvariable=var)
-        textbox_pswd.pack(pady=10)
+    def show_frame(self, page_name):
+        '''Show a frame for the given page name'''
+        frame = self.frames[page_name]
+        frame.tkraise()
 
-        ''' Login Button
-        '''
-        self.button_login = tk.Button(self.frame, text='Login', width=25, command=self.open_upload)
-        self.button_login.pack()
-        self.frame.pack()
+class StartPage(tk.Frame):
 
-    def open_upload(self):
-        # TODO : check password and username
-        self.newWindow = tk.Toplevel(self.master)
-        self.app = Upload(self.newWindow)
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        label = tk.Label(self, text="Welcome to ME/CFS\n input username and pswd", font=controller.title_font)
+        label.pack(side="top", fill="x", pady=10)
+
+        username = Text(self, height = 2, width = 10)
+        username.pack(expand=YES, fill=BOTH)
+
+        password = Text(self, height = 2, width = 10)
+        password.pack(expand=YES, fill=BOTH)
+
+        widget = Entry(parent, show="*", width=15)
+        widget.pack()
+
+#  if pswd matches,show frame
+        button1 = tk.Button(self, text="Login",
+                            command=lambda: controller.show_frame("PageOne"))
+        button1.pack()
 
 
-class Upload:
-    # TODO: remove references between both windows to destroy the login window without destroying the upload window
-    def __init__(self, master):
-        self.master = master
-        self.frame = tk.Frame(self.master)
-        self.master.minsize(1080, 720)
+class PageOne(tk.Frame):
 
-        ''' TODO: Label Drop File
-        '''
-        drop_str = StringVar()
-        drop_lb = Label(self.master, textvariable=drop_str, relief=RAISED)
-        drop_str.set("drop file")
-        drop_lb.pack(ipadx=50, ipady=50)
-
-        ''' TODO: textBox to edit
-        '''
-        var = StringVar()
-        textbox_username = Entry(self.master, textvariable=var)
-        textbox_username.pack(ipadx=50, ipady=50)
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        label = tk.Label(self, text="open filedialog", font=controller.title_font)
+        label.pack(side="top", fill="x", pady=10)
 
         self.name = ""
 
         ''' Open button - To select file
         '''
-        self.openButton = tk.Button(self.frame, text='open', command=self.open_file)
+        self.openButton = tk.Button(self, text='open', command=self.open_file)
         self.openButton.pack()
-        self.frame.pack()
+        # self.frame.pack()
 
-        ''' Submit button - To start conversion
-        '''
-        self.button_confirm = Button(self.master, text="SUBMIT", command=lambda: self.callback(self.name))
-        self.button_confirm.pack()
-        self.frame.pack()
 
-# functions
+        # ''' Submit button - To start conversion
+        # '''
+        # self.button_confirm = Button(self.master, text="SUBMIT", command=lambda: self.callback(self.name))
+        # self.button_confirm.pack()
+        # self.frame.pack()
+
+        button = tk.Button(self, text="Submit",
+                           command=lambda: controller.show_frame("PageTwo"))
+
+        # self.button_confirm = Button(self.master, text="SUBMIT", command=lambda: self.callback(self.name))
+
+        button.pack()
 
     def open_file(self):
         """Open file."""
@@ -104,50 +101,22 @@ class Upload:
         self.name = self.master.filename
         print("open file" + self.name)
 
-    def callback(self, name):
-        """Convert image to text."""
-        print("click!")
-        print("printing " + name + " please wait")
-        object2 = image_to_text.ImageToText(name)
-        object2.print_filename()
-        print("done printing " + name)
 
-    '''
-    def open_results(self):
-        # TODO: Do we need this?
-        self.newWindow = tk.Toplevel(self.master)
-        self.app = Result(self.newWindow)
+class PageTwo(tk.Frame):
 
-    def donothing(self):
-        x = 0
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        label = tk.Label(self, text="Result page", font=controller.title_font)
+        label.pack(side="top", fill="x", pady=10)
 
-    def close_windows(self):
-        self.master.destroy()
-    '''
-
-
-# TODO: Display result on textbox
-class Result:
-
-    def __init__(self, master):
-        ''' result text
+        TextArea = Text()
+        TextArea.pack(expand=YES, fill=BOTH)
+        '''result is the result string
         '''
-        result = StringVar()
-        textbox = Entry(self.master, textvariable=result)
-        textbox.focus_set()
-        textbox.config(width=500)
-        textbox.pack(pady=100, padx=100)
+        # TextArea.insert(result)
 
-        # frame=Frame(self.master, width=300, height=600)
-        # frame.pack()
-        # TextArea = Text()
-        # TextArea.pack(expand=YES, fill=BOTH)
-
-        # textbox.place(x=100, y=100, width = 500, height = 600)
-
-        # tbox1 = Text(frame)
-        # tbox1.place(x=10, y=115, height=30, width=200)
-
-
-
-
+        button = tk.Button(self, text="Submit to DBS",
+                           command=lambda: controller.show_frame("StartPage"))
+        # do nothing here
+        button.pack()
