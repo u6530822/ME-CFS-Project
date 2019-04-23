@@ -37,7 +37,7 @@ class GUI:
             frame.grid(row=0, column=0, sticky="nsew")
             # frame.pack()
 
-        self.show_frame("PageTwo")
+        self.show_frame("StartPage")
 
     def show_frame(self, page_name):
         '''Show a frame for the given page name'''
