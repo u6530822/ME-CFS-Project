@@ -63,18 +63,13 @@ class StartPage(tk.Frame):
         pswd = Entry(self, show="*", width=24)
         pswd.place(x = 140, y = 160)
 
-        button_login = tk.Button(self, text="Login", highlightbackground='#3E4149',
+        button1 = tk.Button(self, text="Login", highlightbackground='#3E4149',
                             command=lambda: controller.show_frame("PageOne"))
-
         # button_login = tk.Button(self, text="Login", highlightbackground='#3E4149',
         #                     command = controller.check_pswd)
         button_login.place(x = 220, y = 200)
 
-        # def check_pswd(self):
-        #     username = username_entry.get
-        #     # password = password_entry.get()
-        #     print(user_name)
-        #     self.controller.show_frame("PageOne")                            
+
 
 
 class PageOne(tk.Frame):
