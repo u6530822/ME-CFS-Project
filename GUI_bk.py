@@ -5,7 +5,7 @@ from tkinter import filedialog
 from tkinter import font  as tkfont # python 3
 import pygubu
 from PIL import ImageTk, Image
-
+import check
 
 class GUI:
 
@@ -54,23 +54,32 @@ class StartPage(tk.Frame):
         usnm_lb = tk.Label(self, text="username", font=controller.title_font)
         usnm_lb.place(x = 140, y = 70)
 
-        username_entry = Entry(self, width = 24)
-        username_entry.place(x = 140, y = 100)
+        self.username_entry = Entry(self, width = 24)
+        self.username_entry.place(x = 140, y = 100)
 
-        password_entry = tk.Label(self, text="password", font=controller.title_font)
-        password_entry.place(x = 140, y = 130)
+        password_lb = tk.Label(self, text="password", font=controller.title_font)
+        password_lb.place(x = 140, y = 130)
 
-        pswd = Entry(self, show="*", width=24)
-        pswd.place(x = 140, y = 160)
+        self.password_entry = Entry(self, show="*", width=24)
+        self.password_entry.place(x = 140, y = 160)
 
-        button1 = tk.Button(self, text="Login", highlightbackground='#3E4149',
-                            command=lambda: controller.show_frame("PageOne"))
-        # button_login = tk.Button(self, text="Login", highlightbackground='#3E4149',
-        #                     command = controller.check_pswd)
+        # button1 = tk.Button(self, text="Login", highlightbackground='#3E4149',
+        #                     command=lambda: controller.show_frame("PageOne"))
+
+        button_login = tk.Button(self, text="Login", highlightbackground='#3E4149',
+                            command = self.check_pswd)
         button_login.place(x = 220, y = 200)
 
-
-
+    def check_pswd(self):
+        username_tocheck = self.username_entry.get()
+        password_tocheck = self.password_entry.get()
+        login_checker = check.LoginCheck(username_tocheck, password_tocheck)
+        # print(login_checker.check_login())
+        if (login_checker.check_login()):
+            self.controller.show_frame("PageOne")
+        else:
+            self.username_entry.delete(0, 'end')
+            self.password_entry.delete(0, 'end')
 
 class PageOne(tk.Frame):
 
