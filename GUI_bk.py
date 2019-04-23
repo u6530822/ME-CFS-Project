@@ -3,8 +3,9 @@ from tkinter import *
 import image_to_text
 from tkinter import filedialog
 from tkinter import font  as tkfont # python 3
-#import pygubu
-
+import pygubu
+from PIL import ImageTk, Image
+import check
 
 class GUI:
 
@@ -50,43 +51,35 @@ class StartPage(tk.Frame):
         label = tk.Label(self, text="Welcome to ME/CFS", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
-        self.k = tk.Label(text="Username")
-        self.k.place(x=140, y=80)
-        self.username = Text(self, height=1, width=10)
-        self.username.place(x=200, y=80)
-        self.w = tk.Label(text="Password")
-        self.w.place(x=140, y=100)
-        self.password = Text(self, height=1, width=10)
-        self.password.place(x=200, y=100)
+        usnm_lb = tk.Label(self, text="username", font=controller.title_font)
+        usnm_lb.place(x = 140, y = 70)
 
-# e1 = Entry(master, width = 100)
-# e1.grid(row=0, column=1, columnspan=30)
+        self.username_entry = Entry(self, width = 24)
+        self.username_entry.place(x = 140, y = 100)
 
-#  if pswd matches,show frame
-        self.button1 = tk.Button(self, text="Login", highlightbackground='#3E4149',
-                            command=lambda :StartPage.first_button_response(self) ,).place(x=220,y=140)
-#        self.button1.grid_location(x=100,y=400)
-#        self.button1.pack()
+        password_lb = tk.Label(self, text="password", font=controller.title_font)
+        password_lb.place(x = 140, y = 130)
 
-    def first_button_response(self):
-        '''Checks and calls the reset function for the fields or moves to next page'''
-#        self.button1.pack_forget()
-        username_input = self.username.get('1.0', 'end-1c') #Getting input from the textfield
-        password_input = self.password.get('1.0', 'end-1c')
+        self.password_entry = Entry(self, show="*", width=24)
+        self.password_entry.place(x = 140, y = 160)
 
-        if username_input != "mecfs" and password_input != "mecfs": #accepted username and password
-            StartPage.login_security(self)
+        # button1 = tk.Button(self, text="Login", highlightbackground='#3E4149',
+        #                     command=lambda: controller.show_frame("PageOne"))
 
-        self.k.destroy() #Removes the label username
-        self.w.destroy() #Removes the label password
-        self.controller.show_frame("PageOne")
+        button_login = tk.Button(self, text="Login", highlightbackground='#3E4149',
+                            command = self.check_pswd)
+        button_login.place(x = 220, y = 200)
 
-    def login_security(self):
-        '''Checks resets the fields if password and username don't match'''
-        print("reached here")
-        self.username.delete('1.0',END)
-        self.password.delete('1.0',END)
-        self.mainloop()
+    def check_pswd(self):
+        username_tocheck = self.username_entry.get()
+        password_tocheck = self.password_entry.get()
+        login_checker = check.LoginCheck(username_tocheck, password_tocheck)
+        # print(login_checker.check_login())
+        if (login_checker.check_login()):
+            self.controller.show_frame("PageOne")
+        else:
+            self.username_entry.delete(0, 'end')
+            self.password_entry.delete(0, 'end')
 
 class PageOne(tk.Frame):
 
@@ -103,6 +96,9 @@ class PageOne(tk.Frame):
         self.openButton = tk.Button(self, text='open', highlightbackground='#3E4149', command=self.open_file)
         self.openButton.pack()
         # self.frame.pack()
+        # img = ImageTk.PhotoImage(Image.open(self.name))
+        # panel = Label(root, image = img)
+        # panel.pack(side = "bottom", fill = "both", expand = "yes")
 
 
         ''' Submit button - To start conversion
