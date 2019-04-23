@@ -3,12 +3,8 @@ from tkinter import *
 import image_to_text
 from tkinter import filedialog
 from tkinter import font  as tkfont # python 3
-<<<<<<< HEAD
 import pygubu
 from PIL import ImageTk, Image
-=======
-#import pygubu
->>>>>>> 94865ed1fec0072c31e3a98a41b041b4b1e5feda
 
 
 class GUI:
@@ -55,7 +51,6 @@ class StartPage(tk.Frame):
         label = tk.Label(self, text="Welcome to ME/CFS", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
-<<<<<<< HEAD
         usnm_lb = tk.Label(self, text="username", font=controller.title_font)
         usnm_lb.place(x = 140, y = 70)
 
@@ -68,37 +63,14 @@ class StartPage(tk.Frame):
         pswd = Entry(self, show="*", width=24)
         pswd.place(x = 140, y = 160)
 
-        button_login = tk.Button(self, text="Login", highlightbackground='#3E4149',
+        button1 = tk.Button(self, text="Login", highlightbackground='#3E4149',
                             command=lambda: controller.show_frame("PageOne"))
-
         # button_login = tk.Button(self, text="Login", highlightbackground='#3E4149',
         #                     command = controller.check_pswd)
         button_login.place(x = 220, y = 200)
 
-        # def check_pswd(self):
-        #     username = username_entry.get
-        #     # password = password_entry.get()
-        #     print(user_name)
-        #     self.controller.show_frame("PageOne")                            
-=======
-       # k = tk.Label(text="Username")
-       # k.pack()
-        k = Text(self, height = 1, width = 10)
-        k.pack()
 
-       # k = tk.Label(text="Password")
-       # k.pack()
-        k = Text(self, height = 1, width = 10)
-        k.pack()
 
-# e1 = Entry(master, width = 100)
-# e1.grid(row=0, column=1, columnspan=30)
-
-#  if pswd matches,show frame
-        button1 = tk.Button(self, text="Login", highlightbackground='#3E4149',
-                            command=lambda: controller.show_frame("PageOne"),)
-        button1.pack()
->>>>>>> 94865ed1fec0072c31e3a98a41b041b4b1e5feda
 
 class PageOne(tk.Frame):
 
