@@ -51,24 +51,24 @@ class StartPage(tk.Frame):
         label = tk.Label(self, text="Welcome to ME/CFS", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
-        usnm_lb = tk.Label(self, text="username", font=controller.title_font)
-        usnm_lb.place(x = 140, y = 70)
+        usnm_lb = tk.Label(self, text="Username")
+        usnm_lb.place(x = 120, y = 70)
 
         self.username_entry = Entry(self, width = 24)
-        self.username_entry.place(x = 140, y = 100)
+        self.username_entry.place(x = 180, y = 70)
 
-        password_lb = tk.Label(self, text="password", font=controller.title_font)
-        password_lb.place(x = 140, y = 130)
+        password_lb = tk.Label(self, text="Password")
+        password_lb.place(x = 120, y = 110)
 
         self.password_entry = Entry(self, show="*", width=24)
-        self.password_entry.place(x = 140, y = 160)
+        self.password_entry.place(x = 180, y = 110)
 
         # button1 = tk.Button(self, text="Login", highlightbackground='#3E4149',
         #                     command=lambda: controller.show_frame("PageOne"))
 
         button_login = tk.Button(self, text="Login", highlightbackground='#3E4149',
                             command = self.check_pswd)
-        button_login.place(x = 220, y = 200)
+        button_login.place(x = 240, y = 140)
 
     def check_pswd(self):
         username_tocheck = self.username_entry.get()
