@@ -10,8 +10,8 @@ import pytesseract
 from boto3.dynamodb.conditions import Key, Attr
 import re
 import GUI_bk
-access_key_id_global='A'
-secret_access_key_global='S'
+access_key_id_global='AKIAJVYE2V2GLH5NQDWA'
+secret_access_key_global='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'
 class ImageToText:
 
     def __init__(self, name):

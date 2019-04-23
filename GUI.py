@@ -11,7 +11,7 @@ class GUI:
 
         ''' Basic settings
         '''
-        self.master.minsize(300,100)
+        self.master.minsize(150,50)
         self.master.geometry("320x100")
         self.master.title('ME/FCS')
         Label(self.master, text='test').pack(pady=20,padx=50)

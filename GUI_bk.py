@@ -3,7 +3,7 @@ from tkinter import *
 import image_to_text
 from tkinter import filedialog
 from tkinter import font  as tkfont # python 3
-#import pygubu
+import pygubu
 
 
 class GUI:
@@ -33,6 +33,7 @@ class GUI:
             # the one on the top of the stacking order
             # will be the one that is visible.
             frame.grid(row=0, column=0, sticky="nsew")
+            # frame.pack()
 
         self.show_frame("StartPage")
 
@@ -49,17 +50,29 @@ class StartPage(tk.Frame):
         label = tk.Label(self, text="Welcome to ME/CFS\n input username and pswd", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
-        username = Text(self, height = 2, width = 10)
-        username.pack(expand=YES, fill=BOTH)
+        # username = Text(self, height = 2, width = 10)
+        # username.pack(expand=YES, fill=BOTH)
 
-        password = Text(self, height = 2, width = 10)
-        password.pack(expand=YES, fill=BOTH)
+        # password = Text(self, height = 2, width = 10)
+        # password.pack(expand=YES, fill=BOTH)
 
-#        widget = Entry(parent, show="*", width=15)
-#        widget.pack()
+        # widget = Entry(parent, show="*", width=15)
+        # widget.grid(row=0, column=1, columnspan=10)
+        k = tk.Label(text="Username")
+        k.place(x=140,y=80)
+        username = Text(self, height = 1, width = 10)
+        username.place(x=200, y=80)
+
+
+        w = tk.Label(text="Password")
+        w.place(x=140,y=100)
+        password = Text(self, height = 1, width = 10)
+        password.place(x=200,y=100)
+# e1 = Entry(master, width = 100)
+# e1.grid(row=0, column=1, columnspan=30)
 
 #  if pswd matches,show frame
-        button1 = tk.Button(self, text="Login",
+        button1 = tk.Button(self, text="Login", highlightbackground='#3E4149',
                             command=lambda: controller.show_frame("PageOne"))
         button1.pack()
 
@@ -76,24 +89,18 @@ class PageOne(tk.Frame):
 
         ''' Open button - To select file
         '''
-        self.openButton = tk.Button(self, text='open', command=self.open_file)
+        self.openButton = tk.Button(self, text='open', highlightbackground='#3E4149', command=self.open_file)
         self.openButton.pack()
         # self.frame.pack()
 
 
-        # ''' Submit button - To start conversion
-        # '''
+        ''' Submit button - To start conversion
+        '''
         # self.button_confirm = Button(self.master, text="SUBMIT", command=lambda: self.callback(self.name))
         # self.button_confirm.pack()
         # self.frame.pack()
-
-        #button = tk.Button(self, text="Submit",
-        #                   command=lambda: controller.show_frame("PageTwo"))
-        button = tk.Button(self, text="Submit",
+        button = tk.Button(self, text="Submit", highlightbackground='#3E4149',
                            command=lambda: self.callback(self.name))
-
-        self.button_confirm = Button(self.master, text="SUBMIT", command=lambda: self.callback(self.name))
-
         button.pack()
 
     def callback(self, name):
@@ -102,6 +109,8 @@ class PageOne(tk.Frame):
         object2 = image_to_text.ImageToText(name)
         object2.print_filename()
         print("done printing " + name)
+        self.result = object2
+        self.controller.show_frame("PageTwo")
 
     def open_file(self):
         """Open file."""
@@ -125,7 +134,7 @@ class PageTwo(tk.Frame):
         '''
         # TextArea.insert(result)
 
-        button = tk.Button(self, text="Submit to DBS",
+        button = tk.Button(self, text="Submit to DBS", highlightbackground='#3E4149',
                            command=lambda: controller.show_frame("StartPage"))
         # do nothing here
         button.pack()
