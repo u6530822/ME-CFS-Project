@@ -3,7 +3,12 @@ from tkinter import *
 import image_to_text
 from tkinter import filedialog
 from tkinter import font  as tkfont # python 3
+<<<<<<< HEAD
+import pygubu
+from PIL import ImageTk, Image
+=======
 #import pygubu
+>>>>>>> 94865ed1fec0072c31e3a98a41b041b4b1e5feda
 
 
 class GUI:
@@ -47,9 +52,35 @@ class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        label = tk.Label(self, text="Welcome to ME/CFS\n input username and pswd", font=controller.title_font)
+        label = tk.Label(self, text="Welcome to ME/CFS", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
+<<<<<<< HEAD
+        usnm_lb = tk.Label(self, text="username", font=controller.title_font)
+        usnm_lb.place(x = 140, y = 70)
+
+        username_entry = Entry(self, width = 24)
+        username_entry.place(x = 140, y = 100)
+
+        password_entry = tk.Label(self, text="password", font=controller.title_font)
+        password_entry.place(x = 140, y = 130)
+
+        pswd = Entry(self, show="*", width=24)
+        pswd.place(x = 140, y = 160)
+
+        button_login = tk.Button(self, text="Login", highlightbackground='#3E4149',
+                            command=lambda: controller.show_frame("PageOne"))
+
+        # button_login = tk.Button(self, text="Login", highlightbackground='#3E4149',
+        #                     command = controller.check_pswd)
+        button_login.place(x = 220, y = 200)
+
+        # def check_pswd(self):
+        #     username = username_entry.get
+        #     # password = password_entry.get()
+        #     print(user_name)
+        #     self.controller.show_frame("PageOne")                            
+=======
        # k = tk.Label(text="Username")
        # k.pack()
         k = Text(self, height = 1, width = 10)
@@ -67,6 +98,7 @@ class StartPage(tk.Frame):
         button1 = tk.Button(self, text="Login", highlightbackground='#3E4149',
                             command=lambda: controller.show_frame("PageOne"),)
         button1.pack()
+>>>>>>> 94865ed1fec0072c31e3a98a41b041b4b1e5feda
 
 class PageOne(tk.Frame):
 
@@ -83,6 +115,9 @@ class PageOne(tk.Frame):
         self.openButton = tk.Button(self, text='open', highlightbackground='#3E4149', command=self.open_file)
         self.openButton.pack()
         # self.frame.pack()
+        # img = ImageTk.PhotoImage(Image.open(self.name))
+        # panel = Label(root, image = img)
+        # panel.pack(side = "bottom", fill = "both", expand = "yes")
 
 
         ''' Submit button - To start conversion
