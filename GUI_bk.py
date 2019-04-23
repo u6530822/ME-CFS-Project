@@ -58,29 +58,24 @@ class StartPage(tk.Frame):
 
         # widget = Entry(parent, show="*", width=15)
         # widget.grid(row=0, column=1, columnspan=10)
-        self.k = tk.Label(text="Username")
-        self.k.place(x=140,y=80)
+        k = tk.Label(text="Username")
+        k.place(x=140,y=80)
         username = Text(self, height = 1, width = 10)
         username.place(x=200, y=80)
 
-        self.w = tk.Label(text="Password")
-        self.w.place(x=140,y=100)
+
+        w = tk.Label(text="Password")
+        w.place(x=140,y=100)
         password = Text(self, height = 1, width = 10)
         password.place(x=200,y=100)
 # e1 = Entry(master, width = 100)
 # e1.grid(row=0, column=1, columnspan=30)
 
 #  if pswd matches,show frame
-        self.button1 = tk.Button(self, text="Login", highlightbackground='#3E4149',
-                            command=lambda :StartPage.first_button_response(self) )
-        self.button1.pack()
-        self.pack()
+        button1 = tk.Button(self, text="Login", highlightbackground='#3E4149',
+                            command=lambda: controller.show_frame("PageOne"))
+        button1.pack()
 
-    def first_button_response(self):
-        self.button1.pack_forget()
-        self.k.destroy()
-        self.w.destroy()
-        self.controller.show_frame("PageOne")
 
 class PageOne(tk.Frame):
 
