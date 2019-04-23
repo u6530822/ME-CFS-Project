@@ -94,24 +94,27 @@ class PageOne(tk.Frame):
         ''' Open button - To select file
         '''
         self.openButton = tk.Button(self, text='open', highlightbackground='#3E4149', command=self.open_file)
-        self.openButton.pack()
+        self.openButton.place(x = 230, y = 100)
         # self.frame.pack()
         # img = ImageTk.PhotoImage(Image.open(self.name))
         # panel = Label(root, image = img)
         # panel.pack(side = "bottom", fill = "both", expand = "yes")
+        ''' preview of the file
+        '''
+        self.file_lb = tk.Label(self, text="slected file: ", font=controller.title_font)
+        self.file_lb.place(x = 200, y = 150)
 
+        self.fn_entry = StringVar()
+        self.file_text = Entry(self, width = 30, textvariable=self.fn_entry)
+        self.file_text.place(x = 120, y = 180)
 
         ''' Submit button - To start conversion
         '''
-        # self.button_confirm = Button(self.master, text="SUBMIT", command=lambda: self.callback(self.name))
-        # self.button_confirm.pack()
-        # self.frame.pack()
-        button = tk.Button(self, text="Submit", highlightbackground='#3E4149',
+        button = tk.Button(self, text="Start conversion", highlightbackground='#3E4149',
                            command=lambda: self.callback(self.name))
-        button.pack()
+        button.place(x = 190, y = 230)
 
     def callback(self, name):
-        print("click!")
         print("printing " + name + " please wait")
         object2 = image_to_text.ImageToText(name)
         object2.print_filename()
@@ -125,6 +128,7 @@ class PageOne(tk.Frame):
         print(self.master.filename)
         self.name = self.master.filename
         print("open file" + self.name)
+        self.fn_entry.set(self.name)
 
 
 class PageTwo(tk.Frame):
