@@ -369,7 +369,7 @@ class ImageToText:
                         input = input + '\n' + 'ESR: ' + ESR
                         ImageToText.update_DB('ESR',ESR)
 
-        GUI_bk.PageTwo.insert_results(input)
+        # GUI_bk.PageTwo.insert_results(input)
         print("Testing section")
         print(text[0])
 

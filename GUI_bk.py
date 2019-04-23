@@ -6,6 +6,7 @@ from tkinter import font  as tkfont # python 3
 import pygubu
 from PIL import ImageTk, Image
 import check
+from tkinter.ttk import *
 
 class GUI:
 
@@ -36,7 +37,7 @@ class GUI:
             frame.grid(row=0, column=0, sticky="nsew")
             # frame.pack()
 
-        self.show_frame("StartPage")
+        self.show_frame("PageTwo")
 
     def show_frame(self, page_name):
         '''Show a frame for the given page name'''
@@ -139,16 +140,70 @@ class PageTwo(tk.Frame):
         label = tk.Label(self, text="Result page", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
-       # TextArea = Text()
-       # TextArea.pack(expand=YES, fill=BOTH)
-        '''result is the result string
-        '''
-        # TextArea.insert(result)
+        self.createTable()
+        self.insert_values()
 
-        button = tk.Button(self, text="Submit to DBS", highlightbackground='#3E4149',
+        edit_button = tk.Button(self, text = "Edit Values", highlightbackground='#3E4149')
+        edit_button.pack(pady = 20)
+        
+        submit_to_dbs_button = tk.Button(self, text="Submit to DBS", highlightbackground='#3E4149',
                            command=lambda: controller.show_frame("StartPage"))
         # do nothing here
-        button.pack()
+        submit_to_dbs_button.pack()
+
+
+    def createTable(self):
+        tv = Treeview(self)
+        tv['columns'] = ('values', 'content')
+        tv.heading("#0", text='Attributes', anchor='w')
+        tv.column("#0", anchor="w")
+        tv.heading('values', text='Values')
+        tv.column('values', anchor='center', width=100)
+        tv.heading('content', text='Content')
+        tv.column('content', anchor='center', width=100)
+        tv.grid(sticky = (N,S,W,E))
+        self.treeview = tv
+        self.treeview.pack(pady = 20)
+
+# colors = ['red', 'green', 'orange', 'white', 'yellow', 'blue']
+
+# r = 0
+# for c in colors:
+#     Label(text=c, relief=RIDGE,  width=25).grid(row=r, column=0)
+#     Entry(bg=c,   relief=SUNKEN, width=50).grid(row=r, column=1)
+#     r = r+1
+
+    def insert_values(self):
+        self.treeview.insert('', 'end', text="Sodium", values=("138",
+                             '-'))
+        self.treeview.insert('', 'end', text="Potassium", values=("5.4",
+                             'high'))
+        self.treeview.insert('', 'end', text="Chloride", values=("103",
+                             '-'))
+        self.treeview.insert('', 'end', text="Bicarbonate", values=("30",
+                             '-'))
+        self.treeview.insert('', 'end', text="Creatinine", values=("92",
+                             '-'))
+        self.treeview.insert('', 'end', text="eGFR", values=("82",
+                             '-'))
+        self.treeview.insert('', 'end', text="T.Protein", values=("77",
+                             '-'))
+        self.treeview.insert('', 'end', text="Albumin", values=("47",
+                             '-'))
+        self.treeview.insert('', 'end', text="ALP", values=("76",
+                             '-'))
+        self.treeview.insert('', 'end', text="Bilirubin", values=("12",
+                             '-'))
+        self.treeview.insert('', 'end', text="GGT", values=("49",
+                             '-'))
+        self.treeview.insert('', 'end', text="AST", values=("39",
+                             '-'))
+        self.treeview.insert('', 'end', text="ALT", values=("52",
+                             'high'))
+        self.treeview.insert('', 'end', text="Other", values=("-",
+                             '-'))
+
+
 
     def insert_results(string):
         print("In the loop")
