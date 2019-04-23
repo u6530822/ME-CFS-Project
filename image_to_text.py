@@ -95,6 +95,7 @@ class ImageToText:
 
         image = Image.open(self.name)
         text = pytesseract.image_to_string(image, lang="eng").splitlines()
+        input = ''
         global Ref_no
         global Collected_Date_time
 
