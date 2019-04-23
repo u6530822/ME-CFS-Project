@@ -3,7 +3,7 @@ from tkinter import *
 import image_to_text
 from tkinter import filedialog
 from tkinter import font  as tkfont # python 3
-import pygubu
+#import pygubu
 
 
 class GUI:
@@ -50,32 +50,23 @@ class StartPage(tk.Frame):
         label = tk.Label(self, text="Welcome to ME/CFS\n input username and pswd", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
-        # username = Text(self, height = 2, width = 10)
-        # username.pack(expand=YES, fill=BOTH)
+       # k = tk.Label(text="Username")
+       # k.pack()
+        k = Text(self, height = 1, width = 10)
+        k.pack()
 
-        # password = Text(self, height = 2, width = 10)
-        # password.pack(expand=YES, fill=BOTH)
+       # k = tk.Label(text="Password")
+       # k.pack()
+        k = Text(self, height = 1, width = 10)
+        k.pack()
 
-        # widget = Entry(parent, show="*", width=15)
-        # widget.grid(row=0, column=1, columnspan=10)
-        k = tk.Label(text="Username")
-        k.place(x=140,y=80)
-        username = Text(self, height = 1, width = 10)
-        username.place(x=200, y=80)
-
-
-        w = tk.Label(text="Password")
-        w.place(x=140,y=100)
-        password = Text(self, height = 1, width = 10)
-        password.place(x=200,y=100)
 # e1 = Entry(master, width = 100)
 # e1.grid(row=0, column=1, columnspan=30)
 
 #  if pswd matches,show frame
         button1 = tk.Button(self, text="Login", highlightbackground='#3E4149',
-                            command=lambda: controller.show_frame("PageOne"))
+                            command=lambda: controller.show_frame("PageOne"),)
         button1.pack()
-
 
 class PageOne(tk.Frame):
 
