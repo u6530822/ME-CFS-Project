@@ -103,8 +103,8 @@ class PageOne(tk.Frame):
         # panel.pack(side = "bottom", fill = "both", expand = "yes")
         ''' preview of the file
         '''
-        self.file_lb = tk.Label(self, text="selected file: ", font=controller.title_font)
-        self.file_lb.place(x=180, y=150)
+      #  self.file_lb = tk.Label(self, text="selected file: ", font=controller.title_font)
+      #  self.file_lb.place(x=180, y=150)
 
         self.fn_entry = StringVar()
         self.file_text = Entry(self, width=30, textvariable=self.fn_entry)
