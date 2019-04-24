@@ -116,12 +116,12 @@ class PageOne(tk.Frame):
         button.place(x = 190, y = 230)
 
     def callback(self, name):
+        self.controller.show_frame("PageTwo")
         print("printing " + name + " please wait")
         object2 = image_to_text.ImageToText(name)
         object2.print_filename()
         print("done printing " + name)
         self.result = object2
-        self.controller.show_frame("PageTwo")
 
     def open_file(self):
         """Open file."""
