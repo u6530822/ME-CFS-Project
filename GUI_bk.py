@@ -8,6 +8,8 @@ import check
 from tkinter.ttk import *
 
 
+
+
 class GUI:
     name = ""
 
@@ -91,7 +93,7 @@ class PageOne(tk.Frame):
         label = tk.Label(self, text="Image Upload", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
-        self.name = ""
+        self.name = ()
 
         ''' Open button - To select file
         '''
@@ -118,19 +120,20 @@ class PageOne(tk.Frame):
 
     def callback(self, name):
         self.controller.show_frame("PageTwo")
-        print("printing " + name + " please wait")
+        print("printing " , name , " please wait")
         object2 = image_to_text.ImageToText(name)
         object2.print_filename()
-        print("done printing " + name)
+        print("done printing ", name)
         self.result = object2
 
     def open_file(self):
+
         """Open file."""
-        self.master.filename = filedialog.askopenfilename(initialdir="/", title="Select file",
+        self.master.filename = filedialog.askopenfilenames(initialdir="/", title="Select file",
                                                           filetypes=(("png files", "*.png"), ("all files", "*.*")))
         print(self.master.filename)
         self.name = self.master.filename
-        print("open file" + self.name)
+        print("open file", self.name)
         self.fn_entry.set(self.name)
 
 
