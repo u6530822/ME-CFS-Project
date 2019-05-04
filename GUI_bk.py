@@ -39,7 +39,7 @@ class GUI:
             frame.grid(row=0, column=0, sticky="nsew")
             # frame.pack()
 
-        self.show_frame("PageTwo")
+        self.show_frame("PageOne")
 
     def show_frame(self, page_name):
         '''Show a frame for the given page name'''
@@ -151,17 +151,37 @@ class PageTwo(tk.Frame):
         self.controller = controller
         label = tk.Label(self, text="Result page", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
+# get list from img2txt here
+        self.result_files = [{'filename': 'file1', 'Sodium': '138', 'Potassium': '5.4'},  
+                        {'filename': 'file2', 'Sodium': '111', 'Potassium': '3'},
+                        {'filename': 'file3', 'Sodium': '138', 'Potassium': '5.4'},
+                        {'filename': 'file4', 'Sodium': '138', 'Potassium': '5.4', 'Chloride': '103', 'Bicarbonate': '30', 'Urea': '4.8', 'Creatinine': '92', 'eGFR': '82', 'Albumin': '47', 'ALP': '76', 'Bilirubin': '12', 'GGT': '49', 'AST': '39', 'ALT': '52'}]
+
+        self.file_lstbx = Listbox(self)
+        self.file_lstbx.bind('<<ListboxSelect>>', self.display_selected_file)
+        for file_name in self.result_files:
+            self.file_lstbx.insert(END, file_name["filename"])
+        self.file_lstbx.pack()
+        # TODO: change x and y position
 
         self.createTable()
-        self.insert_values()
+        # self.insert_values()
 
-        edit_button = tk.Button(self, text="Edit Values", highlightbackground='#3E4149')
-        edit_button.pack(pady=20)
+        # edit_button = tk.Button(self, text="Edit Values", highlightbackground='#3E4149')
+        # edit_button.pack(pady=20)
 
-        submit_to_dbs_button = tk.Button(self, text="Submit to DBS", highlightbackground='#3E4149',
-                                         command=lambda: controller.show_frame("StartPage"))
+        # submit_to_dbs_button = tk.Button(self, text="Submit to DBS", highlightbackground='#3E4149',
+        #                                  command=lambda: controller.show_frame("StartPage"))
+
         # do nothing here
-        submit_to_dbs_button.pack()
+        # submit_to_dbs_button.pack()
+
+    def display_selected_file(self, event):
+        idx=(self.file_lstbx.curselection()[0])
+        display_dict = self.result_files[idx]
+        self.treeview.delete(*self.treeview.get_children())
+        self.insert_values(display_dict)
+
 
     def createTable(self):
         tv = Treeview(self)
@@ -173,6 +193,11 @@ class PageTwo(tk.Frame):
         tv.heading('content', text='Content')
         tv.column('content', anchor='center', width=100)
         tv.bind('<Double-1>', self.onDoubleClick) # Double-click the left button to enter the edit
+
+        vsb = tk.Scrollbar(tv, orient="vertical", command=tv.yview)
+        vsb.place(x=30+200+2, y=95, height=200+20)
+        tv.configure(yscrollcommand=vsb.set)
+        # TODO: figure out where to place the scroll bar
 
         #tv.grid(sticky=(N, S, W, E))   # not sure why this line gives me error
         self.treeview = tv
@@ -200,25 +225,25 @@ class PageTwo(tk.Frame):
         entryedit.place(x=16+(cn-1)*130, y=6+rn*20)
 
         def saveedit():
-            changed_value = entryedit.get(0.0, "end")
+            changed_value = entryedit.get(0.0, "end").rstrip("\n")
+            attri_text = self.treeview.item(self.treeview.focus())["text"]
             self.treeview.set(item, column = columnid, value = changed_value)
+            dict_to_change = {
+                attri_text : changed_value
+            }
+            self.result_dict.update(dict_to_change)
+            # update array
+            print(self.result_dict)
             entryedit.destroy()
             confirm_button.destroy()
+            # TODO: change x y position here
         confirm_button = tk.Button(self, text='OK', width=4, command=saveedit)
         confirm_button.place(x=90+(cn-1)*242,y=2+rn*20)
         
-    def insert_values(self):
-        # self.result_dict = image_to_text.ImageToText.pass_result_to_GUI(self)
-        self.result_dict = {'filename': 'filename', 'Sodium': '138', 'Potassium': '5.4', 'Chloride': '103', 'Bicarbonate': '30', 'Urea': '4.8', 'Creatinine': '92', 'eGFR': '82', 'Albumin': '47', 'ALP': '76', 'Bilirubin': '12', 'GGT': '49', 'AST': '39', 'ALT': '52'}
+    def insert_values(self, display_dict):
+        # self.result_dict = {'filename': 'filename', 'Sodium': '138', 'Potassium': '5.4', 'Chloride': '103', 'Bicarbonate': '30', 'Urea': '4.8', 'Creatinine': '92', 'eGFR': '82', 'Albumin': '47', 'ALP': '76', 'Bilirubin': '12', 'GGT': '49', 'AST': '39', 'ALT': '52'}
+        self.result_dict = display_dict
         # print(self.result_dict)
         for result in self.result_dict.items():
             self.treeview.insert('', 'end', text=result[0], values=(result[1]))
-
-    def insert_results(string):
-        print("In the loop")
-        TextArea = Text()
-        TextArea.pack(expand=YES, fill=BOTH)
-        '''result is the result string
-        '''
-        TextArea.insert('1.0', string)
 

@@ -100,8 +100,6 @@ class ImageToText:
                 self.result_dict[field_str] = result_str
                 ImageToText.update_DB(field_str,result_str)
 
-
-
         #process it here. when it opens, it shouldnt be a tuple. should be string, loop it
         for strings in self.name:
             print("string output:",strings)
@@ -137,7 +135,7 @@ class ImageToText:
             self.result_dict = {
                 "filename" : "filename"
             }
-
+# TODO: get the file name, I cannot find where is it
             for val in text:
 
                 if val.startswith('Patient'):
@@ -211,40 +209,15 @@ class ImageToText:
                     if val:
                         print(counter, val)
                         counter = counter + 1
-                        parse_result('Sodium')
-                        parse_result('Potassium')
-                        parse_result('Chloride')
-                        parse_result('Bicarbonate')
-                        parse_result('Urea')
-                        parse_result('Creatinine')
-                        parse_result('eGFR')
-                        # parse_result("T.Protein")
+                        field_str_list = ['Sodium', 'Potassium', 'Chloride', 'Bicarbonate', 'Urea', 'Creatinine', 'eGFR', 'Albumin', 'ALP', 'Bilirubin', 'GGT',
+                                            'AST', 'ALT', 'HAEMOGLOBIN', 'RBC', 'PCV', 'MCV', 'MCH', 'MCHC', 'RDW', 'wcc', 'Neutrophils', 'Lymphocytes', 'Monocytes',
+                                            'Eosinophils', 'Basophils', 'PLATELETS','ESR'] # T.Protein
                         # I don't know what happend in T.Protein but there's a bug related with DB.
-                        parse_result('Albumin')
-                        parse_result('ALP')
-                        parse_result('Bilirubin')
-                        parse_result('GGT')
-                        parse_result('AST')
-                        parse_result('ALT')
-                        parse_result('HAEMOGLOBIN')
-                        parse_result('RBC')
-                        parse_result('PCV')
-                        parse_result('MCV')
-                        parse_result('MCH')
-                        parse_result('MCHC')
-                        parse_result('RDW')
-                        parse_result('wcc')
-                        parse_result('Neutrophils')
-                        parse_result('Lymphocytes')
-                        parse_result('Monocytes')
-                        parse_result('Eosinophils')
-                        parse_result('Basophils')
-                        parse_result('PLATELETS')
-                        parse_result('ESR')
+                        for field_str in field_str_list:
+                            parse_result(field_str)
+            print(self.result_dict)
 
-            # print(self.result_dict)
-            # GUI_bk.PageTwo.gain_result_dict(self, self.result_dict)
-            # And I need an array of filename
+            # And I need a list of dictionary of the result. 
 '''
                         if val.startswith('Sodium'):
                             Sodium= ImageToText.extract_value(val,'Sodium')
