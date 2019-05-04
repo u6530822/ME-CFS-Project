@@ -103,8 +103,6 @@ class ImageToText:
 
 
         #process it here. when it opens, it shouldnt be a tuple. should be string, loop it
-        # print("Testing here:",self.name[1])
-
         for strings in self.name:
             print("string output:",strings)
             image = Image.open(strings)

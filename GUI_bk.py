@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import *
 import image_to_text
+import Filter
 from tkinter import filedialog
 from tkinter import font  as tkfont  # python 3
 from PIL import ImageTk, Image
@@ -123,6 +124,10 @@ class PageOne(tk.Frame):
         print("printing " , name , " please wait")
         object2 = image_to_text.ImageToText(name)
         object2.print_filename()
+
+        #TODO: Tmp included here to test extract from database - "filtering"
+        #Filter.Filter_db.get_DB("C0007")
+
         print("done printing ", name)
         self.result = object2
 
