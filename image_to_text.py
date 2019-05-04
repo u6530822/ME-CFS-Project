@@ -76,7 +76,7 @@ class ImageToText:
         table = dynamodb.Table('ME_CFS_DB')
         #Ref_no = "C0011"
         #Date_time = 123
-        print("updateddb " + Ref_no + Collected_Date_time)
+        # print("updateddb " + Ref_no + Collected_Date_time)
         Expression_string="set "+name+ "= :r";
         response = table.update_item(
             Key={
@@ -89,12 +89,21 @@ class ImageToText:
             },
             ReturnValues="UPDATED_NEW"
         )
-        print("UpdateItem succeeded:")
+        # print("UpdateItem succeeded:")
 
     def print_filename(self):
+# After refactor this def should be outside the print_filename function.
+        def parse_result(field_str):
+            if val.startswith(field_str):
+                result_str= ImageToText.extract_value(val,field_str)
+                # print(field_str + ' = ' +result_str)
+                self.result_dict[field_str] = result_str
+                ImageToText.update_DB(field_str,result_str)
+
+
 
         #process it here. when it opens, it shouldnt be a tuple. should be string, loop it
-        print("Testing here:",self.name[1])
+        # print("Testing here:",self.name[1])
 
         for strings in self.name:
             print("string output:",strings)
@@ -127,6 +136,9 @@ class ImageToText:
             misaligned = True
             s = []
             s2 = []
+            self.result_dict = {
+                "filename" : "filename"
+            }
 
             for val in text:
 
@@ -201,7 +213,41 @@ class ImageToText:
                     if val:
                         print(counter, val)
                         counter = counter + 1
+                        parse_result('Sodium')
+                        parse_result('Potassium')
+                        parse_result('Chloride')
+                        parse_result('Bicarbonate')
+                        parse_result('Urea')
+                        parse_result('Creatinine')
+                        parse_result('eGFR')
+                        # parse_result("T.Protein")
+                        # I don't know what happend in T.Protein but there's a bug related with DB.
+                        parse_result('Albumin')
+                        parse_result('ALP')
+                        parse_result('Bilirubin')
+                        parse_result('GGT')
+                        parse_result('AST')
+                        parse_result('ALT')
+                        parse_result('HAEMOGLOBIN')
+                        parse_result('RBC')
+                        parse_result('PCV')
+                        parse_result('MCV')
+                        parse_result('MCH')
+                        parse_result('MCHC')
+                        parse_result('RDW')
+                        parse_result('wcc')
+                        parse_result('Neutrophils')
+                        parse_result('Lymphocytes')
+                        parse_result('Monocytes')
+                        parse_result('Eosinophils')
+                        parse_result('Basophils')
+                        parse_result('PLATELETS')
+                        parse_result('ESR')
 
+            # print(self.result_dict)
+            # GUI_bk.PageTwo.gain_result_dict(self, self.result_dict)
+            # And I need an array of filename
+'''
                         if val.startswith('Sodium'):
                             Sodium= ImageToText.extract_value(val,'Sodium')
                             print('The value of Sodium here is ',Sodium)
@@ -375,12 +421,12 @@ class ImageToText:
                             print('The value of ESR here is ',ESR)
                             input = input + '\n' + 'ESR: ' + ESR
                             ImageToText.update_DB('ESR',ESR)
-
+'''
             # GUI_bk.PageTwo.insert_results(input)
-            print("Testing section")
-            print(text[0])
+            # print("Testing section")
+            # print(text[0])
 
-            print('------------------Break----------------')
+            # print('------------------Break----------------')
         # Create an S3 client
         #s3 = boto3.resource('s3', region_name='ap-southeast-2', aws_access_key_id=access_key_id_global,aws_secret_access_key=secret_access_key_global)
 

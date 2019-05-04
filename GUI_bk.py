@@ -38,7 +38,7 @@ class GUI:
             frame.grid(row=0, column=0, sticky="nsew")
             # frame.pack()
 
-        self.show_frame("StartPage")
+        self.show_frame("PageTwo")
 
     def show_frame(self, page_name):
         '''Show a frame for the given page name'''
@@ -79,7 +79,7 @@ class StartPage(tk.Frame):
         login_checker = check.LoginCheck(username_tocheck, password_tocheck)
         # print(login_checker.check_login())
         if (login_checker.check_login()):
-            self.controller.show_frame("PageOne")
+            self.controller.show_frame("PageTwo")
         else:
             self.username_entry.delete(0, 'end')
             self.password_entry.delete(0, 'end')
@@ -128,7 +128,9 @@ class PageOne(tk.Frame):
 
     def open_file(self):
 
-        """Open file."""
+        """Open file.
+        /Users/Julius/Downloads/ME/ME-CFS-Project/Sample.png
+        """
         self.master.filename = filedialog.askopenfilenames(initialdir="/", title="Select file",
                                                           filetypes=(("png files", "*.png"), ("all files", "*.*")))
         print(self.master.filename)
@@ -165,47 +167,47 @@ class PageTwo(tk.Frame):
         tv.column('values', anchor='center', width=100)
         tv.heading('content', text='Content')
         tv.column('content', anchor='center', width=100)
+        tv.bind('<Double-1>', self.onDoubleClick) # Double-click the left button to enter the edit
+
         #tv.grid(sticky=(N, S, W, E))   # not sure why this line gives me error
         self.treeview = tv
         self.treeview.pack(pady=20)
 
-    # colors = ['red', 'green', 'orange', 'white', 'yellow', 'blue']
+    def onDoubleClick(self, event):
+        ''' Executed, when a row is double-clicked. Opens 
+        read-only EntryPopup above the item's column, so it is possible
+        to select text '''
+        item = self.treeview.selection()[0] # now you got the item on that tree
+        print ("you clicked on " + item)
 
-    # r = 0
-    # for c in colors:
-    #     Label(text=c, relief=RIDGE,  width=25).grid(row=r, column=0)
-    #     Entry(bg=c,   relief=SUNKEN, width=50).grid(row=r, column=1)
-    #     r = r+1
+        # close previous popups
+        # self.destroyPopups()
 
+        # what row and column was clicked on
+        rowid = self.treeview.identify_row(event.y)
+        columnid = self.treeview.identify_column(event.x)
+
+        # TODO: change the position of entry and ok button
+        cn = int(str(columnid).replace('#',''))
+        rn = int(str(rowid).replace('I',''))
+
+        entryedit = Text(self.treeview, width=10+(cn-1)*16,height = 1)
+        entryedit.place(x=16+(cn-1)*130, y=6+rn*20)
+
+        def saveedit():
+            changed_value = entryedit.get(0.0, "end")
+            self.treeview.set(item, column = columnid, value = changed_value)
+            entryedit.destroy()
+            confirm_button.destroy()
+        confirm_button = tk.Button(self, text='OK', width=4, command=saveedit)
+        confirm_button.place(x=90+(cn-1)*242,y=2+rn*20)
+        
     def insert_values(self):
-        self.treeview.insert('', 'end', text="Sodium", values=("138",
-                                                               '-'))
-        self.treeview.insert('', 'end', text="Potassium", values=("5.4",
-                                                                  'high'))
-        self.treeview.insert('', 'end', text="Chloride", values=("103",
-                                                                 '-'))
-        self.treeview.insert('', 'end', text="Bicarbonate", values=("30",
-                                                                    '-'))
-        self.treeview.insert('', 'end', text="Creatinine", values=("92",
-                                                                   '-'))
-        self.treeview.insert('', 'end', text="eGFR", values=("82",
-                                                             '-'))
-        self.treeview.insert('', 'end', text="T.Protein", values=("77",
-                                                                  '-'))
-        self.treeview.insert('', 'end', text="Albumin", values=("47",
-                                                                '-'))
-        self.treeview.insert('', 'end', text="ALP", values=("76",
-                                                            '-'))
-        self.treeview.insert('', 'end', text="Bilirubin", values=("12",
-                                                                  '-'))
-        self.treeview.insert('', 'end', text="GGT", values=("49",
-                                                            '-'))
-        self.treeview.insert('', 'end', text="AST", values=("39",
-                                                            '-'))
-        self.treeview.insert('', 'end', text="ALT", values=("52",
-                                                            'high'))
-        self.treeview.insert('', 'end', text="Other", values=("-",
-                                                              '-'))
+        # self.result_dict = image_to_text.ImageToText.pass_result_to_GUI(self)
+        self.result_dict = {'filename': 'filename', 'Sodium': '138', 'Potassium': '5.4', 'Chloride': '103', 'Bicarbonate': '30', 'Urea': '4.8', 'Creatinine': '92', 'eGFR': '82', 'Albumin': '47', 'ALP': '76', 'Bilirubin': '12', 'GGT': '49', 'AST': '39', 'ALT': '52'}
+        # print(self.result_dict)
+        for result in self.result_dict.items():
+            self.treeview.insert('', 'end', text=result[0], values=(result[1]))
 
     def insert_results(string):
         print("In the loop")
@@ -214,3 +216,4 @@ class PageTwo(tk.Frame):
         '''result is the result string
         '''
         TextArea.insert('1.0', string)
+
