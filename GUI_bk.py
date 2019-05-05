@@ -152,11 +152,12 @@ class PageTwo(tk.Frame):
         label = tk.Label(self, text="Result page", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 # get list from img2txt here
-        self.result_files = [{'filename': 'file1', 'Sodium': '138', 'Potassium': '5.4'},  
+        self.result_files = [{'filename': 'file1', 'Sodium': '138', 'Potassium': '5.4'},
                         {'filename': 'file2', 'Sodium': '111', 'Potassium': '3'},
                         {'filename': 'file3', 'Sodium': '138', 'Potassium': '5.4'},
                         {'filename': 'file4', 'Sodium': '138', 'Potassium': '5.4', 'Chloride': '103', 'Bicarbonate': '30', 'Urea': '4.8', 'Creatinine': '92', 'eGFR': '82', 'Albumin': '47', 'ALP': '76', 'Bilirubin': '12', 'GGT': '49', 'AST': '39', 'ALT': '52'}]
-
+        print("List of Dict in page 2: ",image_to_text.list_of_dict)
+        #self.result_files = image_to_text.list_of_dict
         self.file_lstbx = Listbox(self)
         self.file_lstbx.bind('<<ListboxSelect>>', self.display_selected_file)
         for file_name in self.result_files:
@@ -178,6 +179,7 @@ class PageTwo(tk.Frame):
 
     def display_selected_file(self, event):
         idx=(self.file_lstbx.curselection()[0])
+        self.result_files = image_to_text.list_of_dict
         display_dict = self.result_files[idx]
         self.treeview.delete(*self.treeview.get_children())
         self.insert_values(display_dict)
@@ -195,7 +197,7 @@ class PageTwo(tk.Frame):
         tv.bind('<Double-1>', self.onDoubleClick) # Double-click the left button to enter the edit
 
         vsb = tk.Scrollbar(tv, orient="vertical", command=tv.yview)
-        vsb.place(x=30+200+2, y=95, height=200+20)
+        vsb.place(x=387, y=0, height=230)
         tv.configure(yscrollcommand=vsb.set)
         # TODO: figure out where to place the scroll bar
 

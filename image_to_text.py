@@ -14,6 +14,7 @@ import DBAccessKey
 
 access_key_id_global=DBAccessKey.DBAccessKey.access_key_id_global
 secret_access_key_global=DBAccessKey.DBAccessKey.secret_access_key_global
+list_of_dict = []
 class ImageToText:
 
     def __init__(self, name):
@@ -98,12 +99,14 @@ class ImageToText:
                 result_str= ImageToText.extract_value(val,field_str)
                 # print(field_str + ' = ' +result_str)
                 self.result_dict[field_str] = result_str
-                ImageToText.update_DB(field_str,result_str)
+                string2= ''
+                string2=string2+field_str
+                ImageToText.update_DB(string2,result_str)
 
         #process it here. when it opens, it shouldnt be a tuple. should be string, loop it
-        for strings in self.name:
-            print("string output:",strings)
-            image = Image.open(strings)
+        for filename in self.name:
+            print("string output:",filename)
+            image = Image.open(filename)
             text = pytesseract.image_to_string(image, lang="eng").splitlines()
 
             input = ''
@@ -133,7 +136,7 @@ class ImageToText:
             s = []
             s2 = []
             self.result_dict = {
-                "filename" : "filename"
+                "filename" : filename
             }
 # TODO: get the file name, I cannot find where is it
             for val in text:
@@ -209,21 +212,27 @@ class ImageToText:
                     if val:
                         print(counter, val)
                         counter = counter + 1
-                        field_str_list = ['Sodium', 'Potassium', 'Chloride', 'Bicarbonate', 'Urea', 'Creatinine', 'eGFR', 'Albumin', 'ALP', 'Bilirubin', 'GGT',
+                        field_str_list = ['Sodium', 'Potassium', 'Chloride', 'Bicarbonate', 'Urea', 'Creatinine', 'eGFR', 'T\.Protein','Albumin', 'ALP', 'Bilirubin', 'GGT',
                                             'AST', 'ALT', 'HAEMOGLOBIN', 'RBC', 'PCV', 'MCV', 'MCH', 'MCHC', 'RDW', 'wcc', 'Neutrophils', 'Lymphocytes', 'Monocytes',
                                             'Eosinophils', 'Basophils', 'PLATELETS','ESR'] # T.Protein
                         # I don't know what happend in T.Protein but there's a bug related with DB.
                         for field_str in field_str_list:
                             parse_result(field_str)
-            print(self.result_dict)
+            print("Testing young-->",self.result_dict)
+            list_of_dict.append(self.result_dict)
+            print("List of dict 2:", list_of_dict)
 
-            # And I need a list of dictionary of the result. 
+
+            # And I need a list of dictionary of the result.
+            #[young] use this way to process t.protein and MCH, since they are not straightforward
 '''
                         if val.startswith('T.Protein') :
                             T_Protein= ImageToText.extract_value(val,'T.Protein')
                             print('The value of T.Protein here is ',T_Protein)
                             input = input + '\n' + 'T_Protein: ' + T_Protein
                             ImageToText.update_DB('T_Protein',T_Protein)
+                            self.result_dict[field_str] = result_str
+                            
 '''
             # GUI_bk.PageTwo.insert_results(input)
             # print("Testing section")
