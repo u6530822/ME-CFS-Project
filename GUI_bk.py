@@ -217,7 +217,7 @@ class PageTwo(tk.Frame):
 
 
         submit_to_dbs_button = tk.Button(self, text="Submit to DBS", highlightbackground='#3E4149',
-                                         command = self.DBS_upload())
+                                         command = lambda: self.DBS_upload())
 
         submit_to_dbs_button.pack()
 
