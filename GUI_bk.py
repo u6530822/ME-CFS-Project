@@ -107,8 +107,8 @@ class PageOne(tk.Frame):
 
         ''' Open button - To select file
         '''
-        self.openButton = tk.Button(self, text='open', highlightbackground='#3E4149', command=self.open_file)
-        self.openButton.place(x=230, y=100)
+        self.openButton = tk.Button(self, text='Open', highlightbackground='#3E4149', command=self.open_file)
+        self.openButton.place(x=180, y=140)
         # self.frame.pack()
         # img = ImageTk.PhotoImage(Image.open(self.name))
         # panel = Label(root, image = img)
@@ -120,26 +120,26 @@ class PageOne(tk.Frame):
 
         self.fn_entry = StringVar()
         self.file_text = Entry(self, width=30, textvariable=self.fn_entry)
-        self.file_text.place(x=160, y=180)
+        self.file_text.place(x=160, y=110)
 
         ''' Submit button - To start conversion
         '''
-        button = tk.Button(self, text="Start conversion", highlightbackground='#3E4149',
+        button = tk.Button(self, text="Start Conversion", highlightbackground='#3E4149',
                            command=lambda: self.callback(self.name))
-        button.place(x=200, y=230)
+        button.place(x=230, y=140)
 
         ''' Filter function
         '''
         #Box to enter Ref no
         self.filter_entry = StringVar()
         self.filter_text = Entry(self, width=30, textvariable=self.filter_entry)
-        self.filter_text.place(x=160, y=380)
+        self.filter_text.place(x=160, y=200)
 
         #Button to execute
         button = tk.Button(self, text="Filter", highlightbackground='#3E4149',
                            command=lambda: self.get_DB(self.filter_entry.get()))
 
-        button.place(x=230, y=430)
+        button.place(x=230, y=230)
 
 
     def callback(self, name):
@@ -269,7 +269,7 @@ class PageTwo(tk.Frame):
         rn = int(str(rowid).replace('I',''))
 
         entryedit = Text(self.treeview, width=10+(cn-1)*16,height = 1)
-        entryedit.place(x=16+(cn-1)*130, y=6+rn*20)
+        entryedit.place(x=200, y=6+rn*20)
 
         def saveedit():
             changed_value = entryedit.get(0.0, "end").rstrip("\n")
@@ -285,7 +285,7 @@ class PageTwo(tk.Frame):
             confirm_button.destroy()
             # TODO: change x y position here
         confirm_button = tk.Button(self, text='OK', width=4, command=saveedit)
-        confirm_button.place(x=90+(cn-1)*242,y=2+rn*20)
+        confirm_button.place(x=455+(cn-1)*242,y=240+rn*20)
         
     def insert_values(self, display_dict):
         # self.result_dict = {'filename': 'filename', 'Sodium': '138', 'Potassium': '5.4', 'Chloride': '103', 'Bicarbonate': '30', 'Urea': '4.8', 'Creatinine': '92', 'eGFR': '82', 'Albumin': '47', 'ALP': '76', 'Bilirubin': '12', 'GGT': '49', 'AST': '39', 'ALT': '52'}
