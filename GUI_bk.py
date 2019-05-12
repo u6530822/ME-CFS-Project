@@ -1,18 +1,24 @@
 import tkinter as tk
 from tkinter import *
 import image_to_text
-import Filter
 from tkinter import filedialog
 from tkinter import font  as tkfont  # python 3
 from PIL import ImageTk, Image
 import check
 from tkinter.ttk import *
+import boto3
+import DBAccessKey
+from boto3.dynamodb.conditions import Key, Attr
 
+access_key_id_global=DBAccessKey.DBAccessKey.access_key_id_global
+secret_access_key_global=DBAccessKey.DBAccessKey.secret_access_key_global
 
 
 
 class GUI:
     name = ""
+    frames = {} #Nigel - Change this to global so that new frames can be added to it on the fly
+    filtered_output = [] #Nigel - Global variable to store filtered values
 
     def __init__(self):
         # tk.Tk.__init__(self, *args, **kwargs)
@@ -27,11 +33,13 @@ class GUI:
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
-        self.frames = {}
+        global frames #Nigel - Change this to global so that new frames can be added to it on the fly
+        frames = {} #Nigel - Change this to global so that new frames can be added to it on the fly
+
         for F in (StartPage, PageOne, PageTwo):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
-            self.frames[page_name] = frame
+            frames[page_name] = frame
 
             # put all of the pages in the same location;
             # the one on the top of the stacking order
@@ -39,11 +47,11 @@ class GUI:
             frame.grid(row=0, column=0, sticky="nsew")
             # frame.pack()
 
-        self.show_frame("PageOne")
+        self.show_frame("PageTwo")
 
     def show_frame(self, page_name):
         '''Show a frame for the given page name'''
-        frame = self.frames[page_name]
+        frame = frames[page_name]
         frame.tkraise()
 
 
@@ -91,6 +99,7 @@ class PageOne(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+        self.parent = parent
         label = tk.Label(self, text="Image Upload", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
@@ -98,8 +107,8 @@ class PageOne(tk.Frame):
 
         ''' Open button - To select file
         '''
-        self.openButton = tk.Button(self, text='open', highlightbackground='#3E4149', command=self.open_file)
-        self.openButton.place(x=230, y=100)
+        self.openButton = tk.Button(self, text='Open', highlightbackground='#3E4149', command=self.open_file)
+        self.openButton.place(x=180, y=140)
         # self.frame.pack()
         # img = ImageTk.PhotoImage(Image.open(self.name))
         # panel = Label(root, image = img)
@@ -111,23 +120,33 @@ class PageOne(tk.Frame):
 
         self.fn_entry = StringVar()
         self.file_text = Entry(self, width=30, textvariable=self.fn_entry)
-        self.file_text.place(x=160, y=180)
+        self.file_text.place(x=160, y=110)
 
         ''' Submit button - To start conversion
         '''
-        button = tk.Button(self, text="Start conversion", highlightbackground='#3E4149',
+        button = tk.Button(self, text="Start Conversion", highlightbackground='#3E4149',
                            command=lambda: self.callback(self.name))
-        button.place(x=190, y=230)
+        button.place(x=230, y=140)
+
+        ''' Filter function
+        '''
+        #Box to enter Ref no
+        self.filter_entry = StringVar()
+        self.filter_text = Entry(self, width=30, textvariable=self.filter_entry)
+        self.filter_text.place(x=160, y=200)
+
+        #Button to execute
+        button = tk.Button(self, text="Filter", highlightbackground='#3E4149',
+                           command=lambda: self.get_DB(self.filter_entry.get()))
+
+        button.place(x=230, y=230)
+
 
     def callback(self, name):
         self.controller.show_frame("PageTwo")
         print("printing " , name , " please wait")
         object2 = image_to_text.ImageToText(name)
         object2.print_filename()
-
-        #TODO: Tmp included here to test extract from database - "filtering"
-        #Filter.Filter_db.get_DB("C0007")
-
         print("done printing ", name)
         self.result = object2
         # self.result_files = image_to_text.list_of_dict
@@ -144,6 +163,34 @@ class PageOne(tk.Frame):
         print("open file", self.name)
         self.fn_entry.set(self.name)
 
+    ##function for filter after button is pressed - Created by Nigel
+    def get_DB(self, Ref_no):
+
+        print("Ref no is "+Ref_no)
+
+        dynamodb = boto3.resource('dynamodb', region_name='ap-southeast-2', aws_access_key_id=access_key_id_global,
+                                  aws_secret_access_key=secret_access_key_global)
+        table = dynamodb.Table('ME_CFS_DB')
+
+        response = table.query(
+            KeyConditionExpression=Key('Reference_No').eq(Ref_no)
+        )
+
+        if response['Items']:
+            print("start of filter")
+            for i in response['Items']:
+                if i['Reference_No'] == Ref_no:
+                    for key in i.keys():
+                        perline = key + ": " + str(i[key])
+                        GUI.filtered_output.append(perline + "\n")
+        else:
+            print("Not found")
+            GUI.filtered_output.append("Not found" + "\n")
+
+        frame = FilterPage(parent=self.parent, controller=self.controller)
+        frames[FilterPage.__name__] = frame
+        frame.grid(row=0, column=0, sticky="nsew")
+        GUI.show_frame(self.controller, "FilterPage")
 
 class PageTwo(tk.Frame):
 
@@ -154,9 +201,9 @@ class PageTwo(tk.Frame):
         label.pack(side="top", fill="x", pady=10)
 # get list from img2txt here
         self.result_files = [{'filename': 'file1', 'Sodium': '138', 'Potassium': '5.4'},
-                                {'filename': 'file1', 'Sodium': '138', 'Potassium': '5.4'}]
+                                {'filename': 'file2', 'Sodium': '138', 'Potassium': '5.4'}]
                                 
-        print("result_files ", self.result_files)
+        print("List of Dict in page 2: ",image_to_text.list_of_dict)
         #self.result_files = image_to_text.list_of_dict
         self.file_lstbx = Listbox(self)
         self.file_lstbx.bind('<<ListboxSelect>>', self.display_selected_file)
@@ -168,14 +215,18 @@ class PageTwo(tk.Frame):
         self.createTable()
         # self.insert_values()
 
-        # edit_button = tk.Button(self, text="Edit Values", highlightbackground='#3E4149')
-        # edit_button.pack(pady=20)
 
-        # submit_to_dbs_button = tk.Button(self, text="Submit to DBS", highlightbackground='#3E4149',
-        #                                  command=lambda: controller.show_frame("StartPage"))
+        submit_to_dbs_button = tk.Button(self, text="Submit to DBS", highlightbackground='#3E4149',
+                                         command = self.DBS_upload())
 
-        # do nothing here
-        # submit_to_dbs_button.pack()
+        submit_to_dbs_button.pack()
+
+    def DBS_upload(self):
+    	# Young 
+    	# self.resultfiles
+    	# for items in list
+    	# imgtotext.update_DB
+    	print("in DBS_upload")
 
     def display_selected_file(self, event):
         idx=(self.file_lstbx.curselection()[0])
@@ -187,13 +238,13 @@ class PageTwo(tk.Frame):
 
     def createTable(self):
         tv = Treeview(self)
-        tv['columns'] = ('values', 'content')
+        tv['columns'] = ('values')
         tv.heading("#0", text='Attributes', anchor='w')
         tv.column("#0", anchor="w")
         tv.heading('values', text='Values')
-        tv.column('values', anchor='center', width=100)
-        tv.heading('content', text='Content')
-        tv.column('content', anchor='center', width=100)
+        tv.column('values', anchor='center', width=50)
+        # tv.heading('content', text='Content')
+        # tv.column('content', anchor='center', width=50)
         tv.bind('<Double-1>', self.onDoubleClick) # Double-click the left button to enter the edit
 
         vsb = tk.Scrollbar(tv, orient="vertical", command=tv.yview)
@@ -203,7 +254,7 @@ class PageTwo(tk.Frame):
 
         #tv.grid(sticky=(N, S, W, E))   # not sure why this line gives me error
         self.treeview = tv
-        self.treeview.pack(pady=20)
+        self.treeview.pack(pady=5)
 
     def onDoubleClick(self, event):
         ''' Executed, when a row is double-clicked. Opens 
@@ -224,7 +275,7 @@ class PageTwo(tk.Frame):
         rn = int(str(rowid).replace('I',''))
 
         entryedit = Text(self.treeview, width=10+(cn-1)*16,height = 1)
-        entryedit.place(x=16+(cn-1)*130, y=6+rn*20)
+        entryedit.place(x=200, y=6+rn*20)
 
         def saveedit():
             changed_value = entryedit.get(0.0, "end").rstrip("\n")
@@ -240,7 +291,7 @@ class PageTwo(tk.Frame):
             confirm_button.destroy()
             # TODO: change x y position here
         confirm_button = tk.Button(self, text='OK', width=4, command=saveedit)
-        confirm_button.place(x=90+(cn-1)*242,y=2+rn*20)
+        confirm_button.place(x=455+(cn-1)*242,y=240+rn*20)
         
     def insert_values(self, display_dict):
         # self.result_dict = {'filename': 'filename', 'Sodium': '138', 'Potassium': '5.4', 'Chloride': '103', 'Bicarbonate': '30', 'Urea': '4.8', 'Creatinine': '92', 'eGFR': '82', 'Albumin': '47', 'ALP': '76', 'Bilirubin': '12', 'GGT': '49', 'AST': '39', 'ALT': '52'}
@@ -249,3 +300,20 @@ class PageTwo(tk.Frame):
         for result in self.result_dict.items():
             self.treeview.insert('', 'end', text=result[0], values=(result[1]))
 
+#Created by Nigel
+class FilterPage(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        label = tk.Label(self, text="Filtered Result", font=controller.title_font)
+        label.pack(side="top", fill="x", pady=10)
+
+        print(GUI.filtered_output)
+
+        self.filter_entry = StringVar()
+        self.filter_text = Label(self, textvariable=self.filter_entry, relief=RAISED)
+        self.filter_entry.set(GUI.filtered_output)
+        self.filter_text.place(x=160, y=50)
+
+        print("end of filter")

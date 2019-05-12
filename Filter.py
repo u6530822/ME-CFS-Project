@@ -20,7 +20,11 @@ class DecimalEncoder(json.JSONEncoder):
 
 class Filter_db:
 
-    def get_DB(Ref_no):
+    response = []
+
+    def get_DB(Ref_no, controller):
+
+        print("Ref no is "+Ref_no)
 
         dynamodb = boto3.resource('dynamodb', region_name='ap-southeast-2', aws_access_key_id=access_key_id_global,
                                   aws_secret_access_key=secret_access_key_global)
@@ -36,7 +40,11 @@ class Filter_db:
                 print(json.dumps(i, cls=DecimalEncoder))#print whole database
 
             print("end of filter")
+            controller.show_frame("FilterPage")
 
         else:
             print(response['Items'])
             print("It is empty")
+
+
+

@@ -25,6 +25,7 @@ class ImageToText:
     global Collected_Date_time
 
     def extract_value(val_local,name):
+        # extrat whole text to string and number as different lines
 
         val_local1 = val_local.split()
         if val_local1[1] == '*':
@@ -71,6 +72,8 @@ class ImageToText:
         )
 
     def update_DB(name,value):
+        # check existing or not
+        # update the existing record
 
         dynamodb = boto3.resource('dynamodb', region_name='ap-southeast-2', aws_access_key_id=access_key_id_global,
                                   aws_secret_access_key=secret_access_key_global)
@@ -99,8 +102,7 @@ class ImageToText:
                 result_str= ImageToText.extract_value(val,field_str)
                 # print(field_str + ' = ' +result_str)
                 self.result_dict[field_str] = result_str
-                string2= ''
-                string2=string2+field_str
+                string2=field_str.replace('.','_')
                 ImageToText.update_DB(string2,result_str)
 
         #process it here. when it opens, it shouldnt be a tuple. should be string, loop it
@@ -112,23 +114,8 @@ class ImageToText:
             input = ''
             global Ref_no
             global Collected_Date_time
-
-        #print(text)
+            
             counter = 0
-        ##mock
-        #Ref_no = "C0013"
-        #Date_time = 123
-
-        #exist = ImageToText.check_entry_exist(Ref_no)
-
-        #if(exist):
-        #    print("Entry already exist, do not create a new one")
-
-        #else:
-        #    print("Entry doesnt exist, create a new one")
-        #    ImageToText.write_to_DB(Ref_no,Date_time)
-
-        # initiate to check for misaligned variables
             check = 2
             count1 = 0
             count2 = 0
@@ -212,12 +199,19 @@ class ImageToText:
                     if val:
                         print(counter, val)
                         counter = counter + 1
-                        field_str_list = ['Sodium', 'Potassium', 'Chloride', 'Bicarbonate', 'Urea', 'Creatinine', 'eGFR', 'T\.Protein','Albumin', 'ALP', 'Bilirubin', 'GGT',
-                                            'AST', 'ALT', 'HAEMOGLOBIN', 'RBC', 'PCV', 'MCV', 'MCH', 'MCHC', 'RDW', 'wcc', 'Neutrophils', 'Lymphocytes', 'Monocytes',
+                        field_str_list = ['Sodium', 'Potassium', 'Chloride', 'Bicarbonate', 'Urea', 'Creatinine', 'eGFR', 'T.Protein','Albumin', 'ALP', 'Bilirubin', 'GGT',
+                                            'AST', 'ALT', 'HAEMOGLOBIN', 'RBC', 'PCV', 'MCV', 'MCHC', 'RDW', 'wcc', 'Neutrophils', 'Lymphocytes', 'Monocytes',
                                             'Eosinophils', 'Basophils', 'PLATELETS','ESR'] # T.Protein
                         # I don't know what happend in T.Protein but there's a bug related with DB.
                         for field_str in field_str_list:
                             parse_result(field_str)
+
+                        if val.startswith('MCH') and not val.startswith('MCHC') :
+                            MCH= ImageToText.extract_value(val,'MCH')
+                            print('The value of MCH here is ',MCH)
+                            ImageToText.update_DB('MCH',MCH)
+                            self.result_dict['MCH'] = MCH
+
             print("Testing young-->",self.result_dict)
             list_of_dict.append(self.result_dict)
             print("List of dict 2:", list_of_dict)
