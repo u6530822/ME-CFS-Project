@@ -130,6 +130,7 @@ class PageOne(tk.Frame):
 
         print("done printing ", name)
         self.result = object2
+        # self.result_files = image_to_text.list_of_dict
 
     def open_file(self):
 
@@ -153,10 +154,9 @@ class PageTwo(tk.Frame):
         label.pack(side="top", fill="x", pady=10)
 # get list from img2txt here
         self.result_files = [{'filename': 'file1', 'Sodium': '138', 'Potassium': '5.4'},
-                        {'filename': 'file2', 'Sodium': '111', 'Potassium': '3'},
-                        {'filename': 'file3', 'Sodium': '138', 'Potassium': '5.4'},
-                        {'filename': 'file4', 'Sodium': '138', 'Potassium': '5.4', 'Chloride': '103', 'Bicarbonate': '30', 'Urea': '4.8', 'Creatinine': '92', 'eGFR': '82', 'Albumin': '47', 'ALP': '76', 'Bilirubin': '12', 'GGT': '49', 'AST': '39', 'ALT': '52'}]
-        print("List of Dict in page 2: ",image_to_text.list_of_dict)
+                                {'filename': 'file1', 'Sodium': '138', 'Potassium': '5.4'}]
+                                
+        print("result_files ", self.result_files)
         #self.result_files = image_to_text.list_of_dict
         self.file_lstbx = Listbox(self)
         self.file_lstbx.bind('<<ListboxSelect>>', self.display_selected_file)
@@ -179,7 +179,7 @@ class PageTwo(tk.Frame):
 
     def display_selected_file(self, event):
         idx=(self.file_lstbx.curselection()[0])
-        self.result_files = image_to_text.list_of_dict
+        # self.result_files = image_to_text.list_of_dict
         display_dict = self.result_files[idx]
         self.treeview.delete(*self.treeview.get_children())
         self.insert_values(display_dict)
