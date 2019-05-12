@@ -1,18 +1,24 @@
 import tkinter as tk
 from tkinter import *
 import image_to_text
-import Filter
 from tkinter import filedialog
 from tkinter import font  as tkfont  # python 3
 from PIL import ImageTk, Image
 import check
 from tkinter.ttk import *
+import boto3
+import DBAccessKey
+from boto3.dynamodb.conditions import Key, Attr
 
+access_key_id_global=DBAccessKey.DBAccessKey.access_key_id_global
+secret_access_key_global=DBAccessKey.DBAccessKey.secret_access_key_global
 
 
 
 class GUI:
     name = ""
+    frames = {} #Nigel - Change this to global so that new frames can be added to it on the fly
+    filtered_output = [] #Nigel - Global variable to store filtered values
 
     def __init__(self):
         # tk.Tk.__init__(self, *args, **kwargs)
@@ -27,11 +33,13 @@ class GUI:
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
-        self.frames = {}
+        global frames #Nigel - Change this to global so that new frames can be added to it on the fly
+        frames = {} #Nigel - Change this to global so that new frames can be added to it on the fly
+
         for F in (StartPage, PageOne, PageTwo):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
-            self.frames[page_name] = frame
+            frames[page_name] = frame
 
             # put all of the pages in the same location;
             # the one on the top of the stacking order
@@ -43,7 +51,7 @@ class GUI:
 
     def show_frame(self, page_name):
         '''Show a frame for the given page name'''
-        frame = self.frames[page_name]
+        frame = frames[page_name]
         frame.tkraise()
 
 
@@ -91,6 +99,7 @@ class PageOne(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+        self.parent = parent
         label = tk.Label(self, text="Image Upload", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
@@ -119,15 +128,25 @@ class PageOne(tk.Frame):
                            command=lambda: self.callback(self.name))
         button.place(x=200, y=230)
 
+        ''' Filter function
+        '''
+        #Box to enter Ref no
+        self.filter_entry = StringVar()
+        self.filter_text = Entry(self, width=30, textvariable=self.filter_entry)
+        self.filter_text.place(x=160, y=380)
+
+        #Button to execute
+        button = tk.Button(self, text="Filter", highlightbackground='#3E4149',
+                           command=lambda: self.get_DB(self.filter_entry.get()))
+
+        button.place(x=230, y=430)
+
+
     def callback(self, name):
         self.controller.show_frame("PageTwo")
         print("printing " , name , " please wait")
         object2 = image_to_text.ImageToText(name)
         object2.print_filename()
-
-        #TODO: Tmp included here to test extract from database - "filtering"
-        #Filter.Filter_db.get_DB("C0007")
-
         print("done printing ", name)
         self.result = object2
 
@@ -143,6 +162,34 @@ class PageOne(tk.Frame):
         print("open file", self.name)
         self.fn_entry.set(self.name)
 
+    ##function for filter after button is pressed - Created by Nigel
+    def get_DB(self, Ref_no):
+
+        print("Ref no is "+Ref_no)
+
+        dynamodb = boto3.resource('dynamodb', region_name='ap-southeast-2', aws_access_key_id=access_key_id_global,
+                                  aws_secret_access_key=secret_access_key_global)
+        table = dynamodb.Table('ME_CFS_DB')
+
+        response = table.query(
+            KeyConditionExpression=Key('Reference_No').eq(Ref_no)
+        )
+
+        if response['Items']:
+            print("start of filter")
+            for i in response['Items']:
+                if i['Reference_No'] == Ref_no:
+                    for key in i.keys():
+                        perline = key + ": " + str(i[key])
+                        GUI.filtered_output.append(perline + "\n")
+        else:
+            print("Not found")
+            GUI.filtered_output.append("Not found" + "\n")
+
+        frame = FilterPage(parent=self.parent, controller=self.controller)
+        frames[FilterPage.__name__] = frame
+        frame.grid(row=0, column=0, sticky="nsew")
+        GUI.show_frame(self.controller, "FilterPage")
 
 class PageTwo(tk.Frame):
 
@@ -247,3 +294,20 @@ class PageTwo(tk.Frame):
         for result in self.result_dict.items():
             self.treeview.insert('', 'end', text=result[0], values=(result[1]))
 
+#Created by Nigel
+class FilterPage(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        label = tk.Label(self, text="Filtered Result", font=controller.title_font)
+        label.pack(side="top", fill="x", pady=10)
+
+        print(GUI.filtered_output)
+
+        self.filter_entry = StringVar()
+        self.filter_text = Label(self, textvariable=self.filter_entry, relief=RAISED)
+        self.filter_entry.set(GUI.filtered_output)
+        self.filter_text.place(x=160, y=50)
+
+        print("end of filter")
