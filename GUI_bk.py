@@ -117,7 +117,7 @@ class PageOne(tk.Frame):
         '''
         button = tk.Button(self, text="Start conversion", highlightbackground='#3E4149',
                            command=lambda: self.callback(self.name))
-        button.place(x=190, y=230)
+        button.place(x=200, y=230)
 
     def callback(self, name):
         self.controller.show_frame("PageTwo")
@@ -153,9 +153,7 @@ class PageTwo(tk.Frame):
         label.pack(side="top", fill="x", pady=10)
 # get list from img2txt here
         self.result_files = [{'filename': 'file1', 'Sodium': '138', 'Potassium': '5.4'},
-                        {'filename': 'file2', 'Sodium': '111', 'Potassium': '3'},
-                        {'filename': 'file3', 'Sodium': '138', 'Potassium': '5.4'},
-                        {'filename': 'file4', 'Sodium': '138', 'Potassium': '5.4', 'Chloride': '103', 'Bicarbonate': '30', 'Urea': '4.8', 'Creatinine': '92', 'eGFR': '82', 'Albumin': '47', 'ALP': '76', 'Bilirubin': '12', 'GGT': '49', 'AST': '39', 'ALT': '52'}]
+                        {'filename': 'file2', 'Sodium': '111', 'Potassium': '3'} ]
         print("List of Dict in page 2: ",image_to_text.list_of_dict)
         #self.result_files = image_to_text.list_of_dict
         self.file_lstbx = Listbox(self)
