@@ -182,10 +182,10 @@ class PageOne(tk.Frame):
                 if i['Reference_No'] == Ref_no:
                     for key in i.keys():
                         perline = key + ": " + str(i[key])
-                        GUI.filtered_output.append(perline + "\n")
+                        GUI.filtered_output.append(perline)
         else:
             print("Not found")
-            GUI.filtered_output.append("Not found" + "\n")
+            GUI.filtered_output.append("Not found")
 
         frame = FilterPage(parent=self.parent, controller=self.controller)
         frames[FilterPage.__name__] = frame
@@ -311,9 +311,37 @@ class FilterPage(tk.Frame):
 
         print(GUI.filtered_output)
 
-        self.filter_entry = StringVar()
-        self.filter_text = Label(self, textvariable=self.filter_entry, relief=RAISED)
-        self.filter_entry.set(GUI.filtered_output)
-        self.filter_text.place(x=160, y=50)
+        #self.filter_entry = StringVar()
+        #self.filter_text = Label(self, textvariable=self.filter_entry, relief=RAISED)
+        #self.filter_entry.set(GUI.filtered_output)
+        #self.filter_text.place(x=160, y=50)
 
         print("end of filter")
+
+
+        self.createTable()
+        # self.insert_values()
+
+    def createTable(self):
+        tv = Treeview(self, height=20)
+        tv['columns'] = ('values')
+        tv.heading("#0", text='Attributes', anchor='w')
+        tv.column("#0", anchor="w")
+        tv.heading('values', text='Values')
+        tv.column('values', anchor='center', width=50)
+        vsb = tk.Scrollbar(tv, orient="vertical", command=tv.yview)
+        vsb.place(x=387, y=0, height=30)
+        tv.configure(yscrollcommand=vsb.set)
+        # TODO: figure out where to place the scroll bar
+
+        self.treeview = tv
+        self.treeview.pack(pady=5)
+
+        self.insert_values(GUI.filtered_output)
+
+    def insert_values(self, display_dict):
+        self.result_dict = display_dict
+        for result in self.result_dict:
+            result2 = result.split(": ")
+            print("result is " + result)
+            self.treeview.insert('', 'end', text=result2[0], values=(result2[1]))
