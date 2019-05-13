@@ -202,7 +202,7 @@ class PageTwo(tk.Frame):
         self.result_files = [{'filename': 'Sample1', 'Sodium': '138', 'Potassium': '5.4'}]
         self.result_dict = image_to_text.list_of_dict
         self.file_lstbx = Listbox(self)
-        self.file_lstbx.bind('<Motion>', self.insert_files)
+        self.file_lstbx.bind('<B1-Motion>', self.insert_files)
         self.file_lstbx.bind('<<ListboxSelect>>', self.display_selected_file)
         self.file_lstbx.pack()
         # testvis = self.master.wait_visibility() # run event loop until window appearss
@@ -241,6 +241,7 @@ class PageTwo(tk.Frame):
 
 
     def insert_files(self,event):
+    	print("MOVE")
     	self.file_lstbx.delete(0, END)
     	self.result_files = image_to_text.list_of_dict
     	for file_name in self.result_files:
@@ -256,11 +257,13 @@ class PageTwo(tk.Frame):
 
     def createTable(self):
         tv = Treeview(self)
-        tv['columns'] = ('values')
+        tv['columns'] = ('values', 'comment')
         tv.heading("#0", text='Attributes', anchor='w')
         tv.column("#0", anchor="w")
         tv.heading('values', text='Values')
         tv.column('values', anchor='center', width=80)
+        tv.heading('comment', text='Comment')
+        tv.column('comment', anchor='center', width=80)
         # tv.heading('content', text='Content')
         # tv.column('content', anchor='center', width=50)
         tv.bind('<Double-1>', self.onDoubleClick) # Double-click the left button to enter the edit
