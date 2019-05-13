@@ -47,7 +47,7 @@ class GUI:
             frame.grid(row=0, column=0, sticky="nsew")
             # frame.pack()
 
-        self.show_frame("PageOne")
+        self.show_frame("StartPage")
 
     def show_frame(self, page_name):
         '''Show a frame for the given page name'''
@@ -88,7 +88,7 @@ class StartPage(tk.Frame):
         login_checker = check.LoginCheck(username_tocheck, password_tocheck)
         # print(login_checker.check_login())
         if (login_checker.check_login()):
-            self.controller.show_frame("PageTwo")
+            self.controller.show_frame("PageOne")
         else:
             self.username_entry.delete(0, 'end')
             self.password_entry.delete(0, 'end')
