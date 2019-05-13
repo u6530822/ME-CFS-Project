@@ -10,15 +10,14 @@ import boto3
 import DBAccessKey
 from boto3.dynamodb.conditions import Key, Attr
 
-access_key_id_global=DBAccessKey.DBAccessKey.access_key_id_global
-secret_access_key_global=DBAccessKey.DBAccessKey.secret_access_key_global
-
+access_key_id_global = DBAccessKey.DBAccessKey.access_key_id_global
+secret_access_key_global = DBAccessKey.DBAccessKey.secret_access_key_global
 
 
 class GUI:
     name = ""
-    frames = {} #Nigel - Change this to global so that new frames can be added to it on the fly
-    filtered_output = [] #Nigel - Global variable to store filtered values
+    frames = {}  # Nigel - Change this to global so that new frames can be added to it on the fly
+    filtered_output = []  # Nigel - Global variable to store filtered values
 
     def __init__(self):
         # tk.Tk.__init__(self, *args, **kwargs)
@@ -27,14 +26,44 @@ class GUI:
         self.master.minsize(500, 500)
         # self.frame = tk.Frame(self.master)
         self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
+        # self.master.wm_attributes('-transparent', True)
+
+        # Hide the root window drag bar and close button
+        # self.master.overrideredirect(True)
+        # # Make the root window always on top
+        # self.master.wm_attributes("-topmost", True)
+        # # Turn off the window shadow
+        # self.master.wm_attributes("-transparent", True)
+        # # Set the root window background color to a transparent color
+        # self.master.config(bg='systemTransparent')
+        #
+        # self.master.geometry("+300+300")
+        #
+        # # Store the PhotoImage to prevent early garbage collection
+        # self.master.image = tk.PhotoImage(file="bgimg.gif")
+        # # Display the image on a label
+        # label = tk.Label(self.master, image=self.master.image)
+        # # Set the label background color to a transparent color
+        # label.config(bg='systemTransparent')
+        # # label.pack()
+        # # self.master.attributes('-alpha', 0.5)
 
         container = tk.Frame(self.master)
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
-        global frames #Nigel - Change this to global so that new frames can be added to it on the fly
-        frames = {} #Nigel - Change this to global so that new frames can be added to it on the fly
+        # self.image = Image.open("bgimg.gif")
+        # self.img_copy = self.image.copy()
+        #
+        # self.background_image = ImageTk.PhotoImage(self.image)
+        #
+        # self.background = Label(self.master, image=self.background_image)
+        # self.background.pack(fill=BOTH, expand=YES)
+
+        global frames
+        frames = {}
+        # Nigel - Change this to global so that new frames can be added to it on the fly
 
         for F in (StartPage, PageOne, PageTwo):
             page_name = F.__name__
@@ -45,7 +74,7 @@ class GUI:
             # the one on the top of the stacking order
             # will be the one that is visible.
             frame.grid(row=0, column=0, sticky="nsew")
-            # frame.pack()
+            # frame.place(x = 0, y = 0)
 
         self.show_frame("StartPage")
 
@@ -60,6 +89,13 @@ class StartPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+
+        self.image = Image.open("bgimg.gif")
+        self.img_copy = self.image.copy()
+        self.background_image = ImageTk.PhotoImage(self.image)
+        self.background = Label(self, image=self.background_image)
+        self.background.place(x=0, y=0)
+
         label = tk.Label(self, text="Welcome to ME/CFS", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
@@ -99,6 +135,13 @@ class PageOne(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+
+        self.image = Image.open("bgimg.gif")
+        self.img_copy = self.image.copy()
+        self.background_image = ImageTk.PhotoImage(self.image)
+        self.background = Label(self, image=self.background_image)
+        self.background.place(x=0, y=0)
+
         self.parent = parent
         label = tk.Label(self, text="Image Upload", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
@@ -115,8 +158,8 @@ class PageOne(tk.Frame):
         # panel.pack(side = "bottom", fill = "both", expand = "yes")
         ''' preview of the file
         '''
-      #  self.file_lb = tk.Label(self, text="selected file: ", font=controller.title_font)
-      #  self.file_lb.place(x=180, y=150)
+        #  self.file_lb = tk.Label(self, text="selected file: ", font=controller.title_font)
+        #  self.file_lb.place(x=180, y=150)
 
         self.fn_entry = StringVar()
         self.file_text = Entry(self, width=30, textvariable=self.fn_entry)
@@ -130,21 +173,20 @@ class PageOne(tk.Frame):
 
         ''' Filter function
         '''
-        #Box to enter Ref no
+        # Box to enter Ref no
         self.filter_entry = StringVar()
         self.filter_text = Entry(self, width=30, textvariable=self.filter_entry)
         self.filter_text.place(x=160, y=200)
 
-        #Button to execute
+        # Button to execute
         button = tk.Button(self, text="Filter", highlightbackground='#3E4149',
                            command=lambda: self.get_DB(self.filter_entry.get()))
 
         button.place(x=230, y=230)
 
-
     def callback(self, name):
         self.controller.show_frame("PageTwo")
-        print("printing " , name , " please wait")
+        print("printing ", name, " please wait")
         object2 = image_to_text.ImageToText(name)
         object2.print_filename()
         print("done printing ", name)
@@ -157,7 +199,7 @@ class PageOne(tk.Frame):
         /Users/Julius/Downloads/ME/ME-CFS-Project/Sample.png
         """
         self.master.filename = filedialog.askopenfilenames(initialdir="/", title="Select file",
-                                                          filetypes=(("png files", "*.png"), ("all files", "*.*")))
+                                                           filetypes=(("png files", "*.png"), ("all files", "*.*")))
         print(self.master.filename)
         self.name = self.master.filename
         print("open file", self.name)
@@ -166,7 +208,7 @@ class PageOne(tk.Frame):
     ##function for filter after button is pressed - Created by Nigel
     def get_DB(self, Ref_no):
 
-        print("Ref no is "+Ref_no)
+        print("Ref no is " + Ref_no)
 
         dynamodb = boto3.resource('dynamodb', region_name='ap-southeast-2', aws_access_key_id=access_key_id_global,
                                   aws_secret_access_key=secret_access_key_global)
@@ -183,9 +225,9 @@ class PageOne(tk.Frame):
                         perline = key + ": " + str(i[key])
                         GUI.filtered_output.append(perline)
             print("start of filter")
-            frame = FilterPage(parent = self.parent, controller = self.controller)
+            frame = FilterPage(parent=self.parent, controller=self.controller)
             frames[FilterPage.__name__] = frame
-            frame.grid(row = 0, column =0, sticky = "nsew")
+            frame.grid(row=0, column=0, sticky="nsew")
             GUI.show_frame(self.controller, "FilterPage")
         else:
             print("Not found")
@@ -199,6 +241,13 @@ class PageTwo(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+
+        self.image = Image.open("bgimg.gif")
+        self.img_copy = self.image.copy()
+        self.background_image = ImageTk.PhotoImage(self.image)
+        self.background = Label(self, image=self.background_image)
+        self.background.place(x=0, y=0)
+
         label = tk.Label(self, text="Result page", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
         self.result_files = [{'filename': 'Sample1', 'Sodium': '138', 'Potassium': '5.4'}]
@@ -212,53 +261,52 @@ class PageTwo(tk.Frame):
         # self.master.after_idle(self.insert_files)
         self.createTable()
         submit_to_dbs_button = tk.Button(self, text="Upload", highlightbackground='#3E4149',
-                                         command = lambda: self.DBS_upload())
+                                         command=lambda: self.DBS_upload())
         submit_to_dbs_button.pack()
         back_previous_bt = tk.Button(self, text="Back", highlightbackground='#3E4149',
-                                         command = lambda: self.controller.show_frame("PageOne"))
-        back_previous_bt.place(x = 0, y = 0)
+                                     command=lambda: self.controller.show_frame("PageOne"))
+        back_previous_bt.place(x=0, y=0)
 
     def DBS_upload(self):
-        print("in DBS_upload:",self.result_dict)
-        string_val=self.result_dict['Reference_No']
-        print("String val:",string_val)
+        print("in DBS_upload:", self.result_dict)
+        string_val = self.result_dict['Reference_No']
+        print("String val:", string_val)
         boolean_val = image_to_text.ImageToText.check_entry_exist(string_val)
-        print("if that entry already exist:",boolean_val)
-        if(boolean_val):
+        print("if that entry already exist:", boolean_val)
+        if (boolean_val):
             print("Update it")
-            #update it only
+            # update it only
             for val in self.result_dict:
-                if(val!='Reference_No' and val!='Date_Time'):
-                    print("Resuld_dict:",val," value:",self.result_dict[val])
+                if (val != 'Reference_No' and val != 'Date_Time'):
+                    print("Resuld_dict:", val, " value:", self.result_dict[val])
                     val1 = val.replace('.', '_')
-                    image_to_text.ImageToText.update_DB(val1,self.result_dict[val],self.result_dict['Reference_No'],self.result_dict['Date_Time'])
+                    image_to_text.ImageToText.update_DB(val1, self.result_dict[val], self.result_dict['Reference_No'],
+                                                        self.result_dict['Date_Time'])
 
         else:
             print("Create it")
-            #create it and update it
-            image_to_text.ImageToText.write_to_DB(self.result_dict['Reference_No'],self.result_dict['Date_Time'])
+            # create it and update it
+            image_to_text.ImageToText.write_to_DB(self.result_dict['Reference_No'], self.result_dict['Date_Time'])
             for val in self.result_dict:
-                if(val!='Reference_No' and val!='Date_Time'):
-                    print("Resuld_dict:",val," value:",self.result_dict[val])
+                if (val != 'Reference_No' and val != 'Date_Time'):
+                    print("Resuld_dict:", val, " value:", self.result_dict[val])
                     val1 = val.replace('.', '_')
-                    image_to_text.ImageToText.update_DB(val1,self.result_dict[val],self.result_dict['Reference_No'],self.result_dict['Date_Time'])
+                    image_to_text.ImageToText.update_DB(val1, self.result_dict[val], self.result_dict['Reference_No'],
+                                                        self.result_dict['Date_Time'])
 
-
-
-    def insert_files(self,event):
-    	print("MOVE")
-    	self.file_lstbx.delete(0, END)
-    	self.result_files = image_to_text.list_of_dict
-    	for file_name in self.result_files:
+    def insert_files(self, event):
+        # print("MOVE")
+        self.file_lstbx.delete(0, END)
+        self.result_files = image_to_text.list_of_dict
+        for file_name in self.result_files:
             self.file_lstbx.insert(END, file_name["filename"])
 
     def display_selected_file(self, event):
         # self.file_lstbx.delete(0, END)
-        idx=(self.file_lstbx.curselection()[0])
+        idx = (self.file_lstbx.curselection()[0])
         display_dict = self.result_files[idx]
         self.treeview.delete(*self.treeview.get_children())
         self.insert_values(display_dict)
-
 
     def createTable(self):
         tv = Treeview(self)
@@ -271,14 +319,14 @@ class PageTwo(tk.Frame):
         tv.column('comment', anchor='center', width=80)
         # tv.heading('content', text='Content')
         # tv.column('content', anchor='center', width=50)
-        tv.bind('<Double-1>', self.onDoubleClick) # Double-click the left button to enter the edit
+        tv.bind('<Double-1>', self.onDoubleClick)  # Double-click the left button to enter the edit
 
         vsb = tk.Scrollbar(tv, orient="vertical", command=tv.yview)
         vsb.place(x=387, y=0, height=230)
         tv.configure(yscrollcommand=vsb.set)
         # TODO: figure out where to place the scroll bar
 
-        #tv.grid(sticky=(N, S, W, E))   # not sure why this line gives me error
+        # tv.grid(sticky=(N, S, W, E))   # not sure why this line gives me error
         self.treeview = tv
         self.treeview.pack(pady=5)
 
@@ -286,24 +334,24 @@ class PageTwo(tk.Frame):
         ''' Executed, when a row is double-clicked. Opens 
         read-only EntryPopup above the item's column, so it is possible
         to select text '''
-        item = self.treeview.selection()[0] # now you got the item on that tree
-        print ("you clicked on " + item)
+        item = self.treeview.selection()[0]  # now you got the item on that tree
+        print("you clicked on " + item)
         # what row and column was clicked on
         rowid = self.treeview.identify_row(event.y)
         columnid = self.treeview.identify_column(event.x)
-        cn = int(str(columnid).replace('#',''))
-        rn = int(str(rowid).replace('I',''))
+        cn = int(str(columnid).replace('#', ''))
+        rn = int(str(rowid).replace('I', ''))
         print(rowid, columnid, cn, rn)
 
-        entryedit = Text(self.treeview, width=10+(cn-1)*16,height = 1)
-        entryedit.place(x=200, y=6+rn*20)
+        entryedit = Text(self.treeview, width=10 + (cn - 1) * 16, height=1)
+        entryedit.place(x=200, y=6 + rn * 20)
 
         def saveedit():
             changed_value = entryedit.get(0.0, "end").rstrip("\n")
             attri_text = self.treeview.item(self.treeview.focus())["text"]
-            self.treeview.set(item, column = columnid, value = changed_value)
+            self.treeview.set(item, column=columnid, value=changed_value)
             dict_to_change = {
-                attri_text : changed_value
+                attri_text: changed_value
             }
             self.result_dict.update(dict_to_change)
             # update array
@@ -311,34 +359,40 @@ class PageTwo(tk.Frame):
             entryedit.destroy()
             confirm_button.destroy()
             # TODO: change x y position here
+
         confirm_button = tk.Button(self, text='OK', width=4, command=saveedit)
-        confirm_button.place(x=455+(cn-1)*242,y=240+rn*20)
+        confirm_button.place(x=455 + (cn - 1) * 242, y=240 + rn * 20)
 
     def insert_values(self, display_dict):
 
-	# def insert_values(self, display_dict):
+        # def insert_values(self, display_dict):
         self.result_dict = display_dict
         for result in self.result_dict.items():
             self.treeview.insert('', 'end', text=result[0], values=(result[1]))
-                    
-    
 
-#Created by Nigel
+
+# Created by Nigel
 class FilterPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+
+        self.image = Image.open("bgimg.gif")
+        self.img_copy = self.image.copy()
+        self.background_image = ImageTk.PhotoImage(self.image)
+        self.background = Label(self, image=self.background_image)
+        self.background.place(x=0, y=0)
+
         label = tk.Label(self, text="Filtered Result", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
         back_previous_bt = tk.Button(self, text="Back", highlightbackground='#3E4149',
-                                         command = lambda: self.controller.show_frame("PageOne"))
-        back_previous_bt.place(x = 0, y = 0)
+                                     command=lambda: self.controller.show_frame("PageOne"))
+        back_previous_bt.place(x=0, y=0)
 
         print(GUI.filtered_output)
 
         print("end of filter")
-
 
         self.createTable()
         # self.insert_values()
