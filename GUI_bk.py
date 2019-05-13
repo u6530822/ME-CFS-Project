@@ -200,18 +200,15 @@ class PageTwo(tk.Frame):
         label = tk.Label(self, text="Result page", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
         self.result_files = [{'filename': 'Sample1', 'Sodium': '138', 'Potassium': '5.4'}]
-        # testvis = self.master.wait_visibility() # run event loop until window appearss
         self.result_dict = image_to_text.list_of_dict
-        # self.master.wait_variable(self.result_files)
         self.file_lstbx = Listbox(self)
         self.file_lstbx.bind('<Motion>', self.insert_files)
         self.file_lstbx.bind('<<ListboxSelect>>', self.display_selected_file)
-        for file_name in self.result_files:
-            self.file_lstbx.insert(END, file_name["filename"])
         self.file_lstbx.pack()
+        # testvis = self.master.wait_visibility() # run event loop until window appearss
+        # self.master.wait_variable(self.result_files)
         # self.master.after_idle(self.insert_files)
         self.createTable()
-
         submit_to_dbs_button = tk.Button(self, text="Submit to DBS", highlightbackground='#3E4149',
                                          command = lambda: self.DBS_upload())
         submit_to_dbs_button.pack()
