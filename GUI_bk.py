@@ -80,7 +80,7 @@ class StartPage(tk.Frame):
 
         button_login = tk.Button(self, text="Login", highlightbackground='#3E4149',
                                  command=self.check_pswd)
-        button_login.place(x=240, y=140)
+        button_login.place(x=230, y=140)
 
     def check_pswd(self):
         username_tocheck = self.username_entry.get()
@@ -245,7 +245,11 @@ class PageTwo(tk.Frame):
     	self.file_lstbx.delete(0, END)
     	self.result_files = image_to_text.list_of_dict
     	for file_name in self.result_files:
-            self.file_lstbx.insert(END, file_name["filename"])
+            short_filename = file_name["filename"].split('/')
+            print("filename:", short_filename)
+            filename_display= short_filename[-1]
+            self.file_lstbx.insert(END, filename_display)
+            #self.file_lstbx.insert(END, file_name["filename"])
 
     def display_selected_file(self, event):
         # self.file_lstbx.delete(0, END)
