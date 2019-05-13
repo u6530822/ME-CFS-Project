@@ -26,7 +26,7 @@ class GUI:
         self.master = Tk()
         self.master.minsize(500, 500)
         # self.frame = tk.Frame(self.master)
-        self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
+        self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold")
 
         container = tk.Frame(self.master)
         container.pack(side="top", fill="both", expand=True)
