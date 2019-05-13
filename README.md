@@ -54,19 +54,24 @@ Supervisor and product owner: Brett Lidbury
 # Stakeholders
 Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will have weekly connects with him. Our secondary contact is Dr. Alice Richardson. 
 
-# Support Documentation
-
-[Project Documentation Folder](https://drive.google.com/open?id=1fHtWXQIDxyIFErwrestoyBETrUFVW-Yq)<br />
+# Project Artifacts
 [Signed Statement of Work](https://docs.google.com/document/d/1eFEJfMPe0xbD6Jfw6KpZf4wzqcFAI8vjizMkaUJH-Dk/edit?usp=sharing)<br />
 [Signed Product Backlog/Acceptance Criteria](https://drive.google.com/open?id=154SpNfr9QrG_j6Xw1HOSoIcJ5UUipYOH)<br />
-[Meeting Minutes](https://drive.google.com/open?id=1PdPVHMijHiBvzMBqYQPptPX4WbBsXGjE)<br />
-[Testing Summary](https://drive.google.com/open?id=1GlXRLAL1TPeR7_wVfNAkTnE9Sw4SnoZHDcEf3BC4tjs)<br />
 [Approved DB Fields](https://drive.google.com/file/d/1NbsGXRXQ0QnQ8ItyiEVDQO5VlD8_Rv8t/view?usp=sharing)<br />
-[Slack Channel](https://mecfs-workspace.slack.com/messages/CGPA6LS90/)<br />
-[Issue Tracking](https://github.com/u6530822/ME-CFS-Project/issues)<br />
 [Iteration Tracking](https://drive.google.com/drive/u/1/folders/1c-zunhc9ArRkqTRCivM0X3Kt2iIH-1Nx)<br />
+
+# Communication 
+[Slack Channel](https://mecfs-workspace.slack.com/messages/CGPA6LS90/)<br />
+[Meeting Minutes](https://drive.google.com/open?id=1PdPVHMijHiBvzMBqYQPptPX4WbBsXGjE)<br />
+
+# Quality Assurance
 [Technical Specification](https://drive.google.com/file/d/1xuPRZXNygvWiQU0BOwUbPlI6k1vXGzfA/view?usp=sharing)<br />
+[Issue Tracking](https://github.com/u6530822/ME-CFS-Project/issues)<br />
 [Feedback Log](https://drive.google.com/open?id=15BJ5XNeOg506WVSW6oJ9KiIewVI6bu0y)<br />
+[Testing Summaries](https://drive.google.com/open?id=1GlXRLAL1TPeR7_wVfNAkTnE9Sw4SnoZHDcEf3BC4tjs)<br />
+
+# Support Documentation
+[Project Documentation Folder](https://drive.google.com/open?id=1fHtWXQIDxyIFErwrestoyBETrUFVW-Yq)<br />
 
 # Current Progress
 #### [Progress Report Folder](https://drive.google.com/drive/u/1/folders/1_xgkb4bs7dScdkAQv_ZJaXaIq126nBvf)<br />
