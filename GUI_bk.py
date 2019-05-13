@@ -177,20 +177,22 @@ class PageOne(tk.Frame):
         )
 
         if response['Items']:
-            print("start of filter")
             for i in response['Items']:
                 if i['Reference_No'] == Ref_no:
                     for key in i.keys():
                         perline = key + ": " + str(i[key])
                         GUI.filtered_output.append(perline)
+            print("start of filter")
+            frame = FilterPage(parent = self.parent, controller = self.controller)
+            frames[FilterPage.__name__] = frame
+            frame.grid(row = 0, column =0, sticky = "nsew")
+            GUI.show_frame(self.controller, "FilterPage")
         else:
             print("Not found")
-            GUI.filtered_output.append("Not found")
+            # self.filter_entry(0, 'end')
+            self.filter_entry.set("Invalid Reference No.")
+            # GUI.filtered_output.append("Not found")
 
-        frame = FilterPage(parent=self.parent, controller=self.controller)
-        frames[FilterPage.__name__] = frame
-        frame.grid(row=0, column=0, sticky="nsew")
-        GUI.show_frame(self.controller, "FilterPage")
 
 class PageTwo(tk.Frame):
 
@@ -209,9 +211,12 @@ class PageTwo(tk.Frame):
         # self.master.wait_variable(self.result_files)
         # self.master.after_idle(self.insert_files)
         self.createTable()
-        submit_to_dbs_button = tk.Button(self, text="Submit to DBS", highlightbackground='#3E4149',
+        submit_to_dbs_button = tk.Button(self, text="Upload", highlightbackground='#3E4149',
                                          command = lambda: self.DBS_upload())
         submit_to_dbs_button.pack()
+        back_previous_bt = tk.Button(self, text="Back", highlightbackground='#3E4149',
+                                         command = lambda: self.controller.show_frame("PageOne"))
+        back_previous_bt.place(x = 0, y = 0)
 
     def DBS_upload(self):
         print("in DBS_upload:",self.result_dict)
@@ -287,17 +292,12 @@ class PageTwo(tk.Frame):
         to select text '''
         item = self.treeview.selection()[0] # now you got the item on that tree
         print ("you clicked on " + item)
-
-        # close previous popups
-        # self.destroyPopups()
-
         # what row and column was clicked on
         rowid = self.treeview.identify_row(event.y)
         columnid = self.treeview.identify_column(event.x)
-
-        # TODO: change the position of entry and ok button
         cn = int(str(columnid).replace('#',''))
         rn = int(str(rowid).replace('I',''))
+        print(rowid, columnid, cn, rn)
 
         entryedit = Text(self.treeview, width=10+(cn-1)*16,height = 1)
         entryedit.place(x=200, y=6+rn*20)
@@ -335,6 +335,9 @@ class FilterPage(tk.Frame):
         self.controller = controller
         label = tk.Label(self, text="Filtered Result", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
+        back_previous_bt = tk.Button(self, text="Back", highlightbackground='#3E4149',
+                                         command = lambda: self.controller.show_frame("PageOne"))
+        back_previous_bt.place(x = 0, y = 0)
 
         print(GUI.filtered_output)
 
