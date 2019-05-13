@@ -251,7 +251,7 @@ class PageTwo(tk.Frame):
     	self.result_files = image_to_text.list_of_dict
     	for file_name in self.result_files:
             short_filename = file_name["filename"].split('/')
-            print("filename:", short_filename)
+            #print("filename:", short_filename)
             filename_display= short_filename[-1]
             self.file_lstbx.insert(END, filename_display)
             #self.file_lstbx.insert(END, file_name["filename"])
