@@ -220,9 +220,9 @@ class ImageToText:
                             #ImageToText.update_DB('MCH',MCH)
                             self.result_dict['MCH'] = MCH
 
-            print("Testing young-->",self.result_dict)
+            # print("Testing young-->",self.result_dict)
             list_of_dict.append(self.result_dict)
-            print("List of dict 2:", list_of_dict)
+            # print("List of dict 2:", list_of_dict)
 
 
             # GUI_bk.PageTwo.insert_results(input)
