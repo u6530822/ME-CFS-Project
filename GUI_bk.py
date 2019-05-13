@@ -47,7 +47,7 @@ class GUI:
             frame.grid(row=0, column=0, sticky="nsew")
             # frame.pack()
 
-        self.show_frame("PageTwo")
+        self.show_frame("PageOne")
 
     def show_frame(self, page_name):
         '''Show a frame for the given page name'''
@@ -149,7 +149,7 @@ class PageOne(tk.Frame):
         object2.print_filename()
         print("done printing ", name)
         self.result = object2
-        # self.result_files = image_to_text.list_of_dict
+        self.result_files = image_to_text.list_of_dict
 
     def open_file(self):
 
@@ -199,26 +199,21 @@ class PageTwo(tk.Frame):
         self.controller = controller
         label = tk.Label(self, text="Result page", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
-# get list from img2txt here
-        self.result_files = [{'filename': 'file1', 'Sodium': '138', 'Potassium': '5.4'},
-                                {'filename': 'file2', 'Sodium': '138', 'Potassium': '5.4'}]
-                                
-        print("List of Dict in page 2: ",image_to_text.list_of_dict)
-        #self.result_files = image_to_text.list_of_dict
+        self.result_files = [{'filename': 'Sample1', 'Sodium': '138', 'Potassium': '5.4'}]
+        # testvis = self.master.wait_visibility() # run event loop until window appearss
+        self.result_dict = image_to_text.list_of_dict
+        # self.master.wait_variable(self.result_files)
         self.file_lstbx = Listbox(self)
+        self.file_lstbx.bind('<Motion>', self.insert_files)
         self.file_lstbx.bind('<<ListboxSelect>>', self.display_selected_file)
         for file_name in self.result_files:
             self.file_lstbx.insert(END, file_name["filename"])
         self.file_lstbx.pack()
-        # TODO: change x and y position
-
+        # self.master.after_idle(self.insert_files)
         self.createTable()
-        # self.insert_values()
-
 
         submit_to_dbs_button = tk.Button(self, text="Submit to DBS", highlightbackground='#3E4149',
                                          command = lambda: self.DBS_upload())
-
         submit_to_dbs_button.pack()
 
     def DBS_upload(self):
@@ -228,9 +223,15 @@ class PageTwo(tk.Frame):
     	# imgtotext.update_DB
     	print("in DBS_upload")
 
+    def insert_files(self,event):
+    	self.file_lstbx.delete(0, END)
+    	self.result_files = image_to_text.list_of_dict
+    	for file_name in self.result_files:
+            self.file_lstbx.insert(END, file_name["filename"])
+
     def display_selected_file(self, event):
+        # self.file_lstbx.delete(0, END)
         idx=(self.file_lstbx.curselection()[0])
-        # self.result_files = image_to_text.list_of_dict
         display_dict = self.result_files[idx]
         self.treeview.delete(*self.treeview.get_children())
         self.insert_values(display_dict)
@@ -242,7 +243,7 @@ class PageTwo(tk.Frame):
         tv.heading("#0", text='Attributes', anchor='w')
         tv.column("#0", anchor="w")
         tv.heading('values', text='Values')
-        tv.column('values', anchor='center', width=50)
+        tv.column('values', anchor='center', width=80)
         # tv.heading('content', text='Content')
         # tv.column('content', anchor='center', width=50)
         tv.bind('<Double-1>', self.onDoubleClick) # Double-click the left button to enter the edit
@@ -292,13 +293,15 @@ class PageTwo(tk.Frame):
             # TODO: change x y position here
         confirm_button = tk.Button(self, text='OK', width=4, command=saveedit)
         confirm_button.place(x=455+(cn-1)*242,y=240+rn*20)
-        
+
     def insert_values(self, display_dict):
-        # self.result_dict = {'filename': 'filename', 'Sodium': '138', 'Potassium': '5.4', 'Chloride': '103', 'Bicarbonate': '30', 'Urea': '4.8', 'Creatinine': '92', 'eGFR': '82', 'Albumin': '47', 'ALP': '76', 'Bilirubin': '12', 'GGT': '49', 'AST': '39', 'ALT': '52'}
+
+	# def insert_values(self, display_dict):
         self.result_dict = display_dict
-        # print(self.result_dict)
         for result in self.result_dict.items():
             self.treeview.insert('', 'end', text=result[0], values=(result[1]))
+                    
+    
 
 #Created by Nigel
 class FilterPage(tk.Frame):
@@ -310,11 +313,6 @@ class FilterPage(tk.Frame):
         label.pack(side="top", fill="x", pady=10)
 
         print(GUI.filtered_output)
-
-        #self.filter_entry = StringVar()
-        #self.filter_text = Label(self, textvariable=self.filter_entry, relief=RAISED)
-        #self.filter_entry.set(GUI.filtered_output)
-        #self.filter_text.place(x=160, y=50)
 
         print("end of filter")
 
@@ -343,5 +341,5 @@ class FilterPage(tk.Frame):
         self.result_dict = display_dict
         for result in self.result_dict:
             result2 = result.split(": ")
-            print("result is " + result)
+            # print("result is " + result)
             self.treeview.insert('', 'end', text=result2[0], values=(result2[1]))
