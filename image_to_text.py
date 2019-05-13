@@ -24,6 +24,7 @@ class ImageToText:
     global Ref_no
     global Collected_Date_time
 
+
     def extract_value(val_local,name):
         # extrat whole text to string and number as different lines
 
@@ -114,7 +115,8 @@ class ImageToText:
             input = ''
             global Ref_no
             global Collected_Date_time
-            
+
+
             counter = 0
             check = 2
             count1 = 0
@@ -126,6 +128,7 @@ class ImageToText:
                 "filename" : filename
             }
 # TODO: get the file name, I cannot find where is it
+
             for val in text:
 
                 if val.startswith('Patient'):

@@ -250,7 +250,7 @@ class PageTwo(tk.Frame):
 
     def display_selected_file(self, event):
         idx=(self.file_lstbx.curselection()[0])
-        # self.result_files = image_to_text.list_of_dict
+        self.result_files = image_to_text.list_of_dict
         display_dict = self.result_files[idx]
         self.treeview.delete(*self.treeview.get_children())
         self.insert_values(display_dict)
