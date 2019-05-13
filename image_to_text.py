@@ -67,11 +67,11 @@ class ImageToText:
         response = table.put_item(
             Item={
                 'Reference_No': Ref_no,
-                'Date_Time': Date_time,
+                'Date_Time': int(Date_time),
             }
         )
 
-    def update_DB(name,value):
+    def update_DB(name,value,Ref_no,Collected_Date_time):
         # check existing or not
         # update the existing record
 
@@ -103,7 +103,7 @@ class ImageToText:
                 # print(field_str + ' = ' +result_str)
                 self.result_dict[field_str] = result_str
                 string2=field_str.replace('.','_')
-                ImageToText.update_DB(string2,result_str)
+                #ImageToText.update_DB(string2,result_str) #updating the values from GUI end instead
 
         #process it here. when it opens, it shouldnt be a tuple. should be string, loop it
         for filename in self.name:
@@ -166,8 +166,10 @@ class ImageToText:
                         Collected_Date_time_pre = Collected_Date_time_pre.replace(":", '')
                         print("pre is" + Collected_Date_time_pre)
                         Collected_Date_time = Collected_Date_time_pre
-                        print("ref no is " + Ref_no)
-                        print("date time is " + Collected_Date_time)
+                        print("loop 1:ref no is " + Ref_no)
+                        print("loop 1:date time is " + Collected_Date_time)
+                        self.result_dict['Date_Time'] = Collected_Date_time
+                        self.result_dict['Reference_No'] = Ref_no
 
                         #exist = ImageToText.check_entry_exist(Ref_no)
 
@@ -187,11 +189,14 @@ class ImageToText:
                         Collected_Date_time = Collected_Date_time.replace("/", '')
                         Collected_Date_time = Collected_Date_time.replace(" ", '')
                         Collected_Date_time = Collected_Date_time.replace(":", '')
-                        print("date time is " + Collected_Date_time)
+                        print("loop 2:date time is " + Collected_Date_time)
+                        Collected_Date_time_out = Collected_Date_time
+                        self.result_dict['Date_Time'] = Collected_Date_time
 
                     if 'Reference' in val:
                         Ref_no = ImageToText.extract_value(val, 'Reference')
-                        print("ref no is " + Ref_no)
+                        print("loop 2:ref no is " + Ref_no)
+                        self.result_dict['Reference_No'] = Ref_no
                         check = 2
 
                 elif check == 2:
@@ -209,7 +214,7 @@ class ImageToText:
                         if val.startswith('MCH') and not val.startswith('MCHC') :
                             MCH= ImageToText.extract_value(val,'MCH')
                             print('The value of MCH here is ',MCH)
-                            ImageToText.update_DB('MCH',MCH)
+                            #ImageToText.update_DB('MCH',MCH)
                             self.result_dict['MCH'] = MCH
 
             print("Testing young-->",self.result_dict)
@@ -217,17 +222,6 @@ class ImageToText:
             print("List of dict 2:", list_of_dict)
 
 
-            # And I need a list of dictionary of the result.
-            #[young] use this way to process t.protein and MCH, since they are not straightforward
-'''
-                        if val.startswith('T.Protein') :
-                            T_Protein= ImageToText.extract_value(val,'T.Protein')
-                            print('The value of T.Protein here is ',T_Protein)
-                            input = input + '\n' + 'T_Protein: ' + T_Protein
-                            ImageToText.update_DB('T_Protein',T_Protein)
-                            self.result_dict[field_str] = result_str
-                            
-'''
             # GUI_bk.PageTwo.insert_results(input)
             # print("Testing section")
             # print(text[0])

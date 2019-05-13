@@ -222,11 +222,31 @@ class PageTwo(tk.Frame):
         submit_to_dbs_button.pack()
 
     def DBS_upload(self):
-    	# Young 
-    	# self.resultfiles
-    	# for items in list
-    	# imgtotext.update_DB
-    	print("in DBS_upload")
+        print("in DBS_upload:",self.result_dict)
+        string_val=self.result_dict['Reference_No']
+        print("String val:",string_val)
+        boolean_val = image_to_text.ImageToText.check_entry_exist(string_val)
+        print("if that entry already exist:",boolean_val)
+        if(boolean_val):
+            print("Update it")
+            #update it only
+            for val in self.result_dict:
+                if(val!='Reference_No' and val!='Date_Time'):
+                    print("Resuld_dict:",val," value:",self.result_dict[val])
+                    val1 = val.replace('.', '_')
+                    image_to_text.ImageToText.update_DB(val1,self.result_dict[val],self.result_dict['Reference_No'],self.result_dict['Date_Time'])
+
+        else:
+            print("Create it")
+            #create it and update it
+            image_to_text.ImageToText.write_to_DB(self.result_dict['Reference_No'],self.result_dict['Date_Time'])
+            for val in self.result_dict:
+                if(val!='Reference_No' and val!='Date_Time'):
+                    print("Resuld_dict:",val," value:",self.result_dict[val])
+                    val1 = val.replace('.', '_')
+                    image_to_text.ImageToText.update_DB(val1,self.result_dict[val],self.result_dict['Reference_No'],self.result_dict['Date_Time'])
+
+
 
     def display_selected_file(self, event):
         idx=(self.file_lstbx.curselection()[0])
