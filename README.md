@@ -106,6 +106,11 @@ Likelihood: Possible
 Consequence: Moderate
 Priority: high
 Solutions: Obtain main stakeholder’s agreement on the possible removal of feature
+#### New record types to be considered apart from existing printed document samples
+Likelihood: Certain 
+Consequence: Major 
+Priority: high 
+Solutions: Obtain main stakeholder’s agreement on working on these records in a future implementation
 
 ### Ethical Risk
 #### Data security breach
