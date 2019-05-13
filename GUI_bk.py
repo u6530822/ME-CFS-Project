@@ -82,6 +82,7 @@ class StartPage(tk.Frame):
         usnm_lb.place(x=120, y=70)
 
         self.username_entry = Entry(self, width=24)
+        self.configure(highlightthickness = 0, highlightbackground = "black", borderwidth = 0)
         self.username_entry.place(x=180, y=70)
 
         password_lb = tk.Label(self, text="Password")
