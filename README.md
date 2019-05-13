@@ -11,8 +11,8 @@ The project is: To automate the extraction of valuable ME/CFS patient data into 
 # Project Administration
 ## Timeline
 Week 2-3: Requirement gathering and technology assessment/exploration. <br />
-Week 4-5: Iteration 1 & 2 – Work on Printed text conversion to digitalized documents.<br />
-Week 6-7: Iteration 3 & 4 – Work on Handwritten text conversion to digitalized documents.<br />
+Week 4-5: Work on Printed text conversion to digitalized documents.<br />
+Week 6-7: Work on Handwritten text conversion to digitalized documents.<br />
 Week 8-9: Full round of user acceptance testing and consolidation.<br />
 Week 10-12: Reflection and improvements.<br />
 
