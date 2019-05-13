@@ -24,6 +24,7 @@ class ImageToText:
     global Ref_no
     global Collected_Date_time
 
+
     def extract_value(val_local,name):
         # extrat whole text to string and number as different lines
 
@@ -114,7 +115,8 @@ class ImageToText:
             input = ''
             global Ref_no
             global Collected_Date_time
-            
+
+
             counter = 0
             check = 2
             count1 = 0
@@ -126,6 +128,7 @@ class ImageToText:
                 "filename" : filename
             }
 # TODO: get the file name, I cannot find where is it
+
             for val in text:
 
                 if val.startswith('Patient'):
@@ -171,26 +174,16 @@ class ImageToText:
                         self.result_dict['Date_Time'] = Collected_Date_time
                         self.result_dict['Reference_No'] = Ref_no
 
-                        #exist = ImageToText.check_entry_exist(Ref_no)
-
-                        #if exist:
-                        #    print("Entry already exist, do not create a new one")
-
-                        #else:
-                        #    print("Entry doesnt exist, create a new one")
-                        #    ImageToText.write_to_DB(Ref_no ,int(Collected_Date_time))
-
                         check = 2# enable harvesting
 
                 if check != 2 and not misaligned:
 
-                    if 'Reported' in val:
+                    if 'Collected' in val:
                         Collected_Date_time = ''.join(i for i in val if i.isdigit())  #remove alphabets
                         Collected_Date_time = Collected_Date_time.replace("/", '')
                         Collected_Date_time = Collected_Date_time.replace(" ", '')
                         Collected_Date_time = Collected_Date_time.replace(":", '')
                         print("loop 2:date time is " + Collected_Date_time)
-                        Collected_Date_time_out = Collected_Date_time
                         self.result_dict['Date_Time'] = Collected_Date_time
 
                     if 'Reference' in val:

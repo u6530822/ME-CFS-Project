@@ -25,28 +25,7 @@ class GUI:
         self.master = Tk()
         self.master.minsize(500, 500)
         # self.frame = tk.Frame(self.master)
-        self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
-        # self.master.wm_attributes('-transparent', True)
-
-        # Hide the root window drag bar and close button
-        # self.master.overrideredirect(True)
-        # # Make the root window always on top
-        # self.master.wm_attributes("-topmost", True)
-        # # Turn off the window shadow
-        # self.master.wm_attributes("-transparent", True)
-        # # Set the root window background color to a transparent color
-        # self.master.config(bg='systemTransparent')
-        #
-        # self.master.geometry("+300+300")
-        #
-        # # Store the PhotoImage to prevent early garbage collection
-        # self.master.image = tk.PhotoImage(file="bgimg.gif")
-        # # Display the image on a label
-        # label = tk.Label(self.master, image=self.master.image)
-        # # Set the label background color to a transparent color
-        # label.config(bg='systemTransparent')
-        # # label.pack()
-        # # self.master.attributes('-alpha', 0.5)
+        self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold")
 
         container = tk.Frame(self.master)
         container.pack(side="top", fill="both", expand=True)
@@ -116,7 +95,7 @@ class StartPage(tk.Frame):
 
         button_login = tk.Button(self, text="Login", highlightbackground='#3E4149',
                                  command=self.check_pswd)
-        button_login.place(x=240, y=140)
+        button_login.place(x=230, y=140)
 
     def check_pswd(self):
         username_tocheck = self.username_entry.get()
@@ -294,12 +273,16 @@ class PageTwo(tk.Frame):
                     image_to_text.ImageToText.update_DB(val1, self.result_dict[val], self.result_dict['Reference_No'],
                                                         self.result_dict['Date_Time'])
 
-    def insert_files(self, event):
-        # print("MOVE")
+    def insert_files(self,event):
+        print("MOVE")
         self.file_lstbx.delete(0, END)
         self.result_files = image_to_text.list_of_dict
         for file_name in self.result_files:
-            self.file_lstbx.insert(END, file_name["filename"])
+            short_filename = file_name["filename"].split('/')
+            #print("filename:", short_filename)
+            filename_display= short_filename[-1]
+            self.file_lstbx.insert(END, filename_display)
+            #self.file_lstbx.insert(END, file_name["filename"])
 
     def display_selected_file(self, event):
         # self.file_lstbx.delete(0, END)
@@ -369,7 +352,6 @@ class PageTwo(tk.Frame):
         self.result_dict = display_dict
         for result in self.result_dict.items():
             self.treeview.insert('', 'end', text=result[0], values=(result[1]))
-
 
 # Created by Nigel
 class FilterPage(tk.Frame):

@@ -11,13 +11,13 @@ The project is: To automate the extraction of valuable ME/CFS patient data into 
 # Project Administration
 ## Timeline
 Week 2-3: Requirement gathering and technology assessment/exploration. <br />
-Week 4-5: Iteration 1 & 2 – Work on Printed text conversion to digitalized documents.<br />
-Week 6-7: Iteration 3 & 4 – Work on Handwritten text conversion to digitalized documents.<br />
+Week 4-5: Work on Printed text conversion to digitalized documents.<br />
+Week 6-7: Work on Handwritten text conversion to digitalized documents.<br />
 Week 8-9: Full round of user acceptance testing and consolidation.<br />
 Week 10-12: Reflection and improvements.<br />
 
 # Milestone Chart  
-![Capture](https://github.com/u6530822/ME-CFS-Project/blob/master/milestone-chart.PNG)
+![Capture](https://github.com/u6530822/ME-CFS-Project/blob/master/milestone.PNG)
 
 # Deliverables
 •	Modular well-structured code to carry out the following:<br />
@@ -97,39 +97,44 @@ Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will ha
   
 ### Technical Risk
 #### Time for the text conversion to be longer than client’s expectation
-Likelihood: Unlikely
-Consequence: Catastrophic
-Priority: high
-Solutions: Obtain main stakeholder’s agreement on the time required for conversion to match expectation
+Likelihood: Unlikely<br />
+Consequence: Catastrophic<br />
+Priority: High<br />
+Solutions: Obtain main stakeholder’s agreement on the time required for conversion to match expectation<br />
 #### Limitation of knowledge in handwritten to text conversion
-Likelihood: Possible
-Consequence: Moderate
-Priority: high
-Solutions: Obtain main stakeholder’s agreement on the possible removal of feature
+Likelihood: Possible<br />
+Consequence: Moderate<br />
+Priority: High<br />
+Solutions: Obtain main stakeholder’s agreement on the possible removal of feature<br />
+#### New record types to be considered apart from existing printed document samples
+Likelihood: Certain<br />
+Consequence: Major<br />
+Priority: High<br /> 
+Solutions: Obtain main stakeholder’s agreement on working on these records in a future implementation<br />
 
 ### Ethical Risk
 #### Data security breach
-Likelihood: Possible
-Consequence: Catastrophic
-Priority: Extreme
-Solutions: Access authorisation, multilevel security model in databases & encryption
+Likelihood: Possible<br />
+Consequence: Catastrophic<br />
+Priority: Extreme<br />
+Solutions: Access authorisation, multilevel security model in databases & encryption<br />
 ##### Data Privacy issues
-Likelihood: Possible
-Consequence: Catastrophic
-Priority: Extreme
-Solutions: Signed Ethical form, Downgrading results, stakeholder’s agreement on storage method
+Likelihood: Possible<br />
+Consequence: Catastrophic<br />
+Priority: Extreme<br />
+Solutions: Signed Ethical form, Downgrading results, stakeholder’s agreement on storage method<br />
 
 ### Resources risk
 #### Members fall sick & Unavailability of members
-Likelihood: Possible
-Consequence: Minor
-Priority: Medium
-Solutions: Shadowing teammates, Daily stand-up to update on progress
+Likelihood: Possible<br />
+Consequence: Minor<br />
+Priority: Medium<br />
+Solutions: Shadowing teammates, Daily stand-up to update on progress<br />
 #### Unforeseen accident
-Likelihood: Rare
-Consequence: Moderate
-Priority: Low
-Solutions: Shadowing teammates, Daily stand-up to update on progress
+Likelihood: Rare<br />
+Consequence: Moderate<br />
+Priority: Low<br />
+Solutions: Shadowing teammates, Daily stand-up to update on progress<br />
 
 
 
