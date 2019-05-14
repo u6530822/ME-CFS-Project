@@ -62,7 +62,6 @@ class GUI:
         frame = frames[page_name]
         frame.tkraise()
 
-
 class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -240,12 +239,19 @@ class PageTwo(tk.Frame):
         # self.master.wait_variable(self.result_files)
         # self.master.after_idle(self.insert_files)
         self.createTable()
+        # self.create_entry_table()
         submit_to_dbs_button = tk.Button(self, text="Upload", highlightbackground='#3E4149',
                                          command=lambda: self.DBS_upload())
         submit_to_dbs_button.pack()
         back_previous_bt = tk.Button(self, text="Back", highlightbackground='#3E4149',
-                                     command=lambda: self.controller.show_frame("PageOne"))
+                                     command=self.back_previous_page)
+                                     # command=lambda: self.controller.show_frame("PageOne"))
+        # TODO: clear the self.file_dict, img2txt list clear, call clear_content()
+
         back_previous_bt.place(x=0, y=0)
+    def back_previous_page(self):
+        image_to_text.list_of_dict = []
+        self.controller.show_frame("PageOne")
 
     def DBS_upload(self):
         print("in DBS_upload:", self.result_dict)
@@ -275,7 +281,7 @@ class PageTwo(tk.Frame):
                                                         self.result_dict['Date_Time'])
 
     def insert_files(self,event):
-        print("MOVE")
+        # print("MOVE")
         self.file_lstbx.delete(0, END)
         self.result_files = image_to_text.list_of_dict
         for file_name in self.result_files:
@@ -348,11 +354,12 @@ class PageTwo(tk.Frame):
         confirm_button.place(x=455 + (cn - 1) * 242, y=240 + rn * 20)
 
     def insert_values(self, display_dict):
-
+        self.treeview.delete(*self.treeview.get_children())
         # def insert_values(self, display_dict):
         self.result_dict = display_dict
         for result in self.result_dict.items():
-            self.treeview.insert('', 'end', text=result[0], values=(result[1]))
+            id = self.treeview.insert('', 'end', text=result[0], values=(result[1]))
+            print(id)
 
 # Created by Nigel
 class FilterPage(tk.Frame):
