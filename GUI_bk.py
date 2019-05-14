@@ -92,7 +92,6 @@ class StartPage(tk.Frame):
         self.username_entry = Entry(self, width=24)
         self.configure(highlightthickness=0, highlightbackground="black", borderwidth=0)
         self.username_entry.place(x=180, y=70)
-
         password_lb = tk.Label(self, text="Password")
         password_lb.place(x=120, y=110)
 
@@ -175,17 +174,13 @@ class PageOne(tk.Frame):
     def callback(self, name):
         self.controller.show_frame("PageTwo")
         print("printing ", name, " please wait")
-        object2 = image_to_text.ImageToText(name)
-        object2.print_filename()
+        object_img2txt = image_to_text.ImageToText(name)
+        object_img2txt.print_filename()
         print("done printing ", name)
-        self.result = object2
-        self.result_files = image_to_text.list_of_dict
+        # self.result = object2
+        # self.result_files = image_to_text.list_of_dict
 
     def open_file(self):
-
-        """Open file.
-        /Users/Julius/Downloads/ME/ME-CFS-Project/Sample.png
-        """
         self.master.filename = filedialog.askopenfilenames(initialdir="/", title="Select file",
                                                            filetypes=(("png files", "*.png"), ("all files", "*.*")))
         print(self.master.filename)
@@ -277,18 +272,20 @@ class PageTwo(tk.Frame):
         # TODO: only allow create one entry
 
         item = self.treeview.selection()[0]  # now you got the item on that tree
-        test = self.treeview.selection()
-        print("you clicked on " + ''.join(test))
+        event_value = self.treeview.item(self.treeview.focus())["values"][0]
+        curr_tree_item = self.treeview.item(self.treeview.focus())
+        # print(curr_tree_item)
         # what row and column was clicked on
         rowid = self.treeview.identify_row(event.y)
-        # TODO rowid correction
+        # TODO rowid correction with HEX
         columnid = self.treeview.identify_column(event.x)
         rn = int(str(rowid).replace('I', ''))
         cn = int(str(columnid).replace('#', ''))
-        print("rowid = ", rowid, "rn = ", rn)
+        # print("rowid = ", rowid, "rn = ", rn)
 
+        # TODO: calculate scrolled position
         entryedit = Text(self.treeview, width=10 + (cn - 1) * 16, height=1)
-        # entryedit.insert("", item["value"])
+        entryedit.insert(END, event_value)
         # TODO: insert initial value at init
         entryedit.place(x=200, y=6 + rn * 20)
 
@@ -338,6 +335,13 @@ class PageTwo(tk.Frame):
         # print("MOVE")
         self.file_lstbx.delete(0, END)
         self.result_files = image_to_text.list_of_dict
+        # test_result_files
+        '''
+        self.result_files = [{'filename': 'Sample1', 'Sodium': '138', 'Potassium': '5.4'},
+                             {'filename': 'Sample2', 'Sodium': '138', 'Potassium': '5.4'},
+                             {'filename': 'Sample3', 'Sodium': '138', 'Potassium': '5.4'},
+                             {'filename': 'Sample4', 'Sodium': '138', 'Potassium': '5.4'}]
+                             '''
 
         for file_name in self.result_files:
             short_filename = file_name["filename"].split('/')
@@ -362,8 +366,6 @@ class PageTwo(tk.Frame):
         tv.column('values', anchor='center', width=80)
         tv.heading('comment', text='Comment')
         tv.column('comment', anchor='center', width=80)
-        # tv.heading('content', text='Content')
-        # tv.column('content', anchor='center', width=50)
         tv.bind('<Double-1>', self.onDoubleClick)  # Double-click the left button to enter the edit
 
         vsb = tk.Scrollbar(tv, orient="vertical", command=tv.yview)
