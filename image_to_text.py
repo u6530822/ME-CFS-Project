@@ -24,9 +24,6 @@ class ImageToText:
     global Ref_no
     global Collected_Date_time
 
-    def clear_list(self):
-        list_of_dict = []
-
     def extract_value(val_local,name):
         # extrat whole text to string and number as different lines
 

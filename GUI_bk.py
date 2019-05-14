@@ -5,6 +5,7 @@ from tkinter import filedialog
 from tkinter import font  as tkfont  # python 3
 from PIL import ImageTk, Image
 import check
+# from tkinter import ttk
 from tkinter.ttk import *
 import boto3
 import DBAccessKey
@@ -24,6 +25,7 @@ class GUI:
 
         self.master = Tk()
         self.master.minsize(500, 500)
+        self.master.title("ME CFS")
         # self.frame = tk.Frame(self.master)
         self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold")
 
@@ -62,6 +64,7 @@ class GUI:
         frame = frames[page_name]
         frame.tkraise()
 
+
 class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -74,6 +77,12 @@ class StartPage(tk.Frame):
         self.background = Label(self, image=self.background_image)
         self.background.place(x=0, y=0)
 
+        # style = tk.ttk.Style()
+        # style.configure("BW.TLabel", foreground="black", background="white")
+        # l1 = ttk.Label(text="Test", style="BW.TLabel")
+        # l1.place(x=0, y=0)
+        # TODO change label bg using ttk or canvas
+
         label = tk.Label(self, text="Welcome to ME/CFS", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
@@ -81,7 +90,7 @@ class StartPage(tk.Frame):
         usnm_lb.place(x=120, y=70)
 
         self.username_entry = Entry(self, width=24)
-        self.configure(highlightthickness = 0, highlightbackground = "black", borderwidth = 0)
+        self.configure(highlightthickness=0, highlightbackground="black", borderwidth=0)
         self.username_entry.place(x=180, y=70)
 
         password_lb = tk.Label(self, text="Password")
@@ -184,7 +193,7 @@ class PageOne(tk.Frame):
         print("open file", self.name)
         self.fn_entry.set(self.name)
 
-    ##function for filter after button is pressed - Created by Nigel
+    #function for filter after button is pressed - Created by Nigel
     def get_DB(self, Ref_no):
 
         print("Ref no is " + Ref_no)
@@ -233,6 +242,7 @@ class PageTwo(tk.Frame):
         self.result_dict = image_to_text.list_of_dict
         self.file_lstbx = Listbox(self)
         self.file_lstbx.bind('<B1-Motion>', self.insert_files)
+        # TODO: click once or the page is viewed
         self.file_lstbx.bind('<<ListboxSelect>>', self.display_selected_file)
         self.file_lstbx.pack()
         # testvis = self.master.wait_visibility() # run event loop until window appearss
@@ -245,13 +255,57 @@ class PageTwo(tk.Frame):
         submit_to_dbs_button.pack()
         back_previous_bt = tk.Button(self, text="Back", highlightbackground='#3E4149',
                                      command=self.back_previous_page)
-                                     # command=lambda: self.controller.show_frame("PageOne"))
+        # command=lambda: self.controller.show_frame("PageOne"))
         # TODO: clear the self.file_dict, img2txt list clear, call clear_content()
 
         back_previous_bt.place(x=0, y=0)
-    def back_previous_page(self):
-        image_to_text.list_of_dict = []
-        self.controller.show_frame("PageOne")
+
+    def insert_values(self, display_dict):
+        self.treeview.delete(*self.treeview.get_children())
+        # def insert_values(self, display_dict):
+        self.treeview.destroy()
+        self.createTable()
+        self.result_dict = display_dict
+        for result in self.result_dict.items():
+            id = self.treeview.insert('', 'end', text=result[0], values=(result[1]))
+            # print(id)
+
+    def onDoubleClick(self, event):
+        ''' Executed, when a row is double-clicked. Opens
+        read-only EntryPopup above the item's column, so it is possible
+        to select text '''
+        # TODO: only allow create one entry
+
+        item = self.treeview.selection()[0]  # now you got the item on that tree
+        test = self.treeview.selection()
+        print("you clicked on " + ''.join(test))
+        # what row and column was clicked on
+        rowid = self.treeview.identify_row(event.y)
+        # TODO rowid correction
+        columnid = self.treeview.identify_column(event.x)
+        rn = int(str(rowid).replace('I', ''))
+        cn = int(str(columnid).replace('#', ''))
+        print("rowid = ", rowid, "rn = ", rn)
+
+        entryedit = Text(self.treeview, width=10 + (cn - 1) * 16, height=1)
+        # entryedit.insert("", item["value"])
+        # TODO: insert initial value at init
+        entryedit.place(x=200, y=6 + rn * 20)
+
+        def saveedit():
+            changed_value = entryedit.get(0.0, "end").rstrip("\n")
+            attri_text = self.treeview.item(self.treeview.focus())["text"]
+            self.treeview.set(item, column=columnid, value=changed_value)
+            dict_to_change = {
+                attri_text: changed_value
+            }
+            self.result_dict.update(dict_to_change)
+            # print(self.result_dict)
+            entryedit.destroy()
+            confirm_button.destroy()
+
+        confirm_button = tk.Button(self, text='OK', width=4, command=saveedit)
+        confirm_button.place(x=455 + (cn - 1) * 242, y=240 + rn * 20)
 
     def DBS_upload(self):
         print("in DBS_upload:", self.result_dict)
@@ -280,16 +334,17 @@ class PageTwo(tk.Frame):
                     image_to_text.ImageToText.update_DB(val1, self.result_dict[val], self.result_dict['Reference_No'],
                                                         self.result_dict['Date_Time'])
 
-    def insert_files(self,event):
+    def insert_files(self, event):
         # print("MOVE")
         self.file_lstbx.delete(0, END)
         self.result_files = image_to_text.list_of_dict
+
         for file_name in self.result_files:
             short_filename = file_name["filename"].split('/')
-            #print("filename:", short_filename)
-            filename_display= short_filename[-1]
+            # print("filename:", short_filename)
+            filename_display = short_filename[-1]
             self.file_lstbx.insert(END, filename_display)
-            #self.file_lstbx.insert(END, file_name["filename"])
+            # self.file_lstbx.insert(END, file_name["filename"])
 
     def display_selected_file(self, event):
         # self.file_lstbx.delete(0, END)
@@ -320,46 +375,10 @@ class PageTwo(tk.Frame):
         self.treeview = tv
         self.treeview.pack(pady=5)
 
-    def onDoubleClick(self, event):
-        ''' Executed, when a row is double-clicked. Opens 
-        read-only EntryPopup above the item's column, so it is possible
-        to select text '''
-        item = self.treeview.selection()[0]  # now you got the item on that tree
-        print("you clicked on " + item)
-        # what row and column was clicked on
-        rowid = self.treeview.identify_row(event.y)
-        columnid = self.treeview.identify_column(event.x)
-        cn = int(str(columnid).replace('#', ''))
-        rn = int(str(rowid).replace('I', ''))
-        print(rowid, columnid, cn, rn)
+    def back_previous_page(self):
+        image_to_text.list_of_dict = []
+        self.controller.show_frame("PageOne")
 
-        entryedit = Text(self.treeview, width=10 + (cn - 1) * 16, height=1)
-        entryedit.place(x=200, y=6 + rn * 20)
-
-        def saveedit():
-            changed_value = entryedit.get(0.0, "end").rstrip("\n")
-            attri_text = self.treeview.item(self.treeview.focus())["text"]
-            self.treeview.set(item, column=columnid, value=changed_value)
-            dict_to_change = {
-                attri_text: changed_value
-            }
-            self.result_dict.update(dict_to_change)
-            # update array
-            print(self.result_dict)
-            entryedit.destroy()
-            confirm_button.destroy()
-            # TODO: change x y position here
-
-        confirm_button = tk.Button(self, text='OK', width=4, command=saveedit)
-        confirm_button.place(x=455 + (cn - 1) * 242, y=240 + rn * 20)
-
-    def insert_values(self, display_dict):
-        self.treeview.delete(*self.treeview.get_children())
-        # def insert_values(self, display_dict):
-        self.result_dict = display_dict
-        for result in self.result_dict.items():
-            id = self.treeview.insert('', 'end', text=result[0], values=(result[1]))
-            print(id)
 
 # Created by Nigel
 class FilterPage(tk.Frame):
