@@ -245,7 +245,7 @@ class PageTwo(tk.Frame):
         submit_to_dbs_button.pack()
         back_previous_bt = tk.Button(self, text="Back", highlightbackground='#3E4149',
                                      command=lambda: self.controller.show_frame("PageOne"))
-        back_previous_bt.place(x=0, y=0)
+        back_previous_bt.place(x=5, y=10)
 
     def DBS_upload(self):
         print("in DBS_upload:", self.result_dict)
@@ -371,7 +371,7 @@ class FilterPage(tk.Frame):
         label.pack(side="top", fill="x", pady=10)
         back_previous_bt = tk.Button(self, text="Back", highlightbackground='#3E4149',
                                      command=lambda: self.controller.show_frame("PageOne"))
-        back_previous_bt.place(x=0, y=0)
+        back_previous_bt.place(x=5, y=12)
 
         print(GUI.filtered_output)
 
