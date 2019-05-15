@@ -93,7 +93,7 @@ class StartPage(tk.Frame):
         self.configure(highlightthickness=0, highlightbackground="black", borderwidth=0)
         self.username_entry.place(x=180, y=70)
         password_lb = tk.Label(self, text="Password")
-        password_lb.place(x=120, y=110)
+        password_lb.place(x=123, y=110)
 
         self.password_entry = Entry(self, show="*", width=24)
         self.password_entry.place(x=180, y=110)
@@ -279,7 +279,12 @@ class PageTwo(tk.Frame):
         rowid = self.treeview.identify_row(event.y)
         # TODO rowid correction with HEX
         columnid = self.treeview.identify_column(event.x)
-        rn = int(str(rowid).replace('I', ''))
+        #print("This is the row id(Hex): ",rowid, "This is the column id: ",columnid)
+        hex_representation=  int(str(rowid).replace('I', ''), 16)
+        #print("This is the row id(int): ", hex_representation ,"This is the column id: ", columnid)
+
+        #rn = int(str(rowid).replace('I', ''))
+        rn = int(hex_representation)
         cn = int(str(columnid).replace('#', ''))
         # print("rowid = ", rowid, "rn = ", rn)
 
