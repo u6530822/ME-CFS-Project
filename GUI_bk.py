@@ -247,13 +247,13 @@ class PageTwo(tk.Frame):
         # self.create_entry_table()
         submit_to_dbs_button = tk.Button(self, text="Upload", highlightbackground='#3E4149',
                                          command=lambda: self.DBS_upload())
-        submit_to_dbs_button.place(x=215, y=430)
+        submit_to_dbs_button.place(x=215, y=460)
         back_previous_bt = tk.Button(self, text="Back", highlightbackground='#3E4149',
                                      command=self.back_previous_page)
         # command=lambda: self.controller.show_frame("PageOne"))
         # TODO: clear the self.file_dict, img2txt list clear, call clear_content()
 
-        back_previous_bt.place(x=0, y=0)
+        back_previous_bt.place(x=5, y=12)
 
     def insert_values(self, display_dict):
         self.treeview.delete(*self.treeview.get_children())
