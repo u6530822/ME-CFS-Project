@@ -4,10 +4,10 @@ Created on Wed Mar 20 11:02:59 2019
 
 @author: Nigel Tee
 """
-import boto3
+#import boto3
 from PIL import Image
 import pytesseract
-from boto3.dynamodb.conditions import Key, Attr
+#from boto3.dynamodb.conditions import Key, Attr
 import re
 import GUI_bk
 import DBAccessKey
@@ -29,7 +29,7 @@ class ImageToText:
 
         val_local1 = val_local.split()
         if val_local1[1] == '*':
-           print('Shout',name,' is high =', val_local1[2])
+           #print('Shout',name,' is high =', val_local1[2])
 
            return val_local1[2]
         else:
@@ -47,12 +47,12 @@ class ImageToText:
             KeyConditionExpression=Key('Reference_No').eq(Ref_no)
         )
         if (response['Items']):
-            for i in response['Items']:
-                print(i['Reference_No'], ":", i['Date_Time'])
+            #for i in response['Items']:
+                #print(i['Reference_No'], ":", i['Date_Time'])
             return True
         else:
-            print(response['Items'])
-            print("It is empty")
+            #print(response['Items'])
+            #print("It is empty")
             return False
 
 
@@ -107,7 +107,7 @@ class ImageToText:
 
         #process it here. when it opens, it shouldnt be a tuple. should be string, loop it
         for filename in self.name:
-            print("string output:",filename)
+            #print("string output:",filename)
             image = Image.open(filename)
             text = pytesseract.image_to_string(image, lang="eng").splitlines()
 
@@ -137,7 +137,7 @@ class ImageToText:
                     #not misaligned
                     if re.findall('[0-9]', val):
                         misaligned = False
-                        print("aligned")
+                        #print("aligned")
 
                 if check != 2 and misaligned:
                     # check for digit, result of misaligned variables
@@ -166,10 +166,10 @@ class ImageToText:
                         Collected_Date_time_pre = Collected_Date_time_pre.replace("/", '')
                         Collected_Date_time_pre = Collected_Date_time_pre.replace(" ", '')
                         Collected_Date_time_pre = Collected_Date_time_pre.replace(":", '')
-                        print("pre is" + Collected_Date_time_pre)
+                        #print("pre is" + Collected_Date_time_pre)
                         Collected_Date_time = Collected_Date_time_pre
-                        print("loop 1:ref no is " + Ref_no)
-                        print("loop 1:date time is " + Collected_Date_time)
+                        #print("loop 1:ref no is " + Ref_no)
+                        #print("loop 1:date time is " + Collected_Date_time)
                         self.result_dict['Date_Time'] = Collected_Date_time
                         self.result_dict['Reference_No'] = Ref_no
 
@@ -182,19 +182,19 @@ class ImageToText:
                         Collected_Date_time = Collected_Date_time.replace("/", '')
                         Collected_Date_time = Collected_Date_time.replace(" ", '')
                         Collected_Date_time = Collected_Date_time.replace(":", '')
-                        print("loop 2:date time is " + Collected_Date_time)
+                        #print("loop 2:date time is " + Collected_Date_time)
                         self.result_dict['Date_Time'] = Collected_Date_time
 
                     if 'Reference' in val:
                         Ref_no = ImageToText.extract_value(val, 'Reference')
-                        print("loop 2:ref no is " + Ref_no)
+                        #print("loop 2:ref no is " + Ref_no)
                         self.result_dict['Reference_No'] = Ref_no
                         check = 2
 
                 elif check == 2:
 
                     if val:
-                        print(counter, val)
+                        #print(counter, val)
                         counter = counter + 1
                         field_str_list = ['Sodium', 'Potassium', 'Chloride', 'Bicarbonate', 'Urea', 'Creatinine', 'eGFR', 'T.Protein','Albumin', 'ALP', 'Bilirubin', 'GGT',
                                             'AST', 'ALT', 'HAEMOGLOBIN', 'RBC', 'PCV', 'MCV', 'MCHC', 'RDW', 'wcc', 'Neutrophils', 'Lymphocytes', 'Monocytes',
@@ -205,12 +205,13 @@ class ImageToText:
 
                         if val.startswith('MCH') and not val.startswith('MCHC') :
                             MCH= ImageToText.extract_value(val,'MCH')
-                            print('The value of MCH here is ',MCH)
+                            #print('The value of MCH here is ',MCH)
                             #ImageToText.update_DB('MCH',MCH)
                             self.result_dict['MCH'] = MCH
 
             # print("Testing young-->",self.result_dict)
             list_of_dict.append(self.result_dict)
+        return list_of_dict
             # print("List of dict 2:", list_of_dict)
 
 
