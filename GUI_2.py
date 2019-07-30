@@ -39,6 +39,7 @@ class GUI2:
         frame.grid(row=0, column=0, sticky="nsew")
         self.show_frame("StartPage")
 
+
     def show_frame(self, page_name):
         '''Show a frame for the given page name'''
         frame = frames[page_name]
@@ -213,7 +214,7 @@ class PageTwo(tk.Frame):
         # TODO: click once or the page is viewed
         self.file_lstbx.bind('<<ListboxSelect>>', self.display_selected_file)
         self.file_lstbx.pack()
-        self.createTable()
+        #cyoung12 self.createTable()
         submit_to_dbs_button = tk.Button(self, text="Upload", highlightbackground='#3E4149',
                                          command=lambda: self.DBS_upload())
         submit_to_dbs_button.place(x=215, y=460)
@@ -225,12 +226,37 @@ class PageTwo(tk.Frame):
         back_previous_bt.place(x=5, y=12)
 
     def insert_values(self, display_dict):
-        self.treeview.delete(*self.treeview.get_children())
+        '''self.treeview.delete(*self.treeview.get_children())
         self.treeview.destroy()
         self.createTable()
         self.result_dict = display_dict
         for result in self.result_dict.items():
-            id = self.treeview.insert('', 'end', text=result[0], values=(result[1]))
+            id = self.treeview.insert('', 'end', text=result[0], values=(result[1])) '''
+
+            ##cyoung12 this is where the result was inserted
+
+        #root = tk.Tk()
+        S = tk.Scrollbar(self)
+        T = tk.Text(self, height=10, width=60)
+        T.place(x=100,y=100)
+        S.pack(side=tk.RIGHT, fill=tk.Y)
+        T.pack(side=tk.LEFT, fill=tk.Y)
+        S.config(command=T.yview)
+        T.config(yscrollcommand=S.set)
+        quote = """HAMLET: To be, or not to be--that is the question:
+                        Whether 'tis nobler in the mind to suffer
+                        The slings and arrows of outrageous fortune
+                        Or to take arms against a sea of troubles
+                        And by opposing end them. To die, to sleep--
+                        No more--and by a sleep to say we end
+                        The heartache, and the thousand natural shocks
+                        That flesh is heir to. 'Tis a consummation
+                        Devoutly to be wished."""
+        displayvalues=""
+        for result in display_dict.items():
+            displayvalues = displayvalues+"\n"+result[0]+" : "+result[1]
+        T.insert(tk.END, displayvalues)
+
             # print(id)
 
     def onDoubleClick(self, event):
@@ -302,7 +328,7 @@ class PageTwo(tk.Frame):
     def display_selected_file(self, event):
         idx = (self.file_lstbx.curselection()[0])
         display_dict = object_img2txt_output[idx]
-        self.treeview.delete(*self.treeview.get_children())
+        #self.treeview.delete(*self.treeview.get_children())
         self.insert_values(display_dict)
 
     def createTable(self):
@@ -323,6 +349,7 @@ class PageTwo(tk.Frame):
 
         self.treeview = tv
         self.treeview.pack(pady=5)
+
 
     def back_previous_page(self):
         image_to_text.list_of_dict = []
@@ -376,3 +403,6 @@ class FilterPage(tk.Frame):
             result2 = result.split(": ")
             # print("result is " + result)
             self.treeview.insert('', 'end', text=result2[0], values=(result2[1]))
+
+
+##latest backup

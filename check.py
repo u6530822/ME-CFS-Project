@@ -17,17 +17,17 @@ class LoginCheck:
 								  aws_secret_access_key=secret_access_key_global)
 		table = dynamodb.Table('security')
 
-		print("The uname is:",self.uname,"<--" )
+		#print("The uname is:",self.uname,"<--" )
 		salted_pswd = '$"' + self.pswd+ '$"'
 		hash_password = hashlib.md5(salted_pswd.encode())
-		print("Testing pw", hash_password.hexdigest())
+		#print("Testing pw", hash_password.hexdigest())
 
 		response = table.query(
 			KeyConditionExpression=Key('Username').eq(self.uname)
 		)
 		if (response['Items']):
 			for i in response['Items']:
-				print(i['Username'], ":", i['Password'])
+				#print(i['Username'], ":", i['Password'])
 				if(i['Password']==hash_password.hexdigest()):
 					return True
 
