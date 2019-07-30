@@ -7,9 +7,9 @@ from PIL import ImageTk, Image
 import check
 # from tkinter import ttk
 from tkinter.ttk import *
-#import boto3
+import boto3
 import DBAccessKey
-#from boto3.dynamodb.conditions import Key, Attr
+from boto3.dynamodb.conditions import Key, Attr
 
 access_key_id_global = DBAccessKey.DBAccessKey.access_key_id_global
 secret_access_key_global = DBAccessKey.DBAccessKey.secret_access_key_global
@@ -216,12 +216,10 @@ class PageTwo(tk.Frame):
         self.createTable()
         submit_to_dbs_button = tk.Button(self, text="Upload", highlightbackground='#3E4149',
                                          command=lambda: self.DBS_upload())
-        submit_to_dbs_button.place(x=215, y=460)
+        submit_to_dbs_button.place(x=400, y=12)
+
         back_previous_bt = tk.Button(self, text="Back", highlightbackground='#3E4149',
                                      command=self.back_previous_page)
-
-        # TODO: clear the self.file_dict, img2txt list clear, call clear_content()
-
         back_previous_bt.place(x=5, y=12)
 
     def insert_values(self, display_dict):
