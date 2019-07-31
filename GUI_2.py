@@ -39,6 +39,7 @@ class GUI2:
         frame.grid(row=0, column=0, sticky="nsew")
         self.show_frame("StartPage")
 
+
     def show_frame(self, page_name):
         '''Show a frame for the given page name'''
         frame = frames[page_name]
@@ -213,7 +214,7 @@ class PageTwo(tk.Frame):
         # TODO: click once or the page is viewed
         self.file_lstbx.bind('<<ListboxSelect>>', self.display_selected_file)
         self.file_lstbx.pack()
-        self.createTable()
+        #cyoung12 self.createTable()
         submit_to_dbs_button = tk.Button(self, text="Upload", highlightbackground='#3E4149',
                                          command=lambda: self.DBS_upload())
         submit_to_dbs_button.place(x=400, y=12)
@@ -221,14 +222,37 @@ class PageTwo(tk.Frame):
         back_previous_bt = tk.Button(self, text="Back", highlightbackground='#3E4149',
                                      command=self.back_previous_page)
         back_previous_bt.place(x=5, y=12)
+        self.createTextBox()
 
     def insert_values(self, display_dict):
-        self.treeview.delete(*self.treeview.get_children())
+        '''self.treeview.delete(*self.treeview.get_children())
         self.treeview.destroy()
         self.createTable()
         self.result_dict = display_dict
         for result in self.result_dict.items():
-            id = self.treeview.insert('', 'end', text=result[0], values=(result[1]))
+            id = self.treeview.insert('', 'end', text=result[0], values=(result[1])) '''
+
+            ##cyoung12 this is where the result was inserted
+
+        #root = tk.Tk()
+        '''S = tk.Scrollbar(self)
+        T = tk.Text(self, height=10, width=60)
+        T.place(x=100,y=100)
+        S.pack(side=tk.RIGHT, fill=tk.Y)
+        T.pack(side=tk.LEFT, fill=tk.Y)
+        S.config(command=T.yview)
+        T.config(yscrollcommand=S.set)'''
+        #self.S.destroy()
+        #self.T.destroy()
+        self.T.delete('1.0', END)
+        displayvalues=""
+        for result in display_dict.items():
+            displayvalues = displayvalues+"\n"+result[0]+"  "+result[1]
+            #displayvalues = displayvalues + "\n" + result[0] + " : " + result[1]
+        self.T.insert(tk.END, displayvalues)
+        print("The output is :", self.T.get("1.0", END))
+
+
             # print(id)
 
     def onDoubleClick(self, event):
@@ -271,7 +295,59 @@ class PageTwo(tk.Frame):
         confirm_button.place(x=455 + (cn - 1) * 242, y=240 + rn * 20)#TODO set ok button to match scrolled position
 
     def DBS_upload(self):
-        print("in DBS_upload:", self.result_dict)
+        #print("Updated version:", self.T.get("1.0", END))
+        stringlist=""
+        fulllist=self.T.get("1.0", END)
+        for i in fulllist:
+            stringlist=stringlist+i
+        stringlist=stringlist.splitlines()
+        #print("FUll list :",stringlist)
+        list_of_dict = {}
+        field_str_list = ['Sodium', 'Potassium', 'Chloride', 'Bicarbonate', 'Urea', 'Creatinine', 'eGFR', 'T.Protein',
+                          'Albumin', 'ALP', 'Bilirubin', 'GGT',
+                          'AST', 'ALT', 'HAEMOGLOBIN', 'RBC', 'PCV', 'MCV', 'MCHC', 'RDW', 'wcc', 'Neutrophils',
+                          'Lymphocytes', 'Monocytes',
+                          'Eosinophils', 'Basophils', 'PLATELETS', 'ESR','Reference_No','Date_Time']
+        print("pattern matching")
+        for lines in stringlist:
+            #print("Lines:",lines)
+            for field_str in field_str_list:
+                #print("List of item:",field_str)
+                if(field_str in lines):
+                    value=image_to_text.ImageToText.extract_value(lines,field_str)
+                    list_of_dict[field_str]=value
+                    #print(field_str+"::"+value)
+
+                if ('MCH' in lines) and not ('MCHC' in lines):
+                    MCH = image_to_text.ImageToText.extract_value(lines, 'MCH')
+                    list_of_dict['MCH']=MCH
+                    #print("MCH::>" + MCH)
+
+        boolean_val = image_to_text.ImageToText.check_entry_exist(list_of_dict['Reference_No'])
+        print("if that entry already exist:", boolean_val)
+        if (boolean_val):
+            print("Update it")
+            # update it only
+            for val in list_of_dict:
+                if (val != 'Reference_No' and val != 'Date_Time'):
+                    print("Resuld_dict:", val, " value:", list_of_dict[val])
+                    val1 = val.replace('.', '_')
+                    image_to_text.ImageToText.update_DB(val1, list_of_dict[val], list_of_dict['Reference_No'],
+                                                        list_of_dict['Date_Time'])
+
+        else:
+            print("Create it")
+            # create it and update it
+            image_to_text.ImageToText.write_to_DB(list_of_dict['Reference_No'], list_of_dict['Date_Time'])
+            for val in list_of_dict :
+                if (val != 'Reference_No' and val != 'Date_Time'):
+                    print("Resuld_dict:", val, " value:", list_of_dict[val])
+                    val1 = val.replace('.', '_')
+                    image_to_text.ImageToText.update_DB(val1, list_of_dict[val], list_of_dict['Reference_No'],
+                                                        list_of_dict['Date_Time'])
+
+
+        '''print("in DBS_upload:", self.result_dict)
         string_val = self.result_dict['Reference_No']
         print("String val:", string_val)
         boolean_val = image_to_text.ImageToText.check_entry_exist(string_val)
@@ -295,13 +371,23 @@ class PageTwo(tk.Frame):
                     print("Resuld_dict:", val, " value:", self.result_dict[val])
                     val1 = val.replace('.', '_')
                     image_to_text.ImageToText.update_DB(val1, self.result_dict[val], self.result_dict['Reference_No'],
-                                                        self.result_dict['Date_Time'])
+                                                        self.result_dict['Date_Time']) '''
 
     def display_selected_file(self, event):
         idx = (self.file_lstbx.curselection()[0])
         display_dict = object_img2txt_output[idx]
-        self.treeview.delete(*self.treeview.get_children())
+        #self.treeview.delete(*self.treeview.get_children())
         self.insert_values(display_dict)
+
+    def createTextBox(self):
+        self.S = tk.Scrollbar(self)
+        self.T = tk.Text(self, height=10, width=60)
+        self.T.place(x=100,y=100)
+        self.S.pack(side=tk.RIGHT, fill=tk.Y)
+        self.T.pack(side=tk.LEFT, fill=tk.Y)
+        self.S.config(command=self.T.yview)
+        self.T.config(yscrollcommand=self.S.set)
+
 
     def createTable(self):
         tv = Treeview(self)
@@ -374,3 +460,6 @@ class FilterPage(tk.Frame):
             result2 = result.split(": ")
             # print("result is " + result)
             self.treeview.insert('', 'end', text=result2[0], values=(result2[1]))
+
+
+##latest backup

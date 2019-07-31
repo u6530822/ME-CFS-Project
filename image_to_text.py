@@ -25,14 +25,14 @@ class ImageToText:
     global Collected_Date_time
 
     def extract_value(val_local,name):
-        # extrat whole text to string and number as different lines
+        # extract whole text to string and number as different lines
 
         val_local1 = val_local.split()
         if val_local1[1] == '*':
-            # print('Shout',name,' is high =', val_local1[2])
+            #print('Shout',name,' is high =', val_local1[2])
             return val_local1[2]
         else:
-            # print('Shout',name,' =', val_local1[1])
+            #print('Shout',name,' =', val_local1[1])
             return val_local1[1]
 
     def check_entry_exist(Ref_no):
@@ -193,7 +193,7 @@ class ImageToText:
                         field_str_list = ['Sodium', 'Potassium', 'Chloride', 'Bicarbonate', 'Urea', 'Creatinine', 'eGFR', 'T.Protein','Albumin', 'ALP', 'Bilirubin', 'GGT',
                                             'AST', 'ALT', 'HAEMOGLOBIN', 'RBC', 'PCV', 'MCV', 'MCHC', 'RDW', 'wcc', 'Neutrophils', 'Lymphocytes', 'Monocytes',
                                             'Eosinophils', 'Basophils', 'PLATELETS','ESR'] # T.Protein
-                        # I don't know what happend in T.Protein but there's a bug related with DB.
+
                         for field_str in field_str_list:
                             parse_result(field_str)
 
