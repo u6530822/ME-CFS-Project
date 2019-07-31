@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Mar 20 11:02:59 2019
-
 @author: Nigel Tee
 """
-#import boto3
+import boto3
 from PIL import Image
 import pytesseract
-#from boto3.dynamodb.conditions import Key, Attr
+from boto3.dynamodb.conditions import Key, Attr
 import re
-import GUI_bk
 import DBAccessKey
 
 access_key_id_global=DBAccessKey.DBAccessKey.access_key_id_global
 secret_access_key_global=DBAccessKey.DBAccessKey.secret_access_key_global
 list_of_dict = []
+
+
 class ImageToText:
 
     def __init__(self, name):
@@ -29,13 +29,11 @@ class ImageToText:
 
         val_local1 = val_local.split()
         if val_local1[1] == '*':
-           #print('Shout',name,' is high =', val_local1[2])
-
-           return val_local1[2]
+            # print('Shout',name,' is high =', val_local1[2])
+            return val_local1[2]
         else:
-        #  print('Shout',name,' =', val_local1[1])
-
-           return val_local1[1]
+            # print('Shout',name,' =', val_local1[1])
+            return val_local1[1]
 
     def check_entry_exist(Ref_no):
 
@@ -46,19 +44,15 @@ class ImageToText:
         response = table.query(
             KeyConditionExpression=Key('Reference_No').eq(Ref_no)
         )
-        if (response['Items']):
-            #for i in response['Items']:
-                #print(i['Reference_No'], ":", i['Date_Time'])
+        if response['Items']:
             return True
         else:
-            #print(response['Items'])
-            #print("It is empty")
             return False
 
 
 
     def write_to_DB(Ref_no,Date_time):
-        #read from DB to see if it exist, if it does do not create a new one. 
+        #read from DB to see if it exist, if it does do not create a new one.
 
         dynamodb = boto3.resource('dynamodb', region_name='ap-southeast-2', aws_access_key_id=access_key_id_global,
                                   aws_secret_access_key=secret_access_key_global)
