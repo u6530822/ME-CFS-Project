@@ -5,7 +5,6 @@ from tkinter import filedialog
 from tkinter import font  as tkfont  # python 3
 from PIL import ImageTk, Image
 import check
-# from tkinter import ttk
 from tkinter.ttk import *
 import boto3
 import DBAccessKey
@@ -14,44 +13,47 @@ from boto3.dynamodb.conditions import Key, Attr
 access_key_id_global = DBAccessKey.DBAccessKey.access_key_id_global
 secret_access_key_global = DBAccessKey.DBAccessKey.secret_access_key_global
 
+
 class GUI2:
-    #name = ""
-    frames = {}  # Nigel - Change this to global so that new frames can be added to it on the fly
-    filtered_output = []  # Nigel - Global variable to store filtered values
-    object_img2txt_output = []
 
     def __init__(self):
         self.master = Tk()
         self.master.minsize(500, 500)
         self.master.title("ME CFS")
         self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold")
+        self.frames = {}
 
         container = tk.Frame(self.master)
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
-        global frames
-        frames = {}
-
+        # Assign Pages
         frame = StartPage(parent=container, controller=self)
-        frames[StartPage.__name__] = frame
         frame.grid(row=0, column=0, sticky="nsew")
-        self.show_frame("StartPage")
 
-    def show_frame(self, page_name):
-        '''Show a frame for the given page name'''
+        # Add to frames list
+        self.frames[StartPage.__name__] = frame
+
+        # Show StartPage
+        self.show_frame("StartPage", self.frames)
+
+    def show_frame(self, page_name, frames):
         frame = frames[page_name]
         frame.tkraise()
+
+    def back_previous_page(self, frames):
+        image_to_text.list_of_dict = []
+        self.show_frame("PageOne", frames)
 
 
 class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        self.controller = controller
         self.parent = parent
-
+        self.controller = controller
+        self.frames = controller.frames
         self.image = Image.open("bgimg.gif")
         self.img_copy = self.image.copy()
         self.background_image = ImageTk.PhotoImage(self.image)
@@ -82,11 +84,11 @@ class StartPage(tk.Frame):
         password_tocheck = self.password_entry.get()
         login_checker = check.LoginCheck(username_tocheck, password_tocheck)
         if login_checker.check_login():
-
+            # Show page one
             frame = PageOne(parent=self.parent, controller=self.controller)
-            frames[PageOne.__name__] = frame
             frame.grid(row=0, column=0, sticky="nsew")
-            GUI2.show_frame(self.controller, "PageOne")
+            self.frames[PageOne.__name__] = frame
+            self.controller.show_frame("PageOne", self.frames)
         else:
             self.username_entry.delete(0, 'end')
             self.password_entry.delete(0, 'end')
@@ -96,15 +98,15 @@ class PageOne(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+        self.parent = parent
         self.controller = controller
-
+        self.frames = controller.frames
         self.image = Image.open("bgimg.gif")
         self.img_copy = self.image.copy()
         self.background_image = ImageTk.PhotoImage(self.image)
         self.background = Label(self, image=self.background_image)
         self.background.place(x=0, y=0)
 
-        self.parent = parent
         label = tk.Label(self, text="Image Upload", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
 
@@ -141,13 +143,14 @@ class PageOne(tk.Frame):
         print("callback name")
         print(name)
         object_img2txt = image_to_text.ImageToText(name)
-        global object_img2txt_output
         object_img2txt_output = object_img2txt.print_filename()
         print(object_img2txt_output)
-        frame = PageTwo(parent=self.parent, controller=self.controller)
-        frames[PageTwo.__name__] = frame
+
+        frame = PageTwo(parent=self.parent, controller=self.controller, object_img2txt_output=object_img2txt_output)
+        self.frames[PageTwo.__name__] = frame
         frame.grid(row=0, column=0, sticky="nsew")
-        GUI2.show_frame(self.controller, "PageTwo")
+
+        self.controller.show_frame("PageTwo", self.frames)
 
     def open_file(self):
         self.master.filename = filedialog.askopenfilenames(initialdir="/", title="Select file",
@@ -168,27 +171,30 @@ class PageOne(tk.Frame):
             KeyConditionExpression=Key('Reference_No').eq(Ref_no)
         )
 
+        filtered_output = []
         if response['Items']:
             for i in response['Items']:
                 if i['Reference_No'] == Ref_no:
                     for key in i.keys():
                         perline = key + ": " + str(i[key])
-                        GUI2.filtered_output.append(perline)
+                        filtered_output.append(perline)
             print("start of filter")
-            frame = FilterPage(parent=self.parent, controller=self.controller)
-            frames[FilterPage.__name__] = frame
+            frame = FilterPage(parent=self.parent, controller=self.controller, filtered_output=filtered_output)
+            self.frames[FilterPage.__name__] = frame
             frame.grid(row=0, column=0, sticky="nsew")
-            GUI2.show_frame(self.controller, "FilterPage")
+            self.controller.show_frame("FilterPage", self.frames)
         else:
             self.filter_entry.set("Invalid Reference No.")
 
 
 class PageTwo(tk.Frame):
 
-    def __init__(self, parent, controller):
+    def __init__(self, parent, controller, object_img2txt_output):
         tk.Frame.__init__(self, parent)
+        self.parent = parent
         self.controller = controller
-
+        self.frames = controller.frames
+        self.object_img2txt_output = object_img2txt_output
         self.image = Image.open("bgimg.gif")
         self.img_copy = self.image.copy()
         self.background_image = ImageTk.PhotoImage(self.image)
@@ -202,15 +208,12 @@ class PageTwo(tk.Frame):
         self.file_lstbx.pack()
 
         count = 0
-        for file_name in object_img2txt_output:
+        for file_name in self.object_img2txt_output:  #  name should be dictionary rather than file name
             count = count + 1
             short_filename = file_name["filename"].split('/')
             filename_display = short_filename[-1]
             self.file_lstbx.insert(count, filename_display)
-            print(count)
-            print(filename_display)
 
-        # TODO: click once or the page is viewed
         self.file_lstbx.bind('<<ListboxSelect>>', self.display_selected_file)
         self.file_lstbx.pack()
         self.createTable()
@@ -219,7 +222,8 @@ class PageTwo(tk.Frame):
         submit_to_dbs_button.place(x=400, y=12)
 
         back_previous_bt = tk.Button(self, text="Back", highlightbackground='#3E4149',
-                                     command=self.back_previous_page)
+                                     command=lambda: self.controller.back_previous_page(self.frames))
+
         back_previous_bt.place(x=5, y=12)
 
     def insert_values(self, display_dict):
@@ -299,7 +303,7 @@ class PageTwo(tk.Frame):
 
     def display_selected_file(self, event):
         idx = (self.file_lstbx.curselection()[0])
-        display_dict = object_img2txt_output[idx]
+        display_dict = self.object_img2txt_output[idx]
         self.treeview.delete(*self.treeview.get_children())
         self.insert_values(display_dict)
 
@@ -322,17 +326,14 @@ class PageTwo(tk.Frame):
         self.treeview = tv
         self.treeview.pack(pady=5)
 
-    def back_previous_page(self):
-        image_to_text.list_of_dict = []
-        self.controller.show_frame("PageOne")
 
-# Created by Nigel
 class FilterPage(tk.Frame):
 
-    def __init__(self, parent, controller):
+    def __init__(self, parent, controller, filtered_output):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-
+        self.frames = controller.frames
+        self.filtered_output = filtered_output
         self.image = Image.open("bgimg.gif")
         self.img_copy = self.image.copy()
         self.background_image = ImageTk.PhotoImage(self.image)
@@ -341,17 +342,13 @@ class FilterPage(tk.Frame):
 
         label = tk.Label(self, text="Filtered Result", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
+
         back_previous_bt = tk.Button(self, text="Back", highlightbackground='#3E4149',
-                                     command=lambda: self.controller.show_frame("PageOne"))
+                                     command=lambda: self.controller.back_previous_page(self.frames))
         back_previous_bt.place(x=5, y=12)
+        self.createTable(self.filtered_output)
 
-        print(GUI2.filtered_output)
-
-        print("end of filter")
-
-        self.createTable()
-
-    def createTable(self):
+    def createTable(self, filtered_output):
         tv = Treeview(self, height=20)
         tv['columns'] = ('values')
         tv.heading("#0", text='Attributes', anchor='w')
@@ -365,12 +362,11 @@ class FilterPage(tk.Frame):
 
         self.treeview = tv
         self.treeview.pack(pady=5)
-
-        self.insert_values(GUI2.filtered_output)
+        self.insert_values(filtered_output)
 
     def insert_values(self, display_dict):
-        self.result_dict = display_dict
-        for result in self.result_dict:
+        result_dict = display_dict
+        for result in result_dict:
             result2 = result.split(": ")
             # print("result is " + result)
             self.treeview.insert('', 'end', text=result2[0], values=(result2[1]))
