@@ -377,18 +377,23 @@ class PageTwo(tk.Frame):
                                                         self.result_dict['Date_Time']) '''
 
     def display_selected_file(self, event):
-        idx = (self.file_lstbx.curselection()[0])
-        display_dict = self.object_img2txt_output[idx]
-        self.treeview.delete(*self.treeview.get_children())
-        self.insert_values(display_dict)
+        if self.file_lstbx.curselection():
+            idx = (self.file_lstbx.curselection()[0])
+            display_dict = self.object_img2txt_output[idx]
+            #self.treeview.delete(*self.treeview.get_children())
+            self.insert_values(display_dict)
 
     def createTextBox(self):
         self.S = tk.Scrollbar(self)
-        self.T = tk.Text(self, height=10, width=60)
-        self.T.place(x=100,y=100)
+        xscrollbar = Scrollbar(self, orient=HORIZONTAL)
+        xscrollbar.pack(side=BOTTOM, fill=X)
+        self.T = tk.Text(self, wrap=NONE, height=10, width=50)
+        self.T.place(x=100, y=100)
         self.S.pack(side=tk.RIGHT, fill=tk.Y)
         self.T.pack(side=tk.LEFT, fill=tk.Y)
+        xscrollbar.config(command=self.T.xview)
         self.S.config(command=self.T.yview)
+        self.T.config(xscrollcommand=xscrollbar.set)
         self.T.config(yscrollcommand=self.S.set)
 
 
