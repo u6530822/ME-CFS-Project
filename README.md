@@ -75,7 +75,6 @@ Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will ha
 
 # Current Progress
 #### [Progress Report Folder](https://drive.google.com/open?id=1nNwb4hMxnOc-OpS6_ZUqV_MOcdIcfRJb)<br />
-[Latest Report](https://drive.google.com/open?id=1JB9lKHz7MoSZC59oYe-F8u0W19tvWBaK)<br />
 
 # Technical Tools and Constraints
 •	Off the shelf tools<br />
