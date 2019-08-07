@@ -57,7 +57,7 @@ Supervisor and product owner: Brett Lidbury
 Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will have weekly connects with him. Our secondary contact is Dr. Alice Richardson. 
 
 # Project Artifacts
-[Signed Statement of Work](https://drive.google.com/drive/u/1/folders/1fHtWXQIDxyIFErwrestoyBETrUFVW-Yq)<br />
+[Signed Statement of Work](https://drive.google.com/open?id=1ubx86LAXTK2ZrMt02hDcEY6cJ36JbsZL)<br />
 [Signed Product Backlog/Acceptance Criteria](https://drive.google.com/open?id=154SpNfr9QrG_j6Xw1HOSoIcJ5UUipYOH)<br />
 [Approved DB Fields](https://drive.google.com/file/d/1NbsGXRXQ0QnQ8ItyiEVDQO5VlD8_Rv8t/view?usp=sharing)<br />
 [Iteration Tracking](https://drive.google.com/drive/u/1/folders/1c-zunhc9ArRkqTRCivM0X3Kt2iIH-1Nx)<br />
