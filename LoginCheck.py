@@ -1,4 +1,3 @@
-import GUI_bk
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
 import DBAccessKey
@@ -6,6 +5,7 @@ import hashlib
 
 access_key_id_global=DBAccessKey.DBAccessKey.access_key_id_global
 secret_access_key_global=DBAccessKey.DBAccessKey.secret_access_key_global
+
 
 class LoginCheck:
 	def __init__(self, uname, pswd):
