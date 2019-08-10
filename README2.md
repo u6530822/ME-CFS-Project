@@ -10,21 +10,19 @@ The project is: To automate the extraction of valuable ME/CFS patient data into 
 
 # Project Administration
 ## Timeline
-Week 2-3: Requirement gathering and technology assessment/exploration.  <br />
-Week 4-5: Work on printed text conversion to raw text for multiple record types.<br />
-Week 6-Teaching Break: WebApp development and porting of components.<br />
-Teaching Break-Week 7: WebApp development and porting of components.<br />
-Week 8-9: Code retrofitting and refactoring.<br />
-Week 10-11: Full round of user acceptance testing and consolidation.<br />
-Week 12: Reflection and improvements.<br />
+Week 2-3: Requirement gathering and technology assessment/exploration. <br />
+Week 4-5: Work on Printed text conversion to digitalized documents.<br />
+Week 6-7: Work on Handwritten text conversion to digitalized documents.<br />
+Week 8-9: Full round of user acceptance testing and consolidation.<br />
+Week 10-12: Reflection and improvements.<br />
 
 # Milestone Chart  
-![Capture](https://github.com/u6530822/ME-CFS-Project/blob/master/milestone_sem2.PNG)
+![Capture](https://github.com/u6530822/ME-CFS-Project/blob/master/milestone.PNG)
 
 # Deliverables
 •	Modular well-structured code to carry out the following:<br />
-o	New process to convert and store printed patient records from image documents. <br />
-o	Build a usable web application for multiple users.<br />
+o	New process to convert and store printed patient records into PDF and excel sheets. <br />
+o	New Process to convert and store hand-written records/notes into PDF and excel sheets<br />
 o	Provide an easy to use and intuitive user interface. <br />
 o	Allow sufficient space for scalability and further analytic needs. <br />
 
@@ -57,37 +55,40 @@ Supervisor and product owner: Brett Lidbury
 Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will have weekly connects with him. Our secondary contact is Dr. Alice Richardson. 
 
 # Project Artifacts
-[Signed Statement of Work](https://drive.google.com/open?id=1ubx86LAXTK2ZrMt02hDcEY6cJ36JbsZL)<br />
+[Signed Statement of Work](https://docs.google.com/document/d/1eFEJfMPe0xbD6Jfw6KpZf4wzqcFAI8vjizMkaUJH-Dk/edit?usp=sharing)<br />
+[Signed Product Backlog/Acceptance Criteria](https://drive.google.com/open?id=154SpNfr9QrG_j6Xw1HOSoIcJ5UUipYOH)<br />
 [Approved DB Fields](https://drive.google.com/file/d/1NbsGXRXQ0QnQ8ItyiEVDQO5VlD8_Rv8t/view?usp=sharing)<br />
-[Iteration Tracking](https://drive.google.com/open?id=1raXbQCZwbuC9pfEanfUcopBtbM6gnxxo)<br />
+[Iteration Tracking](https://drive.google.com/drive/u/1/folders/1c-zunhc9ArRkqTRCivM0X3Kt2iIH-1Nx)<br />
 
 # Communication 
-[Meeting Minutes](https://drive.google.com/open?id=1DurYJGpZz_lg4WVPxudQ3C8tK4CBJhoG)<br />
+[Slack Channel](https://mecfs-workspace.slack.com/messages/CGPA6LS90/)<br />
+[Meeting Minutes](https://drive.google.com/open?id=1PdPVHMijHiBvzMBqYQPptPX4WbBsXGjE)<br />
 
 # Quality Assurance
-[Technical Specification](https://drive.google.com/open?id=1wfPwsIupVd4-8BWSAJ2hM75zIaerGfEm)<br />
+[Technical Specification](https://drive.google.com/file/d/1xuPRZXNygvWiQU0BOwUbPlI6k1vXGzfA/view?usp=sharing)<br />
 [Issue Tracking](https://github.com/u6530822/ME-CFS-Project/issues)<br />
 [Feedback Log](https://drive.google.com/open?id=15BJ5XNeOg506WVSW6oJ9KiIewVI6bu0y)<br />
-[Testing Summaries](https://drive.google.com/open?id=1ZEOj7_jx3_S4uiXrAKP5AE71k3hNBPz8)<br />
+[Testing Summaries](https://drive.google.com/open?id=1GlXRLAL1TPeR7_wVfNAkTnE9Sw4SnoZHDcEf3BC4tjs)<br />
 
 # Support Documentation
 [Project Documentation Folder](https://drive.google.com/open?id=1fHtWXQIDxyIFErwrestoyBETrUFVW-Yq)<br />
 
 # Current Progress
-#### [Progress Report Folder](https://drive.google.com/open?id=1nNwb4hMxnOc-OpS6_ZUqV_MOcdIcfRJb)<br />
+#### [Progress Report Folder](https://drive.google.com/drive/u/1/folders/1_xgkb4bs7dScdkAQv_ZJaXaIq126nBvf)<br />
+[Latest Report](https://drive.google.com/open?id=1JB9lKHz7MoSZC59oYe-F8u0W19tvWBaK)<br />
 
 # Technical Tools and Constraints
 •	Off the shelf tools<br />
   ○ Optical Character Recognition software <br />
 <br />
 •	implementation from scratch<br />
+  ○ Hidden Markov Model<br />
   ○ Neural Network<br />
   ○ Code in Tesseract/TensorFlow<br />
 <br />
 
 •	Constraints:<br />
-  ○ Current model does not support different file types.<br />
-  ○ Documents containing handwritten and printed text.<br />
+  ○ Training of the model is required<br />
   ○ Sensitive issue related to disclosing patients' data<br />
   
   # Risk Management
@@ -109,7 +110,7 @@ Solutions: Obtain main stakeholder’s agreement on the possible removal of feat
 Likelihood: Certain<br />
 Consequence: Major<br />
 Priority: High<br /> 
-Solutions: Clear scope of work agreed upon by the stakeholder, continuous analysis<br />
+Solutions: Obtain main stakeholder’s agreement on working on these records in a future implementation<br />
 
 ### Ethical Risk
 #### Data security breach
