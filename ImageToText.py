@@ -20,7 +20,6 @@ class ImageToText:
     def __init__(self, name):
         self.name = name
 
-    #initiate to zero
     global Ref_no
     global Collected_Date_time
 
