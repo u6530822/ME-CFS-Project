@@ -298,13 +298,11 @@ class PageTwo(tk.Frame):
         confirm_button.place(x=455 + (cn - 1) * 242, y=240 + rn * 20)#TODO set ok button to match scrolled position
 
     def DBS_upload(self):
-        #print("Updated version:", self.T.get("1.0", END))
-        stringlist=""
-        fulllist=self.T.get("1.0", END)
+        stringlist = ""
+        fulllist = self.T.get("1.0", END)
         for i in fulllist:
-            stringlist=stringlist+i
-        stringlist=stringlist.splitlines()
-        #print("FUll list :",stringlist)
+            stringlist = stringlist+i
+        stringlist = stringlist.splitlines()
         list_of_dict = {}
         field_str_list = ['Sodium', 'Potassium', 'Chloride', 'Bicarbonate', 'Urea', 'Creatinine', 'eGFR', 'T.Protein',
                           'Albumin', 'ALP', 'Bilirubin', 'GGT',
@@ -317,7 +315,7 @@ class PageTwo(tk.Frame):
             for field_str in field_str_list:
                 #print("List of item:",field_str)
                 if(field_str in lines):
-                    value=ImageToText.ImageToText.extract_value(lines,field_str)
+                    value = ImageToText.ImageToText.extract_value(lines,field_str)
                     list_of_dict[field_str]=value
                     #print(field_str+"::"+value)
 
@@ -335,19 +333,19 @@ class PageTwo(tk.Frame):
                 if (val != 'Reference_No' and val != 'Date_Time'):
                     print("Resuld_dict:", val, " value:", list_of_dict[val])
                     val1 = val.replace('.', '_')
-                    ImageToText.ImageToText.update_DB(val1, list_of_dict[val], list_of_dict['Reference_No'],
-                                                        list_of_dict['Date_Time'])
+                    ImageToText.ImageToText.update_db(val1, list_of_dict[val], list_of_dict['Reference_No'],
+                                                      list_of_dict['Date_Time'])
 
         else:
             print("Create it")
             # create it and update it
-            ImageToText.ImageToText.write_to_DB(list_of_dict['Reference_No'], list_of_dict['Date_Time'])
+            ImageToText.ImageToText.write_to_db(list_of_dict['Reference_No'], list_of_dict['Date_Time'])
             for val in list_of_dict :
                 if (val != 'Reference_No' and val != 'Date_Time'):
                     print("Resuld_dict:", val, " value:", list_of_dict[val])
                     val1 = val.replace('.', '_')
-                    ImageToText.ImageToText.update_DB(val1, list_of_dict[val], list_of_dict['Reference_No'],
-                                                        list_of_dict['Date_Time'])
+                    ImageToText.ImageToText.update_db(val1, list_of_dict[val], list_of_dict['Reference_No'],
+                                                      list_of_dict['Date_Time'])
 
 
         '''print("in DBS_upload:", self.result_dict)
