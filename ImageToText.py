@@ -45,10 +45,10 @@ class ImageToText:
             if val_local1[index + 1][0].isalpha():
                 # Check next line for value
                 val_local2 = text_local[val_local + 1].split()
-                if val_local2[index][0].isnumeric():
+                if index < len(val_local2) and val_local2[index][0].isnumeric():
                     return val_local2[index]
                 # Case where symbol *,>,<
-                elif (val_local2[index] == '*' or val_local2[index] == '>' or val_local2[index] == '<') \
+                elif index < len(val_local2) and (val_local2[index] == '*' or val_local2[index] == '>' or val_local2[index] == '<') \
                         and (val_local2[index + 1][0].isnumeric()):
                     return val_local2[index + 1]
                 else:
