@@ -61,7 +61,8 @@ class ImageToText:
                 return val_local1[index + 2]
             else:
                 return val_local1[index + 1]
-        else:
+        # check if next line has value
+        elif len(text_local) > val_local + 1:
             # Check next line for value
             val_local2 = text_local[val_local + 1].split()
             if val_local2[index][0].isnumeric():
@@ -72,6 +73,9 @@ class ImageToText:
                 return val_local2[index + 1]
             else:
                 return "N/A"
+        # if no next line return N/A
+        else:
+            return "N/A"
 
     def print_filename(self):
 
