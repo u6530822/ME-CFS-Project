@@ -23,20 +23,23 @@ Week 12: Reflection and improvements.<br />
 
 # Deliverables
 •	Modular well-structured code to carry out the following:<br />
-o	New process to convert and store printed patient records from image documents. <br />
-o	Build a usable web application for multiple users.<br />
-o	Provide an easy to use and intuitive user interface. <br />
-o	Allow sufficient space for scalability and further analytic needs. <br />
+  o	Implement process to convert and store printed patient records from image documents. <br />
+  o	Build a usable web application for multiple users.<br />
+  o	Provide an easy to use and intuitive user interface. <br />
+  o	Allow sufficient space for scalability and further analytic needs. <br />
 
 •	Documentation will be covered in the following:<br />
-o	Well commented and modular code. <br />
-o	High level documentation on code process in each iteration. <br />
-o	A user guide to be handed to the stakeholders at the end of the project.<br />
+  o	Well commented and modular code. <br />
+  o	High level documentation on code process in each iteration. <br />
+  o	A user guide to be handed to the stakeholders at the end of the project.<br />
 
-[Product Backlog](https://drive.google.com/open?id=154SpNfr9QrG_j6Xw1HOSoIcJ5UUipYOH)<br />
+[Product Backlog](https://drive.google.com/open?id=1Xd3KkndTRqguosE2axsjqU2C424COPEU)<br />
 
 ## Version control and monitoring.<br />
-All work will be tracked in github, and while the project deliverables on a high level will be constantly updated on the project wiki. <br />
+Work is being tracked through 2 levels:
+- All codebase maintained on GitHub, used for tracking issues and change control.
+- User Stories progress and burndown report tracked on Zenhub, they can also be viewed as issues on GitHub.
+ <br />
 
 # Team
 |Member| UID|	Role|	Backup|	Email|
@@ -48,31 +51,35 @@ All work will be tracked in github, and while the project deliverables on a high
 
 Supervisor and product owner: Brett Lidbury  
 
-## Team's Decision Making Steps
-[Decision Making Document](https://drive.google.com/open?id=1iuMgKuiV72ic6ZybAdhszDJW5QMlwO6K)<br />
+## Team's Decision Making Process
+[Decision Making Document](https://drive.google.com/open?id=14a4mhyKccvmYk-06HbTistH3L-6Zwz-5)<br />
 
 *Github is open to public for now, will set it to private once we start working on client sensitive materials
 
 # Stakeholders
-Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will have weekly connects with him. Our secondary contact is Dr. Alice Richardson. 
+|Name| Role|
+|Dr. Brett Lidbury| Primary Client|
+|Dr. Alice Richardson| Secondary Client|
+|Huy Pham| Tutor|
+
+All communication via email/skype.
 
 # Project Artifacts
 [Signed Statement of Work](https://drive.google.com/open?id=1ubx86LAXTK2ZrMt02hDcEY6cJ36JbsZL)<br />
 [Approved DB Fields](https://drive.google.com/file/d/1NbsGXRXQ0QnQ8ItyiEVDQO5VlD8_Rv8t/view?usp=sharing)<br />
-[Iteration Tracking](https://drive.google.com/open?id=1raXbQCZwbuC9pfEanfUcopBtbM6gnxxo)<br />
+[Iteration Tracking](https://app.zenhub.com/workspaces/mecfs-project-5d59fc3371abaa14abfe85f7/board?repos=174667086)<br />
 [WebApp Project wireframe](https://miro.com/welcomeonboard/ziBEuWqqLOSwyXJdsmGYMRkKrHZ7JT6zGQmFE7B6rDflGzvmb9Staj8C1FsMBxgi)<br />
 
 # Communication 
 [Meeting Minutes](https://drive.google.com/open?id=1DurYJGpZz_lg4WVPxudQ3C8tK4CBJhoG)<br />
 
 # Quality Assurance
-[Technical Specification](https://drive.google.com/open?id=1wfPwsIupVd4-8BWSAJ2hM75zIaerGfEm)<br />
 [Issue Tracking](https://github.com/u6530822/ME-CFS-Project/issues)<br />
-[Feedback Log](https://drive.google.com/open?id=15BJ5XNeOg506WVSW6oJ9KiIewVI6bu0y)<br />
+[Feedback Log](https://drive.google.com/open?id=10vaQL3fGsQ7aaZBiBUMd9_WXcF8XygjA)<br />
 [Testing Summaries](https://drive.google.com/open?id=1ZEOj7_jx3_S4uiXrAKP5AE71k3hNBPz8)<br />
 
 # Support Documentation
-[Project Documentation Folder](https://drive.google.com/open?id=1fHtWXQIDxyIFErwrestoyBETrUFVW-Yq)<br />
+[Project Documentation Folder](https://drive.google.com/drive/u/1/folders/1fHtWXQIDxyIFErwrestoyBETrUFVW-Yq)<br />
 
 # Current Progress
 #### [Progress Report Folder](https://drive.google.com/open?id=1nNwb4hMxnOc-OpS6_ZUqV_MOcdIcfRJb)<br />
@@ -80,6 +87,8 @@ Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will ha
 # Technical Tools and Constraints
 •	Off the shelf tools<br />
   ○ Optical Character Recognition software <br />
+  ○ PyCharm <br />
+  ○ AWS Database <br />
 <br />
 •	implementation from scratch<br />
   ○ Neural Network<br />
@@ -87,7 +96,6 @@ Our chief client is Dr. Brett Lidbury. We have a slack channel setup and will ha
 <br />
 
 •	Constraints:<br />
-  ○ Current model does not support different file types.<br />
   ○ Documents containing handwritten and printed text.<br />
   ○ Sensitive issue related to disclosing patients' data<br />
   
