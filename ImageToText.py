@@ -30,6 +30,7 @@ class ImageToText:
             text_local[val_local] = text_local[val_local].replace('Ref. Range', 'RefRange')
             text_local[val_local] = text_local[val_local].replace('Lab No.', 'LabNo')
 
+        #  TODO: Change all string first before extract value out rather than changing one line at a time
             if re.search('Vitamin D(.*?)[\s]', (text_local[val_local])):
                 text_local[val_local] = re.sub('Vitamin D(.*?)[\s]', 'VitaminD ', text_local[val_local])
             elif re.search('Vitamin D.*', (text_local[val_local])):
@@ -43,14 +44,17 @@ class ImageToText:
         if len(val_local1) > index + 1:
             # value after index is not actual value if the value starts with alphabet
             if val_local1[index + 1][0].isalpha():
-                # Check next line for value
+                # Check next line for value by splitting next line
                 val_local2 = text_local[val_local + 1].split()
-                if index < len(val_local2) and val_local2[index][0].isnumeric():
-                    return val_local2[index]
-                # Case where symbol *,>,<
-                elif index < len(val_local2) and (val_local2[index] == '*' or val_local2[index] == '>' or val_local2[index] == '<') \
-                        and (val_local2[index + 1][0].isnumeric()):
+                print(val_local2)
+                # Make sure line two has >= words as line one, make sure the index is numeric
+                if index < len(val_local2) and val_local2[index + 1][0].isnumeric():
                     return val_local2[index + 1]
+                # Case where symbol *,>,<
+                elif index + 1 < len(val_local2) and (val_local2[index + 1] == '*' or val_local2[index + 1] == '>' or
+                                                  val_local2[index + 1] == '<') and \
+                        (val_local2[index + 2][0].isnumeric()):
+                    return val_local2[index + 2]
                 else:
                     return "N/A"
             elif val_local1[index + 1] == '*' or val_local1[index + 1] == '>' or val_local1[index + 1] == '<':
