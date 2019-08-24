@@ -102,8 +102,6 @@ All communication via email/skype.
   
   # Risk Management
   
-  ![Capture](https://github.com/u6530822/ME-CFS-Project/blob/master/risk_list.PNG)
-  
 ### Technical Risk
 #### Time for the text conversion to be longer than client’s expectation
 Likelihood: Unlikely<br />
