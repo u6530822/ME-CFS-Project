@@ -58,9 +58,10 @@ Supervisor and product owner: Brett Lidbury
 
 # Stakeholders
 |Name| Role|
-|Dr. Brett Lidbury| Primary Client|
-|Dr. Alice Richardson| Secondary Client|
-|Huy Pham| Tutor|
+| --- | --- |
+|Dr. Brett Lidbury|Primary Client|
+|Dr. Alice Richardson|Secondary Client|
+|Huy Pham|Tutor|
 
 All communication via email/skype.
 
