@@ -14,7 +14,7 @@ class TestMethods(unittest.TestCase):
 
     # check for next line character value
     def test_extract_value_from_next_line(self):
-        text_local = ['Vitamin D Vitamin A', 'Value: 200', 'Value: 300']
+        text_local = ['Vitamin D Vitamin', '200', '300']
         val_local = 0
         attribute = 'VitaminD'
         output = '200'
@@ -22,9 +22,9 @@ class TestMethods(unittest.TestCase):
 
     # check for next line character value
     def test_extract_value_with_symbol(self):
-        text_local = [['Vitamin D Vitamin A', 'Value > 200 Value > 20', 'Value 300 Value > 30'],
-                      ['Vitamin D Vitamin A', 'Value * 400 Value > 40', 'Value 500 Value > 50'],
-                      ['Vitamin D Vitamin A', 'Value < 600 Value > 60', 'Value 700 Value > 70']]
+        text_local = [['Vitamin D Vitamin A', '> 200 Value > 20', '300 Value > 30'],
+                      ['Vitamin D Vitamin A', '* 400 Value > 40', '500 Value > 50'],
+                      ['Vitamin D Vitamin A', '< 600 Value > 60', '700 Value > 70']]
         val_local = 0
         attribute = 'VitaminD'
         output = ['200', '400', '600']
