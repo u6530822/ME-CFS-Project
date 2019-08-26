@@ -9,6 +9,12 @@ Patient data is stored as individual records, and as such it is very time consum
 The project is: To automate the extraction of valuable ME/CFS patient data into aggregated form (via spreadsheets is fine), accurately and efficiently. The successful completion of this challenge will accelerate our research efforts towards understanding ME/CFS, by contributing to the construction of anonymous patient databases for pattern recognition interrogation, as well as in support for future biobanks.
 
 # Project Administration
+## Release Planning
+|Release|Date|Iterations|Deliverable|
+| --- | --- | --- | --- |
+|1|10/09/2019|1,2|Conversion, Upload functionality and draft GUI - User Stories:1,2,3,4,8,9,10,11|
+|2|08/10/2019|3,4|Search, download functionality and final GUI - User Stories:5,6,7,12,13|
+
 ## Timeline
 Week 2-3: Requirement gathering and technology assessment/exploration.  <br />
 Week 4-5: Work on printed text conversion to raw text for multiple record types.<br />
@@ -46,7 +52,7 @@ Work is being tracked through 2 levels:
 | --- | --- | --- | --- | --- |
 |You Li|u6430173|Developer| 	Quality Assurance|	you.li@anu.edu.au|
 |Nigel Tee|u6530834|Developer|	Quality Assurance|	nigel.tee@anu.edu.au|
-|Chin Hun Young(Spokeperson)|u6530822|Quality Assurance|	Project Manager|	chin.young@anu.edu.au|
+|Chin Hun Young(Spokesperson)|u6530822|Quality Assurance|	Project Manager|	chin.young@anu.edu.au|
 |Rufus Raja|u6275198	|Project Manager|	Developer|	rufus.raja@anu.edu.au|
 
 Supervisor and product owner: Brett Lidbury  
