@@ -48,7 +48,6 @@ class ImageToText:
                 val_local2 = text_local[val_local + 1].split()
                 print(val_local2)
                 print(index)
-                print(val_local2[index][0].isnumeric())
                 # Make sure line two has >= words as line one, make sure the index is numeric
                 if index < len(val_local2) and val_local2[index][0].isnumeric():
                     return val_local2[index]
@@ -58,7 +57,7 @@ class ImageToText:
                         (val_local2[index + 1][0].isnumeric()):
                     return val_local2[index + 1]
                 else:
-                    print("N/A 1")
+                    #print("N/A 1")
                     return "N/A"
             elif val_local1[index + 1] == '*' or val_local1[index + 1] == '>' or val_local1[index + 1] == '<':
                 return val_local1[index + 2]
@@ -75,11 +74,11 @@ class ImageToText:
                     and (val_local2[index + 1][0].isnumeric()):
                 return val_local2[index + 1]
             else:
-                print("N/A 2")
+                #print("N/A 2")
                 return "N/A"
         # if no next line return N/A
         else:
-            print("N/A 3")
+            #print("N/A 3")
             return "N/A"
 
     def print_filename(self):
