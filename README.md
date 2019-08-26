@@ -10,10 +10,10 @@ The project is: To automate the extraction of valuable ME/CFS patient data into 
 
 # Project Administration
 ## Release Planning
-|Release|Date|Iterations|Deliverable|
-| --- | --- | --- | --- |
-|1|10/09/2019|1,2|Conversion, Upload functionality and draft GUI - User Stories:1,2,3,4,8,9,10,11|
-|2|08/10/2019|3,4|Search, download functionality and final GUI - User Stories:5,6,7,12,13|
+|Release|Date|Iterations|User Stories|Deliverable|
+| --- | --- | --- | --- | --- |
+|1|10/09/2019|1,2|1-4,8-11|Conversion, Upload and draft GUI|
+|2|08/10/2019|3,4|5,6,7,12,13|Search, download excel and final GUI|
 
 ## Timeline
 Week 2-3: Requirement gathering and technology assessment/exploration.  <br />
