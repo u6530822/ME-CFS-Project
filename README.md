@@ -59,6 +59,7 @@ Supervisor and product owner: Brett Lidbury
 
 ## Team's Decision Making Process
 [Decision Making Document](https://drive.google.com/open?id=14a4mhyKccvmYk-06HbTistH3L-6Zwz-5)<br />
+[Feedback Log](https://drive.google.com/open?id=10vaQL3fGsQ7aaZBiBUMd9_WXcF8XygjA)<br />
 
 *Github is open to public for now, will set it to private once we start working on client sensitive materials
 
@@ -84,7 +85,6 @@ All communication via email/skype.
 
 # Quality Assurance
 [Issue Tracking](https://github.com/u6530822/ME-CFS-Project/issues)<br />
-[Feedback Log](https://drive.google.com/open?id=10vaQL3fGsQ7aaZBiBUMd9_WXcF8XygjA)<br />
 [Testing Summaries](https://drive.google.com/open?id=1ZEOj7_jx3_S4uiXrAKP5AE71k3hNBPz8)<br />
 
 # Support Documentation
