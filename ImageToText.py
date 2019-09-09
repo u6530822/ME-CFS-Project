@@ -9,10 +9,10 @@ import pytesseract
 from boto3.dynamodb.conditions import Key, Attr
 import re
 import DBAccessKey
+from pdf2image import convert_from_path
 
 access_key_id_global=DBAccessKey.DBAccessKey.access_key_id_global
 secret_access_key_global=DBAccessKey.DBAccessKey.secret_access_key_global
-list_of_dict = []
 
 
 class ImageToText:
@@ -83,73 +83,115 @@ class ImageToText:
 
     def print_filename(self):
 
+        # list of dictionary
+        file_dict = []
+        print(self.name)
+        print("clear once")
         for filename in self.name:
-            image = Image.open(filename)
-            # Configure tesseract to treat each document line as a single line by setting --psm to 6
-            text = pytesseract.image_to_string(image, lang="eng", config='--psm 6').splitlines()
+            print(filename)
+            # if it is pdf
+            if filename.lower().endswith('.pdf'):
+                # Store all the pages of the PDF in a variable
+                pages = convert_from_path(filename, 300, thread_count=4, grayscale=True, transparent=True)
 
-            global Ref_no
-            global Collected_Date_time
+                # Counter to store images of each page of PDF to image
+                image_counter = 1
 
-            result_dict = {
-                "filename": filename
-            }
+                # Iterate through all the pages stored above
+                for page in pages:
+                    # Declaring filename for each page of PDF as png
+                    filename_png = filename + str(image_counter) + ".png"
+                    # Save the image of the page in system
+                    # page.save(filename_png, 'PNG')
+                    # Increment the counter to update filename
+                    image_counter = image_counter + 1
+                    # Convert image to text
+                    dictionary = ImageToText.convert_filename(self, filename_png)
+                    # Ignore empty pages (Since empty pages will always have the "filename" key,
+                    # len 1 is treated as empty page)
+                    if len(dictionary) != 1:
+                        file_dict.append(dictionary)
 
-            # TODO: Improve logic of looping to reduce processing time
-            for val in range(len(text)):
-                if 'Collected' in text[val]:
-                    # remove alphabets
-                    Collected_Date_time = ''.join(i for i in text[val] if i.isdigit())
-                    Collected_Date_time = Collected_Date_time.replace("/", '')
-                    Collected_Date_time = Collected_Date_time.replace(" ", '')
-                    Collected_Date_time = Collected_Date_time.replace(":", '')
-                    result_dict['Date_Time'] = Collected_Date_time
+            elif filename.lower().endswith(('.png', '.jpg', '.jpeg')):
+                dictionary = ImageToText.convert_filename(self, filename)
+                # Ignore empty pages (Since empty pages will always have the "filename" key,
+                # len 1 is treated as empty page)
+                if len(dictionary) != 1:
+                    file_dict.append(dictionary)
 
-                elif 'Reference:' in text[val]:
-                    Ref_no = ImageToText.extract_value(self, text, val, 'Reference:')
-                    if Ref_no == "N/A" and 'Reference_No' not in result_dict:
-                        result_dict['Reference_No'] = "N/A"
-                    elif Ref_no != "N/A":
-                        result_dict['Reference_No'] = Ref_no
+        # return list of dictionary
+        return file_dict
 
-                # Spaces surrounding PTH are to ensure other variation of PTH is not taken into account. Eg: PTH-C
-                elif ' PTH ' in text[val]:
-                    pth = ImageToText.extract_value(self, text, val, 'PTH')
-                    if pth == "N/A" and 'Parathyroid Hormone' not in result_dict:
-                        result_dict['Parathyroid Hormone'] = "N/A"
-                    elif pth != "N/A":
-                        result_dict['Parathyroid Hormone'] = pth
+            #else:
+                #report error back to user
 
-                elif 'Vitamin D' in text[val]:
-                    print("check")
-                    print(text[val])
-                    vitamin_d = ImageToText.extract_value(self, text, val, 'VitaminD')
-                    if vitamin_d == "N/A" and 'Vitamin D' not in result_dict:
-                        result_dict['Vitamin D'] = "N/A"
-                    elif vitamin_d != "N/A":
-                        result_dict['Vitamin D'] = vitamin_d
+    def convert_filename(self, filename):
 
-                elif text[val]:
-                    field_str_list = ['Sodium', 'Potassium', 'Chloride', 'Bicarbonate', 'Urea', 'Creatinine', 'eGFR', 'T.Protein','Albumin', 'ALP', 'Bilirubin', 'GGT',
-                                        'AST', 'ALT', 'HAEMOGLOBIN', 'RBC', 'PCV', 'MCV', 'MCHC', 'RDW', 'wcc', 'Neutrophils', 'Lymphocytes', 'Monocytes',
-                                        'Eosinophils', 'Basophils', 'PLATELETS','ESR'] # T.Protein
+        image = Image.open(filename)
+        # Configure tesseract to treat each document line as a single line by setting --psm to 6
+        text = pytesseract.image_to_string(image, lang="eng", config='--psm 6').splitlines()
 
-                    for field_str in field_str_list:
-                        if text[val].startswith(field_str):
-                            result_str = ImageToText.extract_value(self, text, val, field_str)
-                            if result_str == "N/A" and field_str not in result_dict:
-                                result_dict[field_str] = "N/A"
-                            elif result_str != "N/A":
-                                result_dict[field_str] = result_str
+        global Ref_no
+        global Collected_Date_time
 
-                    if text[val].startswith('MCH') and not text[val].startswith('MCHC'):
-                        mch = ImageToText.extract_value(self, text, val, 'MCH')
-                        if mch != "N/A":
-                            result_dict['MCH'] = mch
+        result_dict = {
+            "filename": filename
+        }
 
-            list_of_dict.append(result_dict)
+        # TODO: Improve logic of looping to reduce processing time
+        for val in range(len(text)):
+            if 'Collected' in text[val]:
+                # remove alphabets
+                Collected_Date_time = ''.join(i for i in text[val] if i.isdigit())
+                Collected_Date_time = Collected_Date_time.replace("/", '')
+                Collected_Date_time = Collected_Date_time.replace(" ", '')
+                Collected_Date_time = Collected_Date_time.replace(":", '')
+                result_dict['Date_Time'] = Collected_Date_time
 
-        return list_of_dict
+            elif 'Reference:' in text[val]:
+                Ref_no = ImageToText.extract_value(self, text, val, 'Reference:')
+                if Ref_no == "N/A" and 'Reference_No' not in result_dict:
+                    result_dict['Reference_No'] = "N/A"
+                elif Ref_no != "N/A":
+                    result_dict['Reference_No'] = Ref_no
+
+            # Spaces surrounding PTH are to ensure other variation of PTH is not taken into account. Eg: PTH-C
+            elif ' PTH ' in text[val]:
+                pth = ImageToText.extract_value(self, text, val, 'PTH')
+                if pth == "N/A" and 'Parathyroid Hormone' not in result_dict:
+                    result_dict['Parathyroid Hormone'] = "N/A"
+                elif pth != "N/A":
+                    result_dict['Parathyroid Hormone'] = pth
+
+            elif 'Vitamin D' in text[val]:
+                print("check")
+                print(text[val])
+                vitamin_d = ImageToText.extract_value(self, text, val, 'VitaminD')
+                if vitamin_d == "N/A" and 'Vitamin D' not in result_dict:
+                    result_dict['Vitamin D'] = "N/A"
+                elif vitamin_d != "N/A":
+                    result_dict['Vitamin D'] = vitamin_d
+
+            elif text[val]:
+                field_str_list = ['Sodium', 'Potassium', 'Chloride', 'Bicarbonate', 'Urea', 'Creatinine', 'eGFR', 'T.Protein','Albumin', 'ALP', 'Bilirubin', 'GGT',
+                                    'AST', 'ALT', 'HAEMOGLOBIN', 'RBC', 'PCV', 'MCV', 'MCHC', 'RDW', 'wcc', 'Neutrophils', 'Lymphocytes', 'Monocytes',
+                                    'Eosinophils', 'Basophils', 'PLATELETS','ESR'] # T.Protein
+
+                for field_str in field_str_list:
+                    if text[val].startswith(field_str):
+                        result_str = ImageToText.extract_value(self, text, val, field_str)
+                        if result_str == "N/A" and field_str not in result_dict:
+                            result_dict[field_str] = "N/A"
+                        elif result_str != "N/A":
+                            result_dict[field_str] = result_str
+
+                if text[val].startswith('MCH') and not text[val].startswith('MCHC'):
+                    mch = ImageToText.extract_value(self, text, val, 'MCH')
+                    if mch != "N/A":
+                        result_dict['MCH'] = mch
+
+        # return dictionary
+        return result_dict
 
     # TODO: Move these functions to another file
     def check_entry_exist(self, ref_no):
