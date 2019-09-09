@@ -112,7 +112,7 @@ class ImageToText:
                     if len(dictionary) != 1:
                         file_dict.append(dictionary)
 
-            elif filename.lower().endswith(('.png', '.jpg', '.jpeg')):
+            else:
                 dictionary = ImageToText.convert_filename(self, filename)
                 # Ignore empty pages (Since empty pages will always have the "filename" key,
                 # len 1 is treated as empty page)
@@ -121,9 +121,6 @@ class ImageToText:
 
         # return list of dictionary
         return file_dict
-
-            #else:
-                #report error back to user
 
     def convert_filename(self, filename):
 

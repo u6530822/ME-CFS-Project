@@ -156,7 +156,8 @@ class PageOne(tk.Frame):
 
     def open_file(self):
         self.master.filename = filedialog.askopenfilenames(initialdir="/", title="Select file",
-                                                           filetypes=(("pdf files", "*.pdf"), ("png files", "*.png"), ("all files", "*.*")))
+                                                           filetypes=(("pdf files", "*.pdf"), ("png files", "*.png"),
+                                                                      ("jpg files", "*.jpg"), ("jpeg files", "*.jpeg")))
         print(self.master.filename)
         self.name = self.master.filename
         print("open file", self.name)
