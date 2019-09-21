@@ -100,9 +100,10 @@ class ImageToText:
                 # Iterate through all the pages stored above
                 for page in pages:
                     # Declaring filename for each page of PDF as png
-                    filename_png = filename + str(image_counter) + ".png"
+                    filename = filename.replace(".pdf", "")
+                    filename_png = filename + "_" + str(image_counter) + ".png"
                     # Save the image of the page in system
-                    # page.save(filename_png, 'PNG')
+                    page.save(filename_png, 'PNG')
                     # Increment the counter to update filename
                     image_counter = image_counter + 1
                     # Convert image to text
