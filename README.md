@@ -57,6 +57,8 @@ Work is being tracked through 2 levels:
 
 Supervisor and product owner: Brett Lidbury  
 
+Team meets every Monday & Saturday for working together sessions, supporting pair programming, and project issue resolution.
+
 ## Team's Decision Making Process
 [Decision Making Document](https://drive.google.com/open?id=14a4mhyKccvmYk-06HbTistH3L-6Zwz-5)<br />
 [Feedback Log](https://drive.google.com/open?id=10vaQL3fGsQ7aaZBiBUMd9_WXcF8XygjA)<br />
