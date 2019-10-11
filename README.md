@@ -90,9 +90,6 @@ All communication via email/skype.
 # Support Documentation
 [Project Documentation Folder](https://drive.google.com/drive/u/1/folders/1fHtWXQIDxyIFErwrestoyBETrUFVW-Yq)<br />
 
-# Current Progress
-#### [Progress Report Folder](https://drive.google.com/open?id=1nNwb4hMxnOc-OpS6_ZUqV_MOcdIcfRJb)<br />
-
 # Technical Tools and Constraints
 •	Off the shelf tools<br />
   ○ Optical Character Recognition software <br />
